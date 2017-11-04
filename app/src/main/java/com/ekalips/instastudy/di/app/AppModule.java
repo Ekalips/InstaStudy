@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.ekalips.instastudy.di.modules.BoxModule;
 import com.ekalips.instastudy.di.modules.DataModules;
+import com.ekalips.instastudy.di.modules.ErrorHandlerModule;
 import com.ekalips.instastudy.di.modules.EventsModule;
 import com.ekalips.instastudy.di.modules.MessagingModule;
 import com.ekalips.instastudy.di.modules.NavigationModule;
@@ -19,7 +20,7 @@ import dagger.Module;
  */
 
 @Module(includes = {BoxModule.class, DataModules.class, MessagingModule.class, SharedPrefsModule.class,
-        NavigationModule.class, NetworkModule.class, EventsModule.class})
+        NavigationModule.class, NetworkModule.class, EventsModule.class, ErrorHandlerModule.class})
 public abstract class AppModule {
 
     @Binds

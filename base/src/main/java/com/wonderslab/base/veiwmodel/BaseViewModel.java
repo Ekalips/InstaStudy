@@ -4,6 +4,8 @@ package com.wonderslab.base.veiwmodel;
 import android.support.annotation.CallSuper;
 
 import com.wonderslab.base.data.BindingObservable;
+import com.wonderslab.base.event_system.EventGoBack;
+import com.wonderslab.base.event_system.EventNavigate;
 import com.wonderslab.base.view.BaseView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -70,5 +72,13 @@ public abstract class BaseViewModel<ViewInterface extends BaseView> {
 
     public EventBus getEventPublishSubject() {
         return eventPublishSubject;
+    }
+
+    public void navigateTo(Object navigation, Object payload) {
+        eventPublishSubject.postSticky(new EventNavigate(navigation, payload));
+    }
+
+    public void goBack() {
+        eventPublishSubject.postSticky(new EventGoBack());
     }
 }
