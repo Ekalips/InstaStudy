@@ -83,4 +83,9 @@ public class Bindings {
         }
     }
 
+    @BindingAdapter({"file", "placeholder"})
+    public static void setImageWithPlaceholder(ImageView imageView, File src, Drawable placeholder) {
+        Glide.with(imageView.getContext()).load(src).apply(RequestOptions.centerCropTransform().placeholder(placeholder)).into(imageView);
+    }
+
 }

@@ -5,6 +5,8 @@ import com.ekalips.instastudy.registration.contract.RegistrationActivityContract
 import com.ekalips.instastudy.registration.mvvm.model.FillDataObservable;
 import com.ekalips.instastudy.registration.rules.CredentialsValidator;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
 /**
@@ -30,5 +32,20 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
     @Override
     public FillDataObservable getRegistrationData() {
         return data;
+    }
+
+    @Override
+    public void register() {
+
+    }
+
+    @Override
+    public void onImageSet(File file) {
+
+    }
+
+    @Override
+    public void onImageSkip() {
+
     }
 }

@@ -5,6 +5,8 @@ import com.ekalips.instastudy.registration.rules.CredentialsValidator;
 import com.wonderslab.base.veiwmodel.BaseViewModel;
 import com.wonderslab.base.view.BaseView;
 
+import java.io.File;
+
 /**
  * Created by Ekalips on 11/5/17.
  */
@@ -20,16 +22,12 @@ public interface RegistrationActivityContract {
         public abstract CredentialsValidator getValidator();
 
         public abstract FillDataObservable getRegistrationData();
-    }
 
-    interface Callbacks {
+        public abstract void register();
 
-        void onDataFilled();
+        public abstract void onImageSet(File file);
 
-        void onImageSet();
-
-        void onImageSetSkip();
-
+        public abstract void onImageSkip();
     }
 
 }

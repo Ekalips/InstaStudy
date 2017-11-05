@@ -13,4 +13,11 @@
     <string name="hint_name">Your name</string>
     <string name="hint_group">Group (ex. СП–14–2)</string>
     <string name="register_btn_text">Set me up, Scotty</string>
+    <string name="set_avatar_title">Set Avatar</string>
+    <string name="skip_btn_text">Skip</string>
+    <string name="set_avatar_prompt_title">We are building your profile</string>
+    <string name="set_avatar_prompt_message">You can take a new picture or upload it from your camera roll</string>
+    <string name="set_avatar_use_gallery">Use gallery</string>
+    <string name="set_image_set_btn">Let\'s go!</string>
+    <string name="set_avatar_use_camera">Use camera</string>
 </resources>

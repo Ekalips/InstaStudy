@@ -20,6 +20,8 @@ public interface FillDataScreenContract {
         public abstract FillDataObservable getData();
 
         public abstract CredentialsValidator getValidator();
+
+        public abstract void signUp();
     }
 
 }

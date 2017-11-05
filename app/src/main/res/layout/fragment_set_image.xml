@@ -1,4 +1,6 @@
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -7,12 +9,184 @@
             type="com.ekalips.instastudy.registration.contract.SetImageScreenContract.ViewModel" />
     </data>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:background="@drawable/gradient_background"
         tools:context="com.ekalips.instastudy.registration.mvvm.view.SetImageFragment">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="@string/set_avatar_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/textColorPrimaryInverted" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|end"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{() -> vm.skip()}"
+                android:padding="16dp"
+                android:text="@string/skip_btn_text"
+                android:textColor="@color/textColorSecondaryInverted"
+                android:textSize="18sp" />
+        </FrameLayout>
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="16dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:elevation="2dp"
+            app:file="@{vm.selectedImage}"
+            app:placeholder="@{@drawable/user_icon}"
+            tools:src="@drawable/user_icon" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/set_avatar_prompt_title"
+            android:textColor="@color/textColorPrimaryInverted"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/set_avatar_prompt_message"
+            android:textColor="@color/textColorSecondaryInverted"
+            android:textSize="16sp" />
+
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.ekalips.instastudy.stuff.custom_views.RoundableImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:selectableItemBackground"
+                    android:onClick="@{() -> vm.setFromGallery()}"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_photo_library"
+                    android:tint="@color/colorAccent"
+                    app:backgroundColor="@color/primaryWhite"
+                    app:circle="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="@string/set_avatar_use_gallery"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/textColorPrimaryInverted" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.ekalips.instastudy.stuff.custom_views.RoundableImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:selectableItemBackground"
+                    android:onClick="@{() -> vm.setFromCamera()}"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_camera"
+                    android:tint="@color/colorAccent"
+                    app:backgroundColor="@color/primaryWhite"
+                    app:circle="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="@string/set_avatar_use_camera"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/textColorPrimaryInverted" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <android.support.v4.widget.Space
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_weight="1" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:backgroundTint="@color/primaryWhite"
+            android:paddingBottom="22dp"
+            android:paddingTop="22dp"
+            android:text="@string/set_image_set_btn"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
 </layout>

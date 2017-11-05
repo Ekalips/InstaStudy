@@ -105,6 +105,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primary_color_selector"
             android:enabled="@{vm.validator.inGroupValid(vm.data.group) &amp;&amp; vm.validator.isNameValid(vm.data.name)}"
+            android:onClick="@{() -> vm.signUp()}"
             android:paddingBottom="22dp"
             android:paddingTop="22dp"
             android:text="@string/register_btn_text"

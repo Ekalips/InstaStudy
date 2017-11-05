@@ -29,4 +29,9 @@ public class FillDataScreenViewModel extends FillDataScreenContract.ViewModel {
     public CredentialsValidator getValidator() {
         return registrationActivityViewModel.getValidator();
     }
+
+    @Override
+    public void signUp() {
+        registrationActivityViewModel.register();
+    }
 }
