@@ -23,19 +23,25 @@ public class RxRequests {
     }
 
     public <T> Disposable subscribe(Observable<T> observable, Response.SuccessConsumer<T> successConsumer) {
-        return subscribe(observable, successConsumer, null, null);
+        return subscribe(observable, successConsumer, null, null, null);
     }
 
     public <T> Disposable subscribe(Observable<T> observable, Response.Complete completeConsumer) {
-        return subscribe(observable, null, null, completeConsumer);
+        return subscribe(observable, null, null, null, completeConsumer);
     }
 
-    public <T> Disposable subscribe(Observable<T> observable, Response.UnhandledError errorConsumer, Response.Complete completeConsumer) {
-        return subscribe(observable, null, errorConsumer, completeConsumer);
+    public <T> Disposable subscribe(Observable<T> observable, Response.UnhandledError unhandledErrorConsumer, Response.Complete completeConsumer) {
+        return subscribe(observable, null, null, unhandledErrorConsumer, completeConsumer);
+    }
+
+    public <T> Disposable subscribe(Observable<T> observable, Response.SuccessConsumer<T> successConsumer,
+                                    Response.UnhandledError unhandledErrorConsumer, Response.Complete completeConsumer) {
+        return subscribe(observable, successConsumer, null, unhandledErrorConsumer, completeConsumer);
     }
 
     public <T> Disposable subscribe(Observable<T> observable, @Nullable Response.SuccessConsumer<T> successConsumer,
-                                    @Nullable Response.UnhandledError errorConsumer,
+                                    @Nullable Response.ErrorConsumer errorConsumer,
+                                    @Nullable Response.UnhandledError unhandledErrorConsumer,
                                     @Nullable Response.Complete completeConsumer) {
         return observable.subscribe(t -> {
                     if (successConsumer != null) {
@@ -49,14 +55,17 @@ public class RxRequests {
                     if (completeConsumer != null) {
                         completeConsumer.run();
                     }
+                    if (errorConsumer != null) {
+                        errorConsumer.accept(throwable);
+                        return;
+                    }
                     if (!defaultErrorHandler.handleError(throwable)) {
-                        if (errorConsumer != null) {
-                            errorConsumer.accept(throwable);
+                        if (unhandledErrorConsumer != null) {
+                            unhandledErrorConsumer.accept(throwable);
                         } else {
                             RxJavaPlugins.onError(new OnErrorNotImplementedException(throwable));
                         }
                     }
                 });
     }
-
 }

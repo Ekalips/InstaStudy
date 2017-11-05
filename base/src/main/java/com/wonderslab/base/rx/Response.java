@@ -14,6 +14,10 @@ public interface Response {
 
     }
 
+    interface ErrorConsumer extends Consumer<Throwable> {
+
+    }
+
     interface UnhandledError extends Consumer<Throwable> {
 
     }
