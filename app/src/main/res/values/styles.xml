@@ -6,10 +6,21 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+
+        <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverted</item>
+        <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverted</item>
     </style>
 
     <style name="AppThemeGradient" parent="AppTheme">
         <item name="android:windowBackground">@drawable/gradient_background</item>
+
+        <item name="android:textColorPrimary">@color/textColorPrimaryInverted</item>
+        <item name="android:textColorSecondary">@color/textColorSecondaryInverted</item>
     </style>
 
     <style name="SplashTheme" parent="AppThemeGradient">

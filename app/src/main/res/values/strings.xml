@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">InstaStudy</string>
+    <string name="login_btn_text">Continue with phone</string>
+    <string name="terms_btn_text">Terms and conditions</string>
+    <string name="error_login">Login error</string>
+    <string name="error_server">Server error</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

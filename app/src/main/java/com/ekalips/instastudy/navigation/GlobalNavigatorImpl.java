@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.ekalips.instastudy.login.mvvm.view.LoginActivity;
+import com.ekalips.instastudy.registration.mvvm.view.RegistrationActivity;
 import com.ekalips.instastudy.splash.mvvm.view.SplashScreenActivity;
 
 import javax.inject.Inject;
@@ -38,8 +40,12 @@ public class GlobalNavigatorImpl implements GlobalNavigator {
 
     @Override
     public void navigateToLoginActivity(Context context) {
-        Log.d(TAG, "navigateToLoginActivity: ");
-//        context.startActivity(LoginActivity.getIntentFor(context));
+        context.startActivity(LoginActivity.getIntentFor(context));
+    }
+
+    @Override
+    public void navigateToRegistrationActivity(Context context) {
+        context.startActivity(RegistrationActivity.getIntent(context));
     }
 
 }

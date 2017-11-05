@@ -5,5 +5,5 @@ package com.ekalips.instastudy.navigation;
  */
 
 public enum NavigateToEnum {
-    LOGIN, SPLASH, MAIN
+    LOGIN, SPLASH, REGISTER, FILL_DATA, SET_IMAGE, MAIN
 }

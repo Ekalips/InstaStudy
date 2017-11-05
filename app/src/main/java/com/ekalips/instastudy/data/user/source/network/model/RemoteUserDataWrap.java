@@ -1,8 +1,11 @@
 package com.ekalips.instastudy.data.user.source.network.model;
 
+import com.ekalips.instastudy.data.groups.Group;
 import com.ekalips.instastudy.data.user.User;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
  * Created by Ekalips on 10/2/17.
@@ -45,11 +48,6 @@ public class RemoteUserDataWrap implements User {
     }
 
     @Override
-    public String getGroup() {
-        return userData.getGroup();
-    }
-
-    @Override
     public String getFirebaseToken() {
         return userData.getFirebaseToken();
     }
@@ -62,5 +60,10 @@ public class RemoteUserDataWrap implements User {
     @Override
     public int getRole() {
         return userData.getRole();
+    }
+
+    @Override
+    public List<? extends Group> getGroups() {
+        return userData.getGroups();
     }
 }

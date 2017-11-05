@@ -14,4 +14,5 @@ public interface GlobalNavigator {
 
     void navigateToLoginActivity(Context context);
 
+    void navigateToRegistrationActivity(Context context);
 }

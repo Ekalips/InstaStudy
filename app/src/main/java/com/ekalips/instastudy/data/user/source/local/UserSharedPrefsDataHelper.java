@@ -16,14 +16,14 @@ import javax.inject.Inject;
 public class UserSharedPrefsDataHelper {
 
     public enum UserFields {
-        ID, PHONE, TOKEN, NAME, ONLINE, AVATAR, NUMBER, GROUP, FIREBASE_TOKEN, ROLE
+        ID, PHONE, TOKEN, NAME, ONLINE, AVATAR, NUMBER, FIREBASE_TOKEN, ROLE
     }
 
     @Inject
     public UserSharedPrefsDataHelper() {
     }
 
-    public User extractUserFromSharedPrefs(SharedPreferences sharedPreferences) {
+    public LocalUserData extractUserFromSharedPrefs(SharedPreferences sharedPreferences) {
         LocalUserData data = new LocalUserData();
 
         data.setUserId(sharedPreferences.getString(UserFields.ID.toString(), ""));
@@ -31,7 +31,6 @@ public class UserSharedPrefsDataHelper {
         data.setOnline(sharedPreferences.getBoolean(UserFields.ONLINE.toString(), false));
         data.setAvatar(sharedPreferences.getString(UserFields.AVATAR.toString(), ""));
         data.setNumber(sharedPreferences.getString(UserFields.NUMBER.toString(), ""));
-        data.setGroup(sharedPreferences.getString(UserFields.GROUP.toString(), ""));
         data.setFirebaseToken(sharedPreferences.getString(UserFields.FIREBASE_TOKEN.toString(), ""));
         data.setRole(sharedPreferences.getInt(UserFields.ROLE.toString(), Role.USER.getRole()));
 

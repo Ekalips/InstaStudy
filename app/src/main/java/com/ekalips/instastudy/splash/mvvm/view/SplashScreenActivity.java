@@ -48,6 +48,7 @@ public class SplashScreenActivity extends BaseBindingActivity<ViewDataBinding, S
                 break;
             }
         }
+        finish();
     }
 
     @Override

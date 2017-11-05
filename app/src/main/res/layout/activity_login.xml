@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.ekalips.instastudy.login.LoginScreenContract.ViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:background="@drawable/gradient_background"
+        tools:context="com.ekalips.instastudy.login.mvvm.view.LoginActivity">
+
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:elevation="4dp"
+            android:src="@drawable/logo_invert" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lobster"
+            android:text="@string/app_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/textColorPrimaryInverted"
+            android:textSize="28sp" />
+
+
+        <android.support.v4.widget.Space
+            android:layout_width="wrap_content"
+            android:layout_height="90dp" />
+
+        <Button
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryWhite"
+            android:paddingBottom="22dp"
+            android:paddingTop="22dp"
+            android:text="@string/login_btn_text"
+            android:textColor="@color/colorPrimary"
+            android:onClick="@{() -> vm.login()}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/terms_btn_text"
+            android:textColor="@color/textColorPrimaryInverted" />
+
+    </LinearLayout>
+</layout>

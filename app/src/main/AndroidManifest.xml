@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".splash.mvvm.view.SplashScreenActivity"
+            android:noHistory="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -30,6 +30,12 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
+        <activity
+            android:name=".login.mvvm.view.LoginActivity"
+            android:theme="@style/AppThemeGradient" />
+        <activity
+            android:name=".registration.mvvm.view.RegistrationActivity"
+            android:theme="@style/AppThemeGradient" />
     </application>
 
 </manifest>

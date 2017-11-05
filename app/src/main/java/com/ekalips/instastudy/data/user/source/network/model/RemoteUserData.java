@@ -1,6 +1,12 @@
 package com.ekalips.instastudy.data.user.source.network.model;
 
+import com.ekalips.instastudy.data.groups.Group;
+import com.ekalips.instastudy.data.groups.source.remote.RemoteGroup;
 import com.ekalips.instastudy.data.user.User;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
  * Created by Ekalips on 10/2/17.
@@ -8,14 +14,32 @@ import com.ekalips.instastudy.data.user.User;
 
 public class RemoteUserData implements User {
 
+    @SerializedName("token")
+    @Expose
     private String token;
+    @SerializedName("name")
+    @Expose
     private String userName;
+    @SerializedName("phone")
+    @Expose
     private String number;
+    @SerializedName("_id")
+    @Expose
     private String userId;
+    @SerializedName("avatar")
+    @Expose
     private String avatar;
-    private String group;
+    @SerializedName("firebaseToken")
+    @Expose
     private String firebaseToken;
+    @SerializedName("groups")
+    @Expose
+    private List<RemoteGroup> groupList;
+    @SerializedName("online")
+    @Expose
     private boolean online;
+    @SerializedName("role")
+    @Expose
     private int role;
 
     @Override
@@ -44,11 +68,6 @@ public class RemoteUserData implements User {
     }
 
     @Override
-    public String getGroup() {
-        return group;
-    }
-
-    @Override
     public String getFirebaseToken() {
         return firebaseToken;
     }
@@ -61,5 +80,10 @@ public class RemoteUserData implements User {
     @Override
     public int getRole() {
         return role;
+    }
+
+    @Override
+    public List<? extends Group> getGroups() {
+        return groupList;
     }
 }

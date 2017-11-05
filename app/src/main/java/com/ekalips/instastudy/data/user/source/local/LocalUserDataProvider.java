@@ -3,8 +3,11 @@ package com.ekalips.instastudy.data.user.source.local;
 
 import android.support.annotation.Nullable;
 
+import com.ekalips.instastudy.data.groups.Group;
 import com.ekalips.instastudy.data.stuff.DataWrap;
 import com.ekalips.instastudy.data.user.User;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -24,4 +27,6 @@ public interface LocalUserDataProvider {
     void saveUserField(UserSharedPrefsDataHelper.UserFields field, Object value);
 
     void clear();
+
+    void saveGroups(List<? extends Group> userGroups);
 }

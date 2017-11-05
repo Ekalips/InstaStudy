@@ -1,7 +1,11 @@
 package com.ekalips.instastudy.data.user.source.local.model;
 
 
+import com.ekalips.instastudy.data.groups.Group;
+import com.ekalips.instastudy.data.groups.source.local.LocalGroup;
 import com.ekalips.instastudy.data.user.User;
+
+import java.util.List;
 
 /**
  * Created by Ekalips on 10/2/17.
@@ -14,8 +18,8 @@ public class LocalUserData implements User {
     private String number;
     private String userId;
     private String avatar;
-    private String group;
     private String firebaseToken;
+    private List<LocalGroup> groups;
     private boolean online;
     private int role;
 
@@ -45,13 +49,13 @@ public class LocalUserData implements User {
     }
 
     @Override
-    public String getGroup() {
-        return group;
+    public String getFirebaseToken() {
+        return firebaseToken;
     }
 
     @Override
-    public String getFirebaseToken() {
-        return firebaseToken;
+    public List<? extends Group> getGroups() {
+        return groups;
     }
 
     @Override
@@ -84,8 +88,8 @@ public class LocalUserData implements User {
         this.avatar = avatar;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setGroups(List<LocalGroup> groups) {
+        this.groups = groups;
     }
 
     public void setFirebaseToken(String firebaseToken) {

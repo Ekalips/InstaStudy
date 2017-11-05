@@ -2,6 +2,7 @@ package com.ekalips.instastudy.data.user;
 
 import android.support.annotation.Nullable;
 
+import com.ekalips.instastudy.data.groups.Group;
 import com.ekalips.instastudy.data.stuff.DataWrap;
 import com.ekalips.instastudy.data.user.source.local.LocalUserDataProvider;
 import com.ekalips.instastudy.data.user.source.local.UserSharedPrefsDataHelper;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Created by Ekalips on 10/2/17.
@@ -63,6 +65,16 @@ public class UserDataProviderImpl implements UserDataProvider {
     }
 
     @Override
+    public Single<DataWrap<? extends User>> login(String firebaseAuthToken, @Nullable String firebaseDeviceToken) {
+        return remoteDataProvider.login(firebaseAuthToken, firebaseDeviceToken)
+                .doOnSuccess(dataWrap -> {
+                    if (dataWrap.getResponseCode() == 200) {
+                        saveUser(dataWrap.getData().getToken(), dataWrap.getData());
+                    }
+                });
+    }
+
+    @Override
     public Observable<String> getUserToken() {
         return getUser(false).map(dataWrap -> dataWrap.getData().getToken());
     }
@@ -81,6 +93,11 @@ public class UserDataProviderImpl implements UserDataProvider {
     @Override
     public void clear() {
         localDataProvider.clear();
+    }
+
+    @Override
+    public void saveGroups(List<? extends Group> userGroups) {
+        localDataProvider.saveGroups(userGroups);
     }
 
 

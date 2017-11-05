@@ -1,14 +1,23 @@
 package com.ekalips.instastudy.data.user.source.network;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import com.ekalips.instastudy.data.stuff.DataWrap;
 import com.ekalips.instastudy.data.user.User;
+import com.ekalips.instastudy.data.user.source.network.model.RemoteUserDataWrap;
+import com.ekalips.instastudy.error_handling.ErrorThrower;
 import com.ekalips.instastudy.network.InstaApi;
+import com.ekalips.instastudy.network.body.LoginBody;
+import com.wonderslab.base.rx.RxUtils;
+
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
+import retrofit2.Response;
 
 /**
  * Created by Ekalips on 10/2/17.
@@ -16,19 +25,31 @@ import io.reactivex.Observable;
 
 public class RemoteUserDataProviderImpl implements RemoteUserDataProvider {
 
-    private final InstaApi instaApi;
+    private final InstaApi api;
     private final Context context;
-
-    private String sessionToken;
+    private final ErrorThrower errorThrower;
 
     @Inject
-    public RemoteUserDataProviderImpl(InstaApi instaApi, Context context) {
-        this.instaApi = instaApi;
+    public RemoteUserDataProviderImpl(InstaApi instaApi, Context context, ErrorThrower errorThrower) {
+        this.api = instaApi;
         this.context = context;
+        this.errorThrower = errorThrower;
     }
 
     @Override
     public Observable<DataWrap<? extends User>> getUser(String token) {
         return Observable.empty();
+    }
+
+    @Override
+    public Single<DataWrap<? extends User>> login(String firebaseAuthToken, @Nullable String firebaseDeviceToken) {
+        return RxUtils.wrapAsIO(Single.fromCallable((Callable<DataWrap<? extends User>>) () -> {
+            Response<RemoteUserDataWrap> response = api.login(new LoginBody(firebaseAuthToken, firebaseDeviceToken)).execute();
+            if (response.isSuccessful()) {
+                return new DataWrap<>(response.body(), response.code());
+            }
+            errorThrower.throwFromResponse(response);
+            return null;
+        }));
     }
 }

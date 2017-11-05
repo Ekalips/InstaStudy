@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.OnErrorNotImplementedException;
-import io.reactivex.internal.functions.Functions;
 import io.reactivex.plugins.RxJavaPlugins;
 
 /**
@@ -38,8 +37,18 @@ public class RxRequests {
     public <T> Disposable subscribe(Observable<T> observable, @Nullable Response.SuccessConsumer<T> successConsumer,
                                     @Nullable Response.UnhandledError errorConsumer,
                                     @Nullable Response.Complete completeConsumer) {
-        return observable.subscribe(successConsumer == null ? Functions.emptyConsumer() : successConsumer,
+        return observable.subscribe(t -> {
+                    if (successConsumer != null) {
+                        successConsumer.accept(t);
+                    }
+                    if (completeConsumer != null) {
+                        completeConsumer.run();
+                    }
+                },
                 throwable -> {
+                    if (completeConsumer != null) {
+                        completeConsumer.run();
+                    }
                     if (!defaultErrorHandler.handleError(throwable)) {
                         if (errorConsumer != null) {
                             errorConsumer.accept(throwable);
@@ -47,8 +56,7 @@ public class RxRequests {
                             RxJavaPlugins.onError(new OnErrorNotImplementedException(throwable));
                         }
                     }
-                },
-                completeConsumer == null ? Functions.EMPTY_ACTION : completeConsumer);
+                });
     }
 
 }
