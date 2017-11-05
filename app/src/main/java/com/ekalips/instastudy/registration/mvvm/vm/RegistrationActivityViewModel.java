@@ -4,7 +4,7 @@ import android.databinding.ObservableBoolean;
 import android.util.Log;
 
 import com.ekalips.instastudy.R;
-import com.ekalips.instastudy.data.groups.source.GroupDataProvider;
+import com.ekalips.instastudy.data.groups.GroupDataProvider;
 import com.ekalips.instastudy.data.user.UserDataProvider;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
 import com.ekalips.instastudy.navigation.NavigateToEnum;
@@ -98,7 +98,7 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
         messagingProvider.showToast(R.string.error_save_group);
     }
 
-    private void checkAndNavigateToImageSetting() {
+    private synchronized void checkAndNavigateToImageSetting() {
         if (isNameSet && isGroupSet) {
             navigateTo(NavigateToEnum.SET_IMAGE, null);
         }
