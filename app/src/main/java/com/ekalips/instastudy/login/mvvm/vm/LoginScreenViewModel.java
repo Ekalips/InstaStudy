@@ -9,6 +9,7 @@ import com.ekalips.instastudy.data.stuff.DataWrap;
 import com.ekalips.instastudy.data.user.User;
 import com.ekalips.instastudy.data.user.UserDataProvider;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
+import com.ekalips.instastudy.error_handling.throwables.RequestException;
 import com.ekalips.instastudy.login.LoginScreenContract;
 import com.ekalips.instastudy.navigation.NavigateToEnum;
 import com.ekalips.instastudy.providers.MessagingProvider;
@@ -110,7 +111,10 @@ public class LoginScreenViewModel extends LoginScreenContract.ViewModel {
 
     private void handleLoginError(Throwable throwable) {
         Log.e(TAG, "handleLoginError: ", throwable);
-        messagingProvider.showToast(R.string.error_login);
+        if (throwable instanceof RequestException && ((RequestException) throwable).getResponseCode() == 404) {
+            navigateToRegistrationActivity();
+        } else
+            messagingProvider.showToast(R.string.error_login);
     }
 
     private void navigateToRegistrationActivity() {
