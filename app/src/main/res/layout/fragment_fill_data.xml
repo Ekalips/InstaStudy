@@ -72,6 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text|textPersonName|textCapWords"
+                android:maxLength="@integer/max_name_length"
                 android:maxLines="1" />
         </android.support.design.widget.TextInputLayout>
 
@@ -94,7 +95,7 @@
         <android.support.v4.widget.Space
             android:layout_width="wrap_content"
             android:layout_height="16dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <Button
             android:layout_width="320dp"
