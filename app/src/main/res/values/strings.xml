@@ -20,4 +20,6 @@
     <string name="set_avatar_use_gallery">Use gallery</string>
     <string name="set_image_set_btn">Let\'s go!</string>
     <string name="set_avatar_use_camera">Use camera</string>
+    <string name="error_save_name">Error saving name</string>
+    <string name="error_save_group">Error saving group</string>
 </resources>

@@ -72,8 +72,7 @@ public class LocalUserDataProviderImpl implements LocalUserDataProvider {
         groupBox.removeAll();
     }
 
-    @Override
-    public void saveGroups(List<? extends Group> userGroups) {
+    private void saveGroups(List<? extends Group> userGroups) {
         groupBox.removeAll();
 
         List<LocalGroup> groups = new ArrayList<>(userGroups.size());
@@ -82,5 +81,10 @@ public class LocalUserDataProviderImpl implements LocalUserDataProvider {
             groups.add(new LocalGroup(g));
         }
         groupBox.put(groups);
+    }
+
+    @Override
+    public void markCacheDirty() {
+        shouldReFetch = true;
     }
 }

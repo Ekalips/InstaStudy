@@ -6,6 +6,7 @@ import com.ekalips.instastudy.data.user.source.local.LocalUserDataProvider;
 import com.ekalips.instastudy.data.user.source.network.RemoteUserDataProvider;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Created by Ekalips on 10/2/17.
@@ -14,6 +15,8 @@ import io.reactivex.Observable;
 public interface UserDataProvider extends LocalUserDataProvider, RemoteUserDataProvider {
 
     Observable<DataWrap<? extends User>> getUser(boolean fetchRemotely);
+
+    Single<DataWrap<? extends User>> setUserName(String name);
 
     Observable<String> getUserToken();
 

@@ -2,7 +2,6 @@ package com.ekalips.instastudy.data.user;
 
 import android.support.annotation.Nullable;
 
-import com.ekalips.instastudy.data.groups.Group;
 import com.ekalips.instastudy.data.stuff.DataWrap;
 import com.ekalips.instastudy.data.user.source.local.LocalUserDataProvider;
 import com.ekalips.instastudy.data.user.source.local.UserSharedPrefsDataHelper;
@@ -69,9 +68,20 @@ public class UserDataProviderImpl implements UserDataProvider {
         return remoteDataProvider.login(firebaseAuthToken, firebaseDeviceToken)
                 .doOnSuccess(dataWrap -> {
 //                    if (dataWrap.getResponseCode() == 200) {
-                        saveUser(dataWrap.getData().getToken(), dataWrap.getData());
+                    saveUser(dataWrap.getData().getToken(), dataWrap.getData());
 //                    }
                 });
+    }
+
+    @Override
+    public Single<DataWrap<? extends User>> setUserName(String token, String name) {
+        return remoteDataProvider.setUserName(token, name)
+                .doOnSuccess(data -> saveUserField(UserSharedPrefsDataHelper.UserFields.NAME, name));
+    }
+
+    @Override
+    public Single<DataWrap<? extends User>> setUserName(String name) {
+        return Single.fromObservable(getUserToken()).flatMap(token -> setUserName(token, name));
     }
 
     @Override
@@ -95,11 +105,6 @@ public class UserDataProviderImpl implements UserDataProvider {
         localDataProvider.clear();
     }
 
-    @Override
-    public void saveGroups(List<? extends Group> userGroups) {
-        localDataProvider.saveGroups(userGroups);
-    }
-
 
     @Override
     public void addUserDataChangeCallback(UserDataChangeCallback changeCallback) {
@@ -121,5 +126,10 @@ public class UserDataProviderImpl implements UserDataProvider {
                 userDataChangeCallbacks) {
             changeCallback.onUserDataChanged(user);
         }
+    }
+
+    @Override
+    public void markCacheDirty() {
+        localDataProvider.markCacheDirty();
     }
 }

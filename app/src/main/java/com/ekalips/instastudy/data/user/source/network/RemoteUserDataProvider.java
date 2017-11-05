@@ -19,4 +19,6 @@ public interface RemoteUserDataProvider {
 
     Single<DataWrap<? extends User>> login(String firebaseAuthToken, @Nullable String firebaseDeviceToken);
 
+    Single<DataWrap<? extends User>> setUserName(String token, String name);
+
 }

@@ -1,5 +1,7 @@
 package com.ekalips.instastudy.di.modules;
 
+import com.ekalips.instastudy.data.groups.source.GroupDataProvider;
+import com.ekalips.instastudy.data.groups.source.GroupDataProviderImpl;
 import com.ekalips.instastudy.data.user.UserDataProvider;
 import com.ekalips.instastudy.data.user.UserDataProviderImpl;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
@@ -13,12 +15,17 @@ import dagger.Module;
  * Created by Ekalips on 10/2/17.
  */
 
-@Module(includes = {UserDataModule.class})
+@Module(includes = {UserDataModule.class, GroupsDataModule.class})
 abstract public class DataModules {
 
     @DataProvider
     @Binds
     @Singleton
     abstract UserDataProvider bindUserDataProvider(UserDataProviderImpl userDataProvider);
+
+    @DataProvider
+    @Binds
+    @Singleton
+    abstract GroupDataProvider bindGroupsProvider(GroupDataProviderImpl groupDataProvider);
 
 }

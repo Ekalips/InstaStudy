@@ -102,7 +102,8 @@ public class LoginScreenViewModel extends LoginScreenContract.ViewModel {
     }
 
     private void handleLoginSuccess(DataWrap<? extends User> dataWrap) {
-        if (dataWrap.getResponseCode() == 200 && !StringUtils.isEmpty(dataWrap.getData().getUserName())) {
+        if (dataWrap.getResponseCode() == 200 && !StringUtils.isEmpty(dataWrap.getData().getUserName())
+                && dataWrap.getData().getGroups() != null && dataWrap.getData().getGroups().size() > 0) {
             navigateToMainActivity();
         } else {
             navigateToRegistrationActivity();

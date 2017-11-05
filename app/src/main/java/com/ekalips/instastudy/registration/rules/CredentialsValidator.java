@@ -8,6 +8,6 @@ public interface CredentialsValidator {
 
     boolean isNameValid(String name);
 
-    boolean inGroupValid(String group);
+    boolean isGroupValid(String group);
 
 }

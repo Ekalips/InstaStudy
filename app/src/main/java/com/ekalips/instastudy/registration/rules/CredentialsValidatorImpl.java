@@ -22,7 +22,7 @@ public class CredentialsValidatorImpl implements CredentialsValidator {
     }
 
     @Override
-    public boolean inGroupValid(String group) {
+    public boolean isGroupValid(String group) {
         return !StringUtils.isEmpty(group) && group.matches("[A-ZА-Я]{2,4}(-[0-9]{1,2}){1,2}");
     }
 }
