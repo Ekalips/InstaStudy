@@ -26,8 +26,8 @@ public class SplashScreenViewModel extends SplashScreeContract.ViewModel {
     }
 
     private void checkUserAndNavigate() {
-        addDisposable(rxRequests.subscribe(userDataProvider.getUserToken(), s -> {
-            if (StringUtils.isEmpty(s)) {
+        addDisposable(rxRequests.subscribe(userDataProvider.getUser(false), user -> {
+            if (user.getData() == null || StringUtils.isEmpty(user.getData().getUserName()) || StringUtils.isEmpty(user.getData().getToken())) {
                 navigateTo(NavigateToEnum.LOGIN, null);
             } else {
                 navigateTo(NavigateToEnum.MAIN, null);

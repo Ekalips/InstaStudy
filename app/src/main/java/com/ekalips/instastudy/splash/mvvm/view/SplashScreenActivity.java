@@ -47,6 +47,10 @@ public class SplashScreenActivity extends BaseBindingActivity<ViewDataBinding, S
                 globalNavigator.navigateToMainActivity(this);
                 break;
             }
+            case REGISTER: {
+                globalNavigator.navigateToRegistrationActivity(this);
+                break;
+            }
         }
         finish();
     }
