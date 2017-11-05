@@ -73,7 +73,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="text|textPersonName|textCapWords"
                 android:maxLength="@integer/max_name_length"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:text="@={vm.data.name}" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -84,10 +85,12 @@
             android:paddingRight="16dp">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/groupEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapCharacters"
                 android:maxLines="1"
+                android:text="@={vm.data.group}"
                 android:textAllCaps="true"
                 android:textColorHint="@color/textColorSecondaryInverted" />
         </android.support.design.widget.TextInputLayout>
@@ -100,7 +103,8 @@
         <Button
             android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/primaryWhite"
+            android:backgroundTint="@color/primary_color_selector"
+            android:enabled="@{vm.validator.inGroupValid(vm.data.group) &amp;&amp; vm.validator.isNameValid(vm.data.name)}"
             android:paddingBottom="22dp"
             android:paddingTop="22dp"
             android:text="@string/register_btn_text"

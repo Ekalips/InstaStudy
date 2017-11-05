@@ -10,4 +10,9 @@ public class Const {
 
     public static final String CONTENT_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
 
+
+    public static final int MAX_GROUP_LENGTH = 9;
+    public static final int MAX_GROUP_NAME_LENGTH = 4;
+    public static final int MAX_GROUP_YEAR_LENGTH = 2;
+    public static final int MAX_GROUP_NUMBER_LENGTH = 1;
 }

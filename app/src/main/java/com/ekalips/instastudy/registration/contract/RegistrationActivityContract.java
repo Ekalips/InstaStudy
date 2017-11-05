@@ -1,5 +1,7 @@
 package com.ekalips.instastudy.registration.contract;
 
+import com.ekalips.instastudy.registration.mvvm.model.FillDataObservable;
+import com.ekalips.instastudy.registration.rules.CredentialsValidator;
 import com.wonderslab.base.veiwmodel.BaseViewModel;
 import com.wonderslab.base.view.BaseView;
 
@@ -15,6 +17,9 @@ public interface RegistrationActivityContract {
 
     abstract class ViewModel extends BaseViewModel<View> {
 
+        public abstract CredentialsValidator getValidator();
+
+        public abstract FillDataObservable getRegistrationData();
     }
 
     interface Callbacks {

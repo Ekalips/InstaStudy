@@ -81,7 +81,7 @@ public class LoginScreenViewModel extends LoginScreenContract.ViewModel {
         Log.d(TAG, "onGetFirebaseUserIdTokenSuccess: " + token);
         inProgress.set(true);
         addDisposable(rxRequests.subscribe(userDataProvider.login(token, null).toObservable()
-                , this::handleLoginSuccess, this::handleLoginError, () -> navigateToRegistrationActivity()));
+                , this::handleLoginSuccess, this::handleLoginError, () -> inProgress.set(false)));
     }
 
     private void onGetFirebaseUserIdTokenError(@Nullable Exception exception) {

@@ -14,5 +14,6 @@
 
     <color name="gradientStart">#FF9800</color>
     <color name="gradientEnd">#FFCA4A</color>
-    <color name="primaryWhite">#fff</color>
+    <color name="primaryWhite">#ffffff</color>
+    <color name="secondaryWhite">#a0ffffff</color>
 </resources>

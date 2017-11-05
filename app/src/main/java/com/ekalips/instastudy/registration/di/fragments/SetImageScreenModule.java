@@ -12,6 +12,7 @@ import dagger.Module;
  */
 
 @Module
+@FragmentScope
 public abstract class SetImageScreenModule {
 
     @FragmentScope
