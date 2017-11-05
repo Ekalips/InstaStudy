@@ -68,9 +68,9 @@ public class UserDataProviderImpl implements UserDataProvider {
     public Single<DataWrap<? extends User>> login(String firebaseAuthToken, @Nullable String firebaseDeviceToken) {
         return remoteDataProvider.login(firebaseAuthToken, firebaseDeviceToken)
                 .doOnSuccess(dataWrap -> {
-                    if (dataWrap.getResponseCode() == 200) {
+//                    if (dataWrap.getResponseCode() == 200) {
                         saveUser(dataWrap.getData().getToken(), dataWrap.getData());
-                    }
+//                    }
                 });
     }
 
