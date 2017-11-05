@@ -1,7 +1,7 @@
 package com.ekalips.instastudy.di.modules;
 
-import com.ekalips.instastudy.data.groups.source.GroupDataProvider;
-import com.ekalips.instastudy.data.groups.source.GroupDataProviderImpl;
+import com.ekalips.instastudy.data.groups.GroupDataProvider;
+import com.ekalips.instastudy.data.groups.GroupDataProviderImpl;
 import com.ekalips.instastudy.data.user.UserDataProvider;
 import com.ekalips.instastudy.data.user.UserDataProviderImpl;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
