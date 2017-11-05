@@ -1,5 +1,7 @@
 package com.ekalips.instastudy.error_handling;
 
+import android.util.Log;
+
 import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.error_handling.throwables.ServerErrorException;
 import com.ekalips.instastudy.providers.MessagingProvider;
@@ -16,6 +18,7 @@ import io.reactivex.exceptions.OnErrorNotImplementedException;
 
 public class DefaultErrorHandler implements com.wonderslab.base.rx.DefaultErrorHandler {
 
+    private static final String TAG = DefaultErrorHandler.class.getSimpleName();
     private final MessagingProvider messagingProvider;
 
     @Inject
@@ -35,6 +38,7 @@ public class DefaultErrorHandler implements com.wonderslab.base.rx.DefaultErrorH
         }
 
         if (throwable instanceof IOException) {
+            Log.e(TAG, "handleError: ", throwable);
             return true;
         }
 
