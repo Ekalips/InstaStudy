@@ -4,6 +4,7 @@ package com.ekalips.instastudy.registration.mvvm.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 
 import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.databinding.FragmentSetImageBinding;
@@ -20,6 +21,7 @@ import com.wonderslab.base.fragment.BaseBindingFragment;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,7 +68,11 @@ public class SetImageFragment extends BaseBindingFragment<FragmentSetImageBindin
 
     @Override
     public void requestImageFromCamera() {
-        startActivityForResult(defaultCameraModule.getCameraIntent(getContext()), REQUEST_CAMERA);
+        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA) == PERMISSION_GRANTED) {
+            startActivityForResult(defaultCameraModule.getCameraIntent(getContext()), REQUEST_CAMERA);
+        } else {
+            requestPermissions(new String[]{android.Manifest.permission.CAMERA}, 0);
+        }
     }
 
     @Override

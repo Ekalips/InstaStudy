@@ -179,6 +179,7 @@
             android:paddingTop="22dp"
             android:text="@string/set_image_set_btn"
             android:textAllCaps="false"
+            android:onClick="@{() -> vm.setUp()}"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
