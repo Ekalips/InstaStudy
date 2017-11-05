@@ -1,4 +1,4 @@
-package com.ekalips.instastudy.data.groups.source;
+package com.ekalips.instastudy.data.groups;
 
 import com.ekalips.instastudy.data.groups.Group;
 import com.ekalips.instastudy.data.groups.source.local.LocalGroupDataProvider;

@@ -1,6 +1,5 @@
-package com.ekalips.instastudy.data.groups.source;
+package com.ekalips.instastudy.data.groups;
 
-import com.ekalips.instastudy.data.groups.Group;
 import com.ekalips.instastudy.data.groups.source.local.LocalGroupDataProvider;
 import com.ekalips.instastudy.data.groups.source.remote.RemoteGroupDataProvider;
 import com.ekalips.instastudy.data.stuff.DataWrap;
@@ -24,7 +23,8 @@ public class GroupDataProviderImpl implements GroupDataProvider {
     private final UserDataProvider userDataProvider;
 
     @Inject
-    public GroupDataProviderImpl(@Local LocalGroupDataProvider localGroupDataProvider, @Remote RemoteGroupDataProvider remoteGroupDataProvider, @DataProvider UserDataProvider userDataProvider) {
+    public GroupDataProviderImpl(@Local LocalGroupDataProvider localGroupDataProvider, @Remote RemoteGroupDataProvider remoteGroupDataProvider,
+                                 @DataProvider UserDataProvider userDataProvider) {
         this.localGroupDataProvider = localGroupDataProvider;
         this.remoteGroupDataProvider = remoteGroupDataProvider;
         this.userDataProvider = userDataProvider;
