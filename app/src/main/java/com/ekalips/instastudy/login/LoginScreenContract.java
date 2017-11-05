@@ -1,5 +1,7 @@
 package com.ekalips.instastudy.login;
 
+import android.databinding.ObservableBoolean;
+
 import com.wonderslab.base.veiwmodel.BaseViewModel;
 import com.wonderslab.base.view.BaseView;
 
@@ -16,6 +18,8 @@ public interface LoginScreenContract {
     abstract class ViewModel extends BaseViewModel<View> {
 
         public abstract void login();
+
+        public abstract ObservableBoolean getInProgress();
 
     }
 

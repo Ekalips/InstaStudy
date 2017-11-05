@@ -19,11 +19,17 @@
         tools:context="com.ekalips.instastudy.login.mvvm.view.LoginActivity">
 
 
-        <ImageView
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:elevation="4dp"
-            android:src="@drawable/logo_invert" />
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:shimmer="@{vm.inProgress}">
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:elevation="4dp"
+                android:src="@drawable/logo_invert" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,12 +48,13 @@
         <Button
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/primaryWhite"
+            android:backgroundTint="@color/primary_color_selector"
+            android:enabled="@{!vm.inProgress}"
+            android:onClick="@{() -> vm.login()}"
             android:paddingBottom="22dp"
             android:paddingTop="22dp"
             android:text="@string/login_btn_text"
-            android:textColor="@color/colorPrimary"
-            android:onClick="@{() -> vm.login()}"/>
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"

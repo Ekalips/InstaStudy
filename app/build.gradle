@@ -84,6 +84,8 @@ dependencies {
 
     implementation 'com.github.esafirm.android-image-picker:imagepicker:1.8.0'
 
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
     implementation project(path: ':base')
 
     testImplementation 'junit:junit:4.12'

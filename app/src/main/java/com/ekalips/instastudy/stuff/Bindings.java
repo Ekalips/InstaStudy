@@ -12,6 +12,7 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ekalips.instastudy.stuff.recyclerview.DataSetInterface;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.io.File;
 import java.util.List;
@@ -86,6 +87,19 @@ public class Bindings {
     @BindingAdapter({"file", "placeholder"})
     public static void setImageWithPlaceholder(ImageView imageView, File src, Drawable placeholder) {
         Glide.with(imageView.getContext()).load(src).apply(RequestOptions.centerCropTransform().placeholder(placeholder)).into(imageView);
+    }
+
+    @BindingAdapter(("shimmer"))
+    public static void setShimmerEnabled(ShimmerFrameLayout view, boolean enabled) {
+        if (enabled && !view.isAnimationStarted()) {
+            view.startShimmerAnimation();
+            return;
+        }
+        if (!enabled && view.isAnimationStarted()) {
+            view.stopShimmerAnimation();
+        }
+
+
     }
 
 }

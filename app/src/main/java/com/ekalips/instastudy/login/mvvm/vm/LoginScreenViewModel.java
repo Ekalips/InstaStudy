@@ -45,7 +45,15 @@ public class LoginScreenViewModel extends LoginScreenContract.ViewModel {
 
     @Override
     public void login() {
+        if (inProgress.get()) {
+            return;
+        }
         firebaseLoginProvider.login();
+    }
+
+    @Override
+    public ObservableBoolean getInProgress() {
+        return inProgress;
     }
 
     @Override
@@ -79,6 +87,9 @@ public class LoginScreenViewModel extends LoginScreenContract.ViewModel {
 
     private void onGetFirebaseUserIdTokenSuccess(String token) {
         Log.d(TAG, "onGetFirebaseUserIdTokenSuccess: " + token);
+        if (inProgress.get()) {
+            return;
+        }
         inProgress.set(true);
         addDisposable(rxRequests.subscribe(userDataProvider.login(token, null).toObservable()
                 , this::handleLoginSuccess, this::handleLoginError, () -> inProgress.set(false)));
