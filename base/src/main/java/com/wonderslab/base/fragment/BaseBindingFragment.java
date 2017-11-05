@@ -37,7 +37,7 @@ public abstract class BaseBindingFragment<Binding extends ViewDataBinding, ViewI
     @LayoutRes
     protected abstract int layoutResId();
 
-    public BaseViewModel<ViewInterface> getViewModel() {
+    public ViewModel getViewModel() {
         return viewModel;
     }
 
