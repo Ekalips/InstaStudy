@@ -21,6 +21,9 @@
 
         <item name="android:textColorPrimary">@color/textColorPrimaryInverted</item>
         <item name="android:textColorSecondary">@color/textColorSecondaryInverted</item>
+        <item name="android:textColorHint">@color/textColorSecondaryInverted</item>
+
+        <item name="colorAccent">@color/primaryWhite</item>
     </style>
 
     <style name="SplashTheme" parent="AppThemeGradient">

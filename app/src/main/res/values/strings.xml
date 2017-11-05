@@ -7,4 +7,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fill_data_screen_title">Setup Profile</string>
+    <string name="fill_data_prompt_title">Let us recognize you</string>
+    <string name="fill_data_prompt_message">Please tell us you name and study group, so we can find your classmates</string>
+    <string name="hint_name">Your name</string>
+    <string name="hint_group">Group</string>
+    <string name="register_btn_text">Set me up, Scotty</string>
 </resources>

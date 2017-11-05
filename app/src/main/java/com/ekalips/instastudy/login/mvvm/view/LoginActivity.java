@@ -45,12 +45,10 @@ public class LoginActivity extends BaseBindingActivity<ActivityLoginBinding, Log
     protected void handleNavigationEvent(EventNavigate eventNavigate) {
         switch ((NavigateToEnum) eventNavigate.getNavigationPlace()) {
             case REGISTER: {
-                finish();
                 globalNavigator.navigateToRegistrationActivity(this);
                 break;
             }
             case MAIN:
-                finish();
                 globalNavigator.navigateToMainActivity(this);
                 break;
         }
