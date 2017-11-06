@@ -14,6 +14,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -32,8 +33,8 @@ public interface InstaApi {
     @POST("group/join")
     Call<RemoteGroup> joinToGroup(@Header(AUTH_HEADER) String token, @Query("title") String name);
 
-    @GET("group")
-    Call<RemoteGroup> getGroup(@Header(AUTH_HEADER) String token, @Query("id") String groupId);
+    @GET("group/{group_id}")
+    Call<RemoteGroup> getGroup(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId);
 
     @Multipart
     @POST("user/me/avatar")
