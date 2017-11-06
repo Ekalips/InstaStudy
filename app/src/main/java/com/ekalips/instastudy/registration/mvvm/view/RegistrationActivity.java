@@ -54,6 +54,10 @@ public class RegistrationActivity extends BaseBindingActivity<ActivityRegistrati
                 localNavigator.navigateToSetImageScreen(R.id.fragment_container);
                 break;
             }
+            case MAIN: {
+                globalNavigator.navigateToMainActivity(this);
+                break;
+            }
         }
     }
 

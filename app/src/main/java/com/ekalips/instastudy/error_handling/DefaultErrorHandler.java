@@ -39,6 +39,7 @@ public class DefaultErrorHandler implements com.wonderslab.base.rx.DefaultErrorH
 
         if (throwable instanceof IOException) {
             Log.e(TAG, "handleError: ", throwable);
+            messagingProvider.showToast(R.string.error_network);
             return true;
         }
 

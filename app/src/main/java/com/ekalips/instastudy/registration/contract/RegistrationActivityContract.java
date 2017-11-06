@@ -1,5 +1,7 @@
 package com.ekalips.instastudy.registration.contract;
 
+import android.databinding.ObservableBoolean;
+
 import com.ekalips.instastudy.registration.mvvm.model.FillDataObservable;
 import com.ekalips.instastudy.registration.rules.CredentialsValidator;
 import com.wonderslab.base.rx.RxRequests;
@@ -23,6 +25,8 @@ public interface RegistrationActivityContract {
         public ViewModel(RxRequests rxRequests) {
             super(rxRequests);
         }
+
+        public abstract ObservableBoolean getInProgress();
 
         public abstract CredentialsValidator getValidator();
 

@@ -49,6 +49,11 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
     }
 
     @Override
+    public ObservableBoolean getInProgress() {
+        return inProgress;
+    }
+
+    @Override
     public CredentialsValidator getValidator() {
         return credentialsValidator;
     }

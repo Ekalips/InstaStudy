@@ -80,6 +80,7 @@ public class SetImageFragment extends BaseBindingFragment<FragmentSetImageBindin
         ImagePicker.create(this)
                 .returnAfterFirst(true)
                 .single()
+                .folderMode(true)
                 .showCamera(false)
                 .imageLoader(new GlideImageLoader())
                 .start(REQUEST_GALLERY);
