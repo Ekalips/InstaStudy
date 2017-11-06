@@ -73,8 +73,7 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
     }
 
     private void sendUserName(String name) {
-        request(userDataProvider.setUserName(name).toObservable(), dataWrap -> onSaveNameSuccess(), this::onSaveNameError,
-                () -> inProgress.set(isGroupSet));
+        request(userDataProvider.setUserName(name).toObservable(), dataWrap -> onSaveNameSuccess(), this::onSaveNameError);
     }
 
     private void onSaveNameSuccess() {
@@ -84,12 +83,12 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
 
     private void onSaveNameError(Throwable throwable) {
         Log.e(TAG, "onSaveNameError: ", throwable);
+        inProgress.set(false);
         messagingProvider.showToast(R.string.error_save_name);
     }
 
     private void sendGroup(String group) {
-       request(groupDataProvider.joinGroup(group).toObservable(), dataWrap -> onSendGroupSuccess(), this::onSendGroupError,
-                () -> inProgress.set(isNameSet));
+       request(groupDataProvider.joinGroup(group).toObservable(), dataWrap -> onSendGroupSuccess(), this::onSendGroupError);
     }
 
     private void onSendGroupSuccess() {
@@ -99,11 +98,13 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
 
     private void onSendGroupError(Throwable throwable) {
         Log.e(TAG, "onSendGroupError: ", throwable);
+        inProgress.set(false);
         messagingProvider.showToast(R.string.error_save_group);
     }
 
     private synchronized void checkAndNavigateToImageSetting() {
         if (isNameSet && isGroupSet) {
+            inProgress.set(false);
             navigateTo(NavigateToEnum.SET_IMAGE, null);
         }
     }
