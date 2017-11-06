@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ekalips.instastudy">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MyApplication"
@@ -38,6 +38,7 @@
         <activity
             android:name=".registration.mvvm.view.RegistrationActivity"
             android:theme="@style/AppThemeGradient" />
+        <activity android:name=".main.mvvm.view.MainActivity"></activity>
     </application>
 
 </manifest>

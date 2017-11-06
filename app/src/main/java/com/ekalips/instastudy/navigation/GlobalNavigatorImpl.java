@@ -2,9 +2,9 @@ package com.ekalips.instastudy.navigation;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.ekalips.instastudy.login.mvvm.view.LoginActivity;
+import com.ekalips.instastudy.main.mvvm.view.MainActivity;
 import com.ekalips.instastudy.registration.mvvm.view.RegistrationActivity;
 import com.ekalips.instastudy.splash.mvvm.view.SplashScreenActivity;
 
@@ -32,10 +32,9 @@ public class GlobalNavigatorImpl implements GlobalNavigator {
 
     @Override
     public void navigateToMainActivity(Context context) {
-        Log.d(TAG, "navigateToMainActivity: ");
-//        Intent mainIntent = MainActivity.getIntentFor(context);
-//        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        context.startActivity(mainIntent);
+        Intent mainIntent = MainActivity.getIntentFor(context);
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(mainIntent);
     }
 
     @Override
