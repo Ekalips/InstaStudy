@@ -106,11 +106,25 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
 
     @Override
     public void onImageSet(File file) {
+        inProgress.set(true);
+        addDisposable(rxRequests.subscribe(userDataProvider.updateUserImage(file).toObservable(), data -> onImageSetSuccess(), this::onImageSetError, () -> inProgress.set(false)));
+    }
 
+    private void onImageSetSuccess() {
+        endRegistration();
+    }
+
+    private void onImageSetError(Throwable throwable) {
+        Log.e(TAG, "onImageSetError: ", throwable);
+        messagingProvider.showToast(R.string.error_save_avatar);
     }
 
     @Override
     public void onImageSkip() {
+        endRegistration();
+    }
+
+    private void endRegistration() {
         navigateTo(NavigateToEnum.MAIN, null);
     }
 }

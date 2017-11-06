@@ -11,8 +11,10 @@ import com.ekalips.instastudy.error_handling.ErrorThrower;
 import com.ekalips.instastudy.network.InstaApi;
 import com.ekalips.instastudy.network.body.LoginBody;
 import com.ekalips.instastudy.network.body.UpdateUserNameBody;
+import com.ekalips.instastudy.stuff.NetworkUtils;
 import com.wonderslab.base.rx.RxUtils;
 
+import java.io.File;
 import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
@@ -59,6 +61,18 @@ public class RemoteUserDataProviderImpl implements RemoteUserDataProvider {
     public Single<DataWrap<? extends User>> setUserName(String token, String name) {
         return RxUtils.wrapAsIO(Single.fromCallable((Callable<DataWrap<? extends User>>) () -> {
             Response<RemoteUserData> response = api.updateName(token, new UpdateUserNameBody(name)).execute();
+            if (response.isSuccessful()) {
+                return new DataWrap<>(response.body(), response.code());
+            }
+            errorThrower.throwFromResponse(response);
+            return null;
+        }));
+    }
+
+    @Override
+    public Single<DataWrap<? extends User>> setUserImage(String token, @Nullable File image) {
+        return RxUtils.wrapAsIO(Single.fromCallable(() -> {
+            Response<RemoteUserData> response = api.updateAvatar(token, NetworkUtils.prepareFilePart(context, "avatar", image)).execute();
             if (response.isSuccessful()) {
                 return new DataWrap<>(response.body(), response.code());
             }

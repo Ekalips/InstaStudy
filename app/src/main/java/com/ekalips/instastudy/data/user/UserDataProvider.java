@@ -5,6 +5,8 @@ import com.ekalips.instastudy.data.stuff.DataWrap;
 import com.ekalips.instastudy.data.user.source.local.LocalUserDataProvider;
 import com.ekalips.instastudy.data.user.source.network.RemoteUserDataProvider;
 
+import java.io.File;
+
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -19,6 +21,8 @@ public interface UserDataProvider extends LocalUserDataProvider, RemoteUserDataP
     Single<DataWrap<? extends User>> setUserName(String name);
 
     Observable<String> getUserToken();
+
+    Single<DataWrap<? extends User>> updateUserImage(File image);
 
     void addUserDataChangeCallback(UserDataChangeCallback changeCallback);
 

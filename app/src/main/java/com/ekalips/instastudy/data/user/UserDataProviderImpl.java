@@ -9,6 +9,7 @@ import com.ekalips.instastudy.data.user.source.network.RemoteUserDataProvider;
 import com.ekalips.instastudy.di.source_qualifier.Local;
 import com.ekalips.instastudy.di.source_qualifier.Remote;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,11 +67,7 @@ public class UserDataProviderImpl implements UserDataProvider {
     @Override
     public Single<DataWrap<? extends User>> login(String firebaseAuthToken, @Nullable String firebaseDeviceToken) {
         return remoteDataProvider.login(firebaseAuthToken, firebaseDeviceToken)
-                .doOnSuccess(dataWrap -> {
-//                    if (dataWrap.getResponseCode() == 200) {
-                    saveUser(dataWrap.getData().getToken(), dataWrap.getData());
-//                    }
-                });
+                .doOnSuccess(dataWrap -> saveUser(dataWrap.getData().getToken(), dataWrap.getData()));
     }
 
     @Override
@@ -98,6 +95,17 @@ public class UserDataProviderImpl implements UserDataProvider {
     @Override
     public void saveUserField(UserSharedPrefsDataHelper.UserFields field, Object value) {
         localDataProvider.saveUserField(field, value);
+    }
+
+    @Override
+    public Single<DataWrap<? extends User>> updateUserImage(File image) {
+        return Single.fromObservable(getUserToken()).flatMap(token -> setUserImage(token, image))
+                .doOnSuccess(data -> saveUserField(UserSharedPrefsDataHelper.UserFields.AVATAR, data.getData().getAvatar()));
+    }
+
+    @Override
+    public Single<DataWrap<? extends User>> setUserImage(String token, File image) {
+        return remoteDataProvider.setUserImage(token, image);
     }
 
     @Override

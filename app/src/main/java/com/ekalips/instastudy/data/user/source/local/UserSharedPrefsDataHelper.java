@@ -16,7 +16,7 @@ import javax.inject.Inject;
 public class UserSharedPrefsDataHelper {
 
     public enum UserFields {
-        ID, PHONE, TOKEN, NAME, ONLINE, AVATAR, NUMBER, FIREBASE_TOKEN, ROLE
+        ID, PHONE, TOKEN, NAME, ONLINE, AVATAR, FIREBASE_TOKEN, ROLE
     }
 
     @Inject
@@ -27,10 +27,11 @@ public class UserSharedPrefsDataHelper {
         LocalUserData data = new LocalUserData();
 
         data.setUserId(sharedPreferences.getString(UserFields.ID.toString(), ""));
+        data.setName(sharedPreferences.getString(UserFields.NAME.toString(), ""));
         data.setToken(sharedPreferences.getString(UserFields.TOKEN.toString(), ""));
         data.setOnline(sharedPreferences.getBoolean(UserFields.ONLINE.toString(), false));
         data.setAvatar(sharedPreferences.getString(UserFields.AVATAR.toString(), ""));
-        data.setNumber(sharedPreferences.getString(UserFields.NUMBER.toString(), ""));
+        data.setNumber(sharedPreferences.getString(UserFields.PHONE.toString(), ""));
         data.setFirebaseToken(sharedPreferences.getString(UserFields.FIREBASE_TOKEN.toString(), ""));
         data.setRole(sharedPreferences.getInt(UserFields.ROLE.toString(), Role.USER.getRole()));
 
@@ -45,7 +46,8 @@ public class UserSharedPrefsDataHelper {
                 .putString(UserFields.PHONE.toString(), user.getPhoneNumber())
                 .putString(UserFields.NAME.toString(), user.getUserName())
                 .putBoolean(UserFields.ONLINE.toString(), user.isOnline())
-                .putString(UserFields.AVATAR.toString(), user.getAvatar());
+                .putString(UserFields.AVATAR.toString(), user.getAvatar())
+                .putInt(UserFields.ROLE.toString(), user.getRole());
         if (token != null) {
             editor.putString(UserFields.TOKEN.toString(), token);
         }

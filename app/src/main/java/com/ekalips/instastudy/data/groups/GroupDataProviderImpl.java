@@ -39,7 +39,8 @@ public class GroupDataProviderImpl implements GroupDataProvider {
 
     @Override
     public Single<DataWrap<? extends Group>> joinGroup(String groupName) {
-        return Single.fromObservable(userDataProvider.getUserToken()).flatMap(token -> joinGroup(token, groupName));
+        return Single.fromObservable(userDataProvider.getUserToken()).flatMap(token -> joinGroup(token, groupName))
+                .doOnSuccess(data -> addToUserGroups(data.getData()));
     }
 
     @Override
