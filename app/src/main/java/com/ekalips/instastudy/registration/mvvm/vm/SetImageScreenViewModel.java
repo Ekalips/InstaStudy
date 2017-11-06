@@ -5,6 +5,7 @@ import android.databinding.ObservableField;
 import com.ekalips.instastudy.registration.contract.RegistrationActivityContract;
 import com.ekalips.instastudy.registration.contract.SetImageScreenContract;
 import com.esafirm.imagepicker.model.Image;
+import com.wonderslab.base.rx.RxRequests;
 
 import java.io.File;
 
@@ -20,7 +21,8 @@ public class SetImageScreenViewModel extends SetImageScreenContract.ViewModel {
     private final RegistrationActivityContract.ViewModel registrationScreenViewModel;
 
     @Inject
-    public SetImageScreenViewModel(RegistrationActivityContract.ViewModel registrationScreenViewModel) {
+    public SetImageScreenViewModel(RegistrationActivityContract.ViewModel registrationScreenViewModel, RxRequests rxRequests) {
+        super(rxRequests);
         this.registrationScreenViewModel = registrationScreenViewModel;
     }
 

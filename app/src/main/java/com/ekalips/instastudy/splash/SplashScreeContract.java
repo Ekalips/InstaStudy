@@ -1,5 +1,6 @@
 package com.ekalips.instastudy.splash;
 
+import com.wonderslab.base.rx.RxRequests;
 import com.wonderslab.base.veiwmodel.BaseViewModel;
 import com.wonderslab.base.view.BaseView;
 
@@ -15,6 +16,9 @@ public interface SplashScreeContract {
 
     abstract class ViewModel extends BaseViewModel<View> {
 
+        public ViewModel(RxRequests rxRequests) {
+            super(rxRequests);
+        }
     }
 
 }

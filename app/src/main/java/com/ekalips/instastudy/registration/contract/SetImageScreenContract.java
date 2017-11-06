@@ -3,6 +3,7 @@ package com.ekalips.instastudy.registration.contract;
 import android.databinding.ObservableField;
 
 import com.esafirm.imagepicker.model.Image;
+import com.wonderslab.base.rx.RxRequests;
 import com.wonderslab.base.veiwmodel.BaseViewModel;
 import com.wonderslab.base.view.BaseView;
 
@@ -22,6 +23,10 @@ public interface SetImageScreenContract {
     }
 
     abstract class ViewModel extends BaseViewModel<View> {
+
+        public ViewModel(RxRequests rxRequests) {
+            super(rxRequests);
+        }
 
         public abstract void skip();
 

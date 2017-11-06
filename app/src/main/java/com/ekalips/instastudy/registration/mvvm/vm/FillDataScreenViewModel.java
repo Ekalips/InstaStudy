@@ -4,6 +4,7 @@ import com.ekalips.instastudy.registration.contract.FillDataScreenContract;
 import com.ekalips.instastudy.registration.contract.RegistrationActivityContract;
 import com.ekalips.instastudy.registration.mvvm.model.FillDataObservable;
 import com.ekalips.instastudy.registration.rules.CredentialsValidator;
+import com.wonderslab.base.rx.RxRequests;
 
 import javax.inject.Inject;
 
@@ -16,7 +17,8 @@ public class FillDataScreenViewModel extends FillDataScreenContract.ViewModel {
     private final RegistrationActivityContract.ViewModel registrationActivityViewModel;
 
     @Inject
-    public FillDataScreenViewModel(RegistrationActivityContract.ViewModel registrationActivityViewModel) {
+    public FillDataScreenViewModel(RegistrationActivityContract.ViewModel registrationActivityViewModel, RxRequests rxRequests) {
+        super(rxRequests);
         this.registrationActivityViewModel = registrationActivityViewModel;
     }
 

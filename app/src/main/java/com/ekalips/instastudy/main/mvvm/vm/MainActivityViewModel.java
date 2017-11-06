@@ -23,20 +23,19 @@ public class MainActivityViewModel extends MainActivityContract.ViewModel {
     private static final String TAG = MainActivityViewModel.class.getSimpleName();
 
     private final UserDataProvider userDataProvider;
-    private final RxRequests rxRequests;
     private final ObservableField<User> user = new ObservableField<>(null);
     private final MessagingProvider messagingProvider;
 
     @Inject
     public MainActivityViewModel(@DataProvider UserDataProvider userDataProvider, RxRequests rxRequests, MessagingProvider messagingProvider) {
+        super(rxRequests);
         this.userDataProvider = userDataProvider;
         this.messagingProvider = messagingProvider;
-        this.rxRequests = rxRequests;
         getUserAndNavigateToGroup();
     }
 
     private void getUserAndNavigateToGroup() {
-        addDisposable(rxRequests.subscribe(userDataProvider.getUser(false), data -> onGetUserSuccess(data.getData()), this::onGetUserError));
+        request(userDataProvider.getUser(false), data -> onGetUserSuccess(data.getData()), this::onGetUserError);
     }
 
     private void onGetUserSuccess(User user) {

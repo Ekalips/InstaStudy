@@ -28,7 +28,6 @@ public class LoginScreenViewModel extends LoginScreenContract.ViewModel {
     private static final String TAG = LoginScreenViewModel.class.getSimpleName();
 
     private final FirebaseLoginProvider firebaseLoginProvider;
-    private final RxRequests rxRequests;
     private final UserDataProvider userDataProvider;
     private final MessagingProvider messagingProvider;
 
@@ -36,9 +35,9 @@ public class LoginScreenViewModel extends LoginScreenContract.ViewModel {
 
     @Inject
     public LoginScreenViewModel(FirebaseLoginProvider loginProvider, @DataProvider UserDataProvider userDataProvider, RxRequests rxRequests, MessagingProvider messagingProvider) {
+        super(rxRequests);
         this.firebaseLoginProvider = loginProvider;
         this.userDataProvider = userDataProvider;
-        this.rxRequests = rxRequests;
         this.messagingProvider = messagingProvider;
         this.firebaseLoginProvider.setLoginCallbacks(loginCallbacks);
     }
@@ -92,8 +91,8 @@ public class LoginScreenViewModel extends LoginScreenContract.ViewModel {
             return;
         }
         inProgress.set(true);
-        addDisposable(rxRequests.subscribe(userDataProvider.login(token, null).toObservable()
-                , this::handleLoginSuccess, this::handleLoginError, () -> inProgress.set(false)));
+        request(userDataProvider.login(token, null).toObservable()
+                , this::handleLoginSuccess, this::handleLoginError, () -> inProgress.set(false));
     }
 
     private void onGetFirebaseUserIdTokenError(@Nullable Exception exception) {

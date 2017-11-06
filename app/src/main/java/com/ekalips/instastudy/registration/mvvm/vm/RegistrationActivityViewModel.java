@@ -31,7 +31,6 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
 
     private final UserDataProvider userDataProvider;
     private final GroupDataProvider groupDataProvider;
-    private final RxRequests rxRequests;
     private final MessagingProvider messagingProvider;
 
     private boolean isNameSet = false;
@@ -41,10 +40,10 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
     @Inject
     public RegistrationActivityViewModel(CredentialsValidator credentialsValidator, @DataProvider UserDataProvider userDataProvider,
                                          @DataProvider GroupDataProvider groupDataProvider, RxRequests rxRequests, MessagingProvider messagingProvider) {
+        super(rxRequests);
         this.credentialsValidator = credentialsValidator;
         this.groupDataProvider = groupDataProvider;
         this.userDataProvider = userDataProvider;
-        this.rxRequests = rxRequests;
         this.messagingProvider = messagingProvider;
         navigateTo(NavigateToEnum.FILL_DATA, null);
     }
@@ -69,8 +68,8 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
     }
 
     private void sendUserName(String name) {
-        addDisposable(rxRequests.subscribe(userDataProvider.setUserName(name).toObservable(), dataWrap -> onSaveNameSuccess(), this::onSaveNameError,
-                () -> inProgress.set(isGroupSet)));
+        request(userDataProvider.setUserName(name).toObservable(), dataWrap -> onSaveNameSuccess(), this::onSaveNameError,
+                () -> inProgress.set(isGroupSet));
     }
 
     private void onSaveNameSuccess() {
@@ -84,8 +83,8 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
     }
 
     private void sendGroup(String group) {
-        addDisposable(rxRequests.subscribe(groupDataProvider.joinGroup(group).toObservable(), dataWrap -> onSendGroupSuccess(), this::onSendGroupError,
-                () -> inProgress.set(isNameSet)));
+       request(groupDataProvider.joinGroup(group).toObservable(), dataWrap -> onSendGroupSuccess(), this::onSendGroupError,
+                () -> inProgress.set(isNameSet));
     }
 
     private void onSendGroupSuccess() {
@@ -107,7 +106,7 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
     @Override
     public void onImageSet(File file) {
         inProgress.set(true);
-        addDisposable(rxRequests.subscribe(userDataProvider.updateUserImage(file).toObservable(), data -> onImageSetSuccess(), this::onImageSetError, () -> inProgress.set(false)));
+        request(userDataProvider.updateUserImage(file).toObservable(), data -> onImageSetSuccess(), this::onImageSetError, () -> inProgress.set(false));
     }
 
     private void onImageSetSuccess() {

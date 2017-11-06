@@ -16,24 +16,23 @@ import javax.inject.Inject;
 public class SplashScreenViewModel extends SplashScreeContract.ViewModel {
 
     private final UserDataProvider userDataProvider;
-    private final RxRequests rxRequests;
 
     @Inject
     public SplashScreenViewModel(RxRequests rxRequests, @DataProvider UserDataProvider userDataProvider) {
+        super(rxRequests);
         this.userDataProvider = userDataProvider;
-        this.rxRequests = rxRequests;
         checkUserAndNavigate();
     }
 
     private void checkUserAndNavigate() {
-        addDisposable(rxRequests.subscribe(userDataProvider.getUser(false), user -> {
+        request(userDataProvider.getUser(false), user -> {
             if (user.getData() == null || StringUtils.isEmpty(user.getData().getUserName()) || StringUtils.isEmpty(user.getData().getToken())
                     || user.getData().getGroups() == null || user.getData().getGroups().size() <= 0) {
                 navigateTo(NavigateToEnum.LOGIN, null);
             } else {
                 navigateTo(NavigateToEnum.MAIN, null);
             }
-        }));
+        });
     }
 
 }

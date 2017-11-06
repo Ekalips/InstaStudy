@@ -30,6 +30,10 @@ public class RxRequests {
         return subscribe(observable, null, null, null, completeConsumer);
     }
 
+    public <T> Disposable subscribe(Observable<T> observable, Response.SuccessConsumer<T> successConsumer, Response.UnhandledError unhandledErrorConsumer) {
+        return subscribe(observable, successConsumer, unhandledErrorConsumer, null);
+    }
+
     public <T> Disposable subscribe(Observable<T> observable, Response.UnhandledError unhandledErrorConsumer, Response.Complete completeConsumer) {
         return subscribe(observable, null, null, unhandledErrorConsumer, completeConsumer);
     }

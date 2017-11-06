@@ -24,22 +24,22 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
 
     private final MainActivityContract.FlexibleMainToolbar flexibleMainToolbar;
     private final GroupDataProvider groupDataProvider;
-    private final RxRequests rxRequests;
     private final MessagingProvider messagingProvider;
 
     private final ObservableField<Group> group = new ObservableField<>(null);
 
     @Inject
-    public GroupChatViewModule(MainActivityContract.FlexibleMainToolbar flexibleMainToolbar, @DataProvider GroupDataProvider groupDataProvider, RxRequests rxRequests, MessagingProvider messagingProvider) {
+    public GroupChatViewModule(MainActivityContract.FlexibleMainToolbar flexibleMainToolbar, @DataProvider GroupDataProvider groupDataProvider,
+                               RxRequests rxRequests, MessagingProvider messagingProvider) {
+        super(rxRequests);
         this.flexibleMainToolbar = flexibleMainToolbar;
-        this.rxRequests = rxRequests;
         this.groupDataProvider = groupDataProvider;
         this.messagingProvider = messagingProvider;
     }
 
     @Override
     public void init(String groupId) {
-        addDisposable(rxRequests.subscribe(groupDataProvider.getGroup(groupId, true), data -> setUpGroup(data.getData()), this::onGetGroupError));
+        request(groupDataProvider.getGroup(groupId, true), data -> setUpGroup(data.getData()), this::onGetGroupError);
     }
 
     private void setUpGroup(Group group) {

@@ -4,6 +4,7 @@ import android.databinding.ObservableField;
 import android.support.annotation.MenuRes;
 
 import com.ekalips.instastudy.data.user.User;
+import com.wonderslab.base.rx.RxRequests;
 import com.wonderslab.base.veiwmodel.BaseViewModel;
 import com.wonderslab.base.view.BaseView;
 
@@ -18,6 +19,10 @@ public interface MainActivityContract {
     }
 
     abstract class ViewModel extends BaseViewModel<View> {
+
+        public ViewModel(RxRequests rxRequests) {
+            super(rxRequests);
+        }
 
         public abstract ObservableField<User> getUser();
     }
