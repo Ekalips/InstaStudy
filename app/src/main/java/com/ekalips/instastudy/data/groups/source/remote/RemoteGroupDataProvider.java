@@ -13,4 +13,6 @@ public interface RemoteGroupDataProvider {
 
     Single<DataWrap<? extends Group>> joinGroup(String token, String groupName);
 
+    Single<DataWrap<? extends Group>> getGroup(String token, String groupId);
+
 }

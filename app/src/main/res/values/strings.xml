@@ -23,4 +23,6 @@
     <string name="error_save_name">Error saving name</string>
     <string name="error_save_group">Error saving group</string>
     <string name="error_save_avatar">Error saving user avatar</string>
+    <string name="error_get_user">Error fetching user data</string>
+    <string name="error_get_group">Error fetching group</string>
 </resources>

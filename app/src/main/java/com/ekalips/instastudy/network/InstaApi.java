@@ -9,6 +9,7 @@ import com.ekalips.instastudy.network.body.UpdateUserNameBody;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -31,7 +32,10 @@ public interface InstaApi {
     @POST("group/join")
     Call<RemoteGroup> joinToGroup(@Header(AUTH_HEADER) String token, @Query("title") String name);
 
+    @GET("group")
+    Call<RemoteGroup> getGroup(@Header(AUTH_HEADER) String token, @Query("id") String groupId);
+
     @Multipart
-    @POST("user/avatar")
+    @POST("user/me/avatar")
     Call<RemoteUserData> updateAvatar(@Header(AUTH_HEADER) String token, @Part MultipartBody.Part filePart);
 }

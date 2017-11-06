@@ -10,6 +10,7 @@ import com.ekalips.instastudy.di.source_qualifier.Remote;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
@@ -33,18 +34,39 @@ public class GroupDataProviderImpl implements GroupDataProvider {
     @Override
     public Single<DataWrap<? extends Group>> joinGroup(String token, String groupName) {
         return remoteGroupDataProvider.joinGroup(token, groupName)
-                .doOnSuccess(data -> localGroupDataProvider.addToUserGroups(data.getData()))
+                .doOnSuccess(data -> localGroupDataProvider.saveGroup(data.getData()))
                 .doOnSuccess(data -> userDataProvider.markCacheDirty());
     }
 
     @Override
     public Single<DataWrap<? extends Group>> joinGroup(String groupName) {
         return Single.fromObservable(userDataProvider.getUserToken()).flatMap(token -> joinGroup(token, groupName))
-                .doOnSuccess(data -> addToUserGroups(data.getData()));
+                .doOnSuccess(data -> saveGroup(data.getData()));
     }
 
     @Override
-    public void addToUserGroups(Group data) {
-        localGroupDataProvider.addToUserGroups(data);
+    public Single<DataWrap<? extends Group>> getGroup(String groupId) {
+        return localGroupDataProvider.getGroup(groupId);
+    }
+
+    @Override
+    public Single<DataWrap<? extends Group>> getGroup(String token, String groupId) {
+        return remoteGroupDataProvider.getGroup(token, groupId);
+    }
+
+    @Override
+    public Observable<DataWrap<? extends Group>> getGroup(String groupId, boolean fetchRemotely) {
+        if (!fetchRemotely) {
+            return getGroup(groupId).toObservable();
+        } else {
+            return Observable.concat(getGroup(groupId).toObservable(),
+                    userDataProvider.getUserToken().switchMap(token -> getGroup(token, groupId).toObservable())
+                            .doOnNext(data -> saveGroup(data.getData())));
+        }
+    }
+
+    @Override
+    public void saveGroup(Group data) {
+        localGroupDataProvider.saveGroup(data);
     }
 }

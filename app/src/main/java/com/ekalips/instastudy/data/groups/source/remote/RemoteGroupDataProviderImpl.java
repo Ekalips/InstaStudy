@@ -38,4 +38,16 @@ public class RemoteGroupDataProviderImpl implements RemoteGroupDataProvider {
             return null;
         }));
     }
+
+    @Override
+    public Single<DataWrap<? extends Group>> getGroup(String token, String groupId) {
+        return RxUtils.wrapAsIO(Single.fromCallable(() -> {
+            Response<RemoteGroup> response = api.getGroup(token, groupId).execute();
+            if (response.isSuccessful()) {
+                return new DataWrap<>(response.body(), response.code());
+            }
+            errorThrower.throwFromResponse(response);
+            return null;
+        }));
+    }
 }
