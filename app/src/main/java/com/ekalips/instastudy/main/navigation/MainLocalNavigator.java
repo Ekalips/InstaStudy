@@ -8,4 +8,6 @@ public interface MainLocalNavigator {
 
     void navigateToGroupChat(String groupId);
 
+    void navigateToSchedule();
+
 }
