@@ -5,9 +5,12 @@
 
     <data>
 
+        <import type="com.ekalips.instastudy.main.contract.MainActivityContract.Screens" />
+
         <variable
             name="title"
             type="String" />
+
 
         <variable
             name="vm"
@@ -15,9 +18,11 @@
     </data>
 
     <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -53,6 +58,77 @@
 
 
         </android.support.design.widget.CoordinatorLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@drawable/drawer_light_background"
+            android:fitsSystemWindows="true">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/include_header"
+                        layout="@layout/include_drawer_user_header"
+                        app:user="@{vm.user}" />
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="0dp"
+                        android:layout_height="8dp" />
+
+                    <include
+                        layout="@layout/include_drawer_item"
+                        app:checked="@{vm.currentScreen==Screens.GROUP_CHAT}"
+                        app:icon="@{@drawable/ic_chat}"
+                        app:iconTint="@{@color/chat_icon_tint}"
+                        app:text="@{@string/menu_item_chat}" />
+
+                    <include
+                        layout="@layout/include_drawer_item"
+                        app:checked="@{vm.currentScreen==Screens.SCHEDULE}"
+                        app:icon="@{@drawable/ic_event_note}"
+                        app:iconTint="@{@color/schedule_icon_tint}"
+                        app:text="@{@string/menu_item_schedule}" />
+
+                    <include
+                        layout="@layout/include_drawer_item"
+                        app:checked="@{vm.currentScreen==Screens.TEACHERS}"
+                        app:icon="@{@drawable/ic_professor}"
+                        app:iconTint="@{@color/teachers_icon_tint}"
+                        app:text="@{@string/menu_item_teachers}" />
+
+                    <include
+                        layout="@layout/include_drawer_item"
+                        app:checked="@{vm.currentScreen==Screens.FILES}"
+                        app:icon="@{@drawable/ic_folder}"
+                        app:iconTint="@{@color/files_icon_tint}"
+                        app:text="@{@string/menu_item_files}" />
+
+
+                    <include
+                        layout="@layout/include_drawer_item"
+                        app:checked="@{vm.currentScreen==Screens.NOTIFICATIONS}"
+                        app:icon="@{@drawable/ic_notifications}"
+                        app:iconTint="@{@color/notifications_icon_tint}"
+                        app:text="@{@string/menu_item_notifications}" />
+
+
+                </LinearLayout>
+
+            </ScrollView>
+
+
+        </android.support.design.widget.NavigationView>
+
     </android.support.v4.widget.DrawerLayout>
 
 

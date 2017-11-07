@@ -16,4 +16,12 @@
     <color name="gradientEnd">#FFCA4A</color>
     <color name="primaryWhite">#ffffff</color>
     <color name="secondaryWhite">#a0ffffff</color>
+    <color name="darkBlue">#252F38</color>
+    <color name="chat_background">#EDF0FF</color>
+
+    <color name="chat_icon_tint">#FFAF20</color>
+    <color name="schedule_icon_tint">#50E0BD</color>
+    <color name="teachers_icon_tint">#7FD620</color>
+    <color name="files_icon_tint">#A4AAAA</color>
+    <color name="notifications_icon_tint">#D9D315</color>
 </resources>

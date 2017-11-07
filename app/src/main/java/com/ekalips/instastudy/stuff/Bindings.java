@@ -6,11 +6,13 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.ekalips.instastudy.data.groups.Group;
 import com.ekalips.instastudy.stuff.recyclerview.DataSetInterface;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -98,8 +100,13 @@ public class Bindings {
         if (!enabled && view.isAnimationStarted()) {
             view.stopShimmerAnimation();
         }
+    }
 
-
+    @BindingAdapter(("android:text"))
+    public static void setGroupText(TextView textView, Group group) {
+        if (group != null) {
+            textView.setText(group.getTitle());
+        }
     }
 
 }

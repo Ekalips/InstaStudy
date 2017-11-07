@@ -27,4 +27,12 @@
     <string name="error_get_group">Error fetching group</string>
     <string name="error_network">Network error</string>
     <string name="schedule_title">Schedule</string>
+    <string name="openDrawer">Open drawer</string>
+    <string name="closeDrawer">Close drawer</string>
+
+    <string name="menu_item_chat">Group chat</string>
+    <string name="menu_item_schedule">Schedule</string>
+    <string name="menu_item_teachers">Teachers</string>
+    <string name="menu_item_files">Files</string>
+    <string name="menu_item_notifications">Notifications</string>
 </resources>

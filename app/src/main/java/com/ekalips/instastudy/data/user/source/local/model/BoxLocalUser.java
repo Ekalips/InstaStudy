@@ -27,6 +27,7 @@ public class BoxLocalUser implements User {
     private boolean online;
     private int role;
 
+
     public long getBoxId() {
         return boxId;
     }

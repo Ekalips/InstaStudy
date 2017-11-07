@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBarDrawerToggle;
 
 import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.databinding.ActivityMainBinding;
 import com.ekalips.instastudy.main.contract.MainActivityContract;
 import com.ekalips.instastudy.main.navigation.MainLocalNavigator;
 import com.ekalips.instastudy.navigation.NavigateToEnum;
+import com.ekalips.instastudy.stuff.CommonUtils;
 import com.wonderslab.base.BR;
 import com.wonderslab.base.activity.BaseBindingActivity;
 import com.wonderslab.base.event_system.Event;
@@ -57,14 +59,31 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
     @Inject
     MainLocalNavigator localNavigator;
 
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (binding.includeHeader != null) {
+            binding.includeHeader.userHeader.setPadding(binding.includeHeader.userHeader.getPaddingLeft(), CommonUtils.getStatusBarHeight(this),
+                    binding.includeHeader.userHeader.getPaddingRight(), binding.includeHeader.userHeader.getPaddingBottom());
+        }
 
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar, R.string.openDrawer, R.string.closeDrawer);
+        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding.drawerLayout.removeDrawerListener(actionBarDrawerToggle);
     }
 
     @Override
@@ -76,4 +95,6 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
     public void onMenuChange(int menu) {
 
     }
+
+
 }
