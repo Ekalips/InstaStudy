@@ -27,7 +27,6 @@ public class MyApplication extends Application implements HasActivityInjector, H
     @Inject
     DispatchingAndroidInjector<Service> serviceDispatchingAndroidInjector;
 
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,7 +39,6 @@ public class MyApplication extends Application implements HasActivityInjector, H
         if (BuildConfig.DEBUG) {
             initDebugStuff();
         }
-
     }
 
     private void initDebugStuff() {

@@ -66,17 +66,149 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:8858859777882886622",
+      "lastPropertyId": "3:5932287767317098813",
+      "name": "LocalSubject",
+      "properties": [
+        {
+          "id": "1:3069454507453553623",
+          "name": "boxId"
+        },
+        {
+          "id": "2:7301986857303220746",
+          "name": "id"
+        },
+        {
+          "id": "3:5932287767317098813",
+          "name": "title"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:8387115471499431198",
+      "lastPropertyId": "4:3893800964858102488",
+      "name": "LocalLessonDate",
+      "properties": [
+        {
+          "id": "1:7481437522837210919",
+          "name": "boxId"
+        },
+        {
+          "id": "2:2616292713447861702",
+          "name": "day"
+        },
+        {
+          "id": "3:275063735522734197",
+          "name": "ordinal"
+        },
+        {
+          "id": "4:3893800964858102488",
+          "name": "week"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:7026867006066336353",
+      "lastPropertyId": "10:32493063639991886",
+      "name": "BoxLocalUser",
+      "properties": [
+        {
+          "id": "1:8418385090227265266",
+          "name": "boxId"
+        },
+        {
+          "id": "2:4326006336668595305",
+          "name": "token"
+        },
+        {
+          "id": "3:6384618777051422923",
+          "name": "userName"
+        },
+        {
+          "id": "5:6524770504779584949",
+          "name": "userId"
+        },
+        {
+          "id": "6:2749731407452427362",
+          "name": "avatar"
+        },
+        {
+          "id": "7:6195263024761826753",
+          "name": "firebaseToken"
+        },
+        {
+          "id": "8:5389361433049929316",
+          "name": "online"
+        },
+        {
+          "id": "9:8152132245821158657",
+          "name": "role"
+        },
+        {
+          "id": "10:32493063639991886",
+          "name": "phoneNumber"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:3207019322528741160",
+      "lastPropertyId": "9:1811580863973988657",
+      "name": "LocalLesson",
+      "properties": [
+        {
+          "id": "1:1935787294344331437",
+          "name": "boxId"
+        },
+        {
+          "id": "2:4000243580275893547",
+          "name": "location"
+        },
+        {
+          "id": "6:7121575545581167899",
+          "indexId": "4:7201076324717519018",
+          "name": "boxLocalUserToOneId"
+        },
+        {
+          "id": "7:8856218382570951887",
+          "indexId": "5:6785038415668804309",
+          "name": "subjectToOneId"
+        },
+        {
+          "id": "8:361077690824972504",
+          "indexId": "6:4503744015244136679",
+          "name": "localLessonDateToOneId"
+        },
+        {
+          "id": "9:1811580863973988657",
+          "name": "id"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "3:7878173085218514787",
-  "lastIndexId": "0:0",
+  "lastEntityId": "7:3207019322528741160",
+  "lastIndexId": "6:4503744015244136679",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,
   "modelVersionParserMinimum": 4,
   "retiredEntityUids": [],
-  "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredIndexUids": [
+    7767141918956822413,
+    489827995376056744,
+    6802832950087454998
+  ],
+  "retiredPropertyUids": [
+    756376903129490171,
+    1493957868299103045,
+    4703128066112122078,
+    2344716728542839045
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

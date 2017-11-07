@@ -3,7 +3,8 @@ package com.ekalips.instastudy.di.modules;
 import android.content.Context;
 
 import com.ekalips.instastudy.data.groups.source.local.LocalGroup;
-import com.ekalips.instastudy.data.stuff.MyObjectBox;
+import com.ekalips.instastudy.data.lessons.sources.local.models.LocalLesson;
+import com.ekalips.instastudy.data.user.source.local.model.MyObjectBox;
 
 import javax.inject.Singleton;
 
@@ -29,6 +30,12 @@ public class BoxModule {
     @Singleton
     Box<LocalGroup> provideLocalGroupBox(BoxStore boxStore) {
         return boxStore.boxFor(LocalGroup.class);
+    }
+
+    @Provides
+    @Singleton
+    Box<LocalLesson> provideLessonBox(BoxStore boxStore) {
+        return boxStore.boxFor(LocalLesson.class);
     }
 
 }
