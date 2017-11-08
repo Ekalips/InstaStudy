@@ -66,6 +66,11 @@ public class GroupDataProviderImpl implements GroupDataProvider {
     }
 
     @Override
+    public Observable<DataWrap<? extends Group>> getMainGroup(boolean fetchRemotely) {
+        return userDataProvider.getUser(false).switchMap(data -> getGroup(data.getData().getGroups().get(0).getId(), fetchRemotely));
+    }
+
+    @Override
     public void saveGroup(Group data) {
         localGroupDataProvider.saveGroup(data);
     }

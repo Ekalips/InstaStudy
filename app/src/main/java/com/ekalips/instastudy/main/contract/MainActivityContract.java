@@ -28,6 +28,8 @@ public interface MainActivityContract {
         public abstract ObservableField<User> getUser();
 
         public abstract ObservableField<Screens> getCurrentScreen();
+
+        public abstract void navigateTo(Screens screens);
     }
 
     interface FlexibleMainToolbar {

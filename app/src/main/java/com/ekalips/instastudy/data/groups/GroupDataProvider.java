@@ -15,6 +15,8 @@ public interface GroupDataProvider extends LocalGroupDataProvider, RemoteGroupDa
 
     Single<DataWrap<? extends Group>> joinGroup(String groupName);
 
+    Observable<DataWrap<? extends Group>> getMainGroup(boolean fetchRemotely);
+
     Observable<DataWrap<? extends Group>> getGroup(String groupId, boolean fetchRemotely);
 
 }

@@ -66,4 +66,9 @@ public class MainActivityViewModel extends MainActivityContract.ViewModel {
     public ObservableField<MainActivityContract.Screens> getCurrentScreen() {
         return currentScreen;
     }
+
+    @Override
+    public void navigateTo(MainActivityContract.Screens screens) {
+        changeScreen(screens, null);
+    }
 }

@@ -48,9 +48,14 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
 
     @Override
     protected void handleNavigationEvent(EventNavigate eventNavigate) {
+        binding.drawerLayout.closeDrawers();
         switch ((NavigateToEnum) eventNavigate.getNavigationPlace()) {
             case GROUP_CHAT: {
                 localNavigator.navigateToGroupChat((String) eventNavigate.getPayload());
+                break;
+            }
+            case SCHEDULE: {
+                localNavigator.navigateToSchedule();
                 break;
             }
         }

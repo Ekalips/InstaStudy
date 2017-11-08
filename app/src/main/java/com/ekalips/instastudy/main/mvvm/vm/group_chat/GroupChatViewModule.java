@@ -10,6 +10,7 @@ import com.ekalips.instastudy.di.source_qualifier.DataProvider;
 import com.ekalips.instastudy.main.contract.GroupChatScreenContract;
 import com.ekalips.instastudy.main.contract.MainActivityContract;
 import com.ekalips.instastudy.providers.MessagingProvider;
+import com.ekalips.instastudy.stuff.StringUtils;
 import com.wonderslab.base.rx.RxRequests;
 
 import javax.inject.Inject;
@@ -39,7 +40,11 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
 
     @Override
     public void init(String groupId) {
-        request(groupDataProvider.getGroup(groupId, true), data -> setUpGroup(data.getData()), this::onGetGroupError);
+        if (StringUtils.isEmpty(groupId)) {
+            request(groupDataProvider.getMainGroup(true), data -> setUpGroup(data.getData()), this::onGetGroupError);
+        } else {
+            request(groupDataProvider.getGroup(groupId, true), data -> setUpGroup(data.getData()), this::onGetGroupError);
+        }
     }
 
     private void setUpGroup(Group group) {
