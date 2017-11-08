@@ -21,7 +21,7 @@ public class BindingViewHolder<BindingView extends ViewDataBinding> extends Recy
     }
 
     public BindingViewHolder(int layoutRes, ViewGroup parent) {
-        this((BindingView) DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), layoutRes, parent, false));
+        this(DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), layoutRes, parent, false));
     }
 
     public BindingView getBinding() {

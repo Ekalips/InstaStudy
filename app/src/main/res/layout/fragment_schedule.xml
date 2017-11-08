@@ -1,4 +1,13 @@
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.ekalips.instastudy.stuff.LessonUtils" />
+
+        <variable
+            name="vm"
+            type="com.ekalips.instastudy.main.contract.ScheduleScreenContract.ViewModel" />
+    </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -6,6 +15,35 @@
         android:layout_height="match_parent"
         tools:context="com.ekalips.instastudy.main.mvvm.view.schedule.ScheduleFragment">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingBottom="54dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="54dp"
+            app:layoutManager="LinearLayoutManager"
+            app:src="@{vm.lessons}"
+            tools:listitem="@layout/rv_item_lesson_card" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:alpha="0.7"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{() -> vm.switchWeek()}"
+            android:text="@{LessonUtils.getWeekName(context, vm.weekType)}"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textSize="12sp"
+            tools:text="Chislitel" />
 
     </FrameLayout>
 </layout>

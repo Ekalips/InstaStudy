@@ -86,6 +86,8 @@ dependencies {
 
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 
+    implementation 'com.google.android:flexbox:0.3.1'
+
     implementation project(path: ':base')
 
     testImplementation 'junit:junit:4.12'

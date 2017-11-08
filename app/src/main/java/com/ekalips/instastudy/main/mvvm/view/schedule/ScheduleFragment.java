@@ -4,11 +4,13 @@ package com.ekalips.instastudy.main.mvvm.view.schedule;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearSnapHelper;
 
 import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.databinding.FragmentScheduleBinding;
 import com.ekalips.instastudy.main.contract.MainActivityContract;
 import com.ekalips.instastudy.main.contract.ScheduleScreenContract;
+import com.ekalips.instastudy.main.mvvm.model.LessonCardRecyclerViewAdapter;
 import com.wonderslab.base.BR;
 import com.wonderslab.base.event_system.Event;
 import com.wonderslab.base.event_system.EventNavigate;
@@ -21,6 +23,7 @@ import javax.inject.Inject;
  */
 public class ScheduleFragment extends BaseBindingFragment<FragmentScheduleBinding, ScheduleScreenContract.View, ScheduleScreenContract.ViewModel> implements ScheduleScreenContract.View {
 
+    private static final String TAG = ScheduleFragment.class.getSimpleName();
 
     public static ScheduleFragment newInstance() {
         Bundle args = new Bundle();
@@ -57,9 +60,18 @@ public class ScheduleFragment extends BaseBindingFragment<FragmentScheduleBindin
     @Inject
     MainActivityContract.FlexibleMainToolbar flexibleMainToolbar;
 
+    private final LinearSnapHelper snapHelper = new LinearSnapHelper();
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         flexibleMainToolbar.onToolbarTitleChange(getString(R.string.schedule_title));
+    }
+
+    @Override
+    public void onBindingReady(FragmentScheduleBinding binding) {
+        super.onBindingReady(binding);
+        binding.recyclerView.setAdapter(new LessonCardRecyclerViewAdapter());
+        snapHelper.attachToRecyclerView(binding.recyclerView);
     }
 }

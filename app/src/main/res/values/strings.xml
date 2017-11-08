@@ -35,4 +35,6 @@
     <string name="menu_item_teachers">Teachers</string>
     <string name="menu_item_files">Files</string>
     <string name="menu_item_notifications">Notifications</string>
+    <string name="week_odd">Odd</string>
+    <string name="week_even">Even</string>
 </resources>
