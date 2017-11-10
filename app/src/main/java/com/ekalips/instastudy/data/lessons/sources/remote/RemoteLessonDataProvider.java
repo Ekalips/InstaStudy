@@ -12,6 +12,6 @@ import io.reactivex.Single;
 
 public interface RemoteLessonDataProvider {
 
-    Single<List<? extends Lesson>> getLessons(String token);
+    Single<List<? extends Lesson>> getLessons(String token, String groupId);
 
 }

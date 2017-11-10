@@ -44,18 +44,19 @@ public class LessonDataProviderImpl implements LessonsDataProvider {
     }
 
     @Override
-    public Single<List<? extends Lesson>> getLessons(String token) {
-        return remoteLessonDataProvider.getLessons(token);
+    public Single<List<? extends Lesson>> getLessons(String token, String groupId) {
+        return remoteLessonDataProvider.getLessons(token, groupId);
     }
 
     @Override
     public Observable<List<? extends Lesson>> getLessons(boolean fetchRemotely) {
-        return Observable.fromCallable(this::getTestLessons);
-//        if (fetchRemotely) {
-//            return Observable.concat(getLessons().toObservable(), userDataProvider.getUserToken().flatMap(token -> getLessons(token).toObservable()));
-//        } else {
-//            return getLessons().toObservable();
-//        }
+//        return Observable.fromCallable(this::getTestLessons);
+        if (fetchRemotely) {
+            return Observable.concat(getLessons().toObservable(), userDataProvider.getUser()
+                    .flatMap(user -> getLessons(user.getData().getToken(), user.getData().getGroups().get(0).getId()).toObservable()));
+        } else {
+            return getLessons().toObservable();
+        }
     }
 
     private List<? extends Lesson> getTestLessons() {

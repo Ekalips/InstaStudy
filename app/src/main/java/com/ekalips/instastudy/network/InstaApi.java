@@ -1,12 +1,15 @@
 package com.ekalips.instastudy.network;
 
 import com.ekalips.instastudy.data.groups.source.remote.RemoteGroup;
+import com.ekalips.instastudy.data.lessons.sources.remote.models.RemoteLesson;
 import com.ekalips.instastudy.data.messages.sources.remote.RemoteMessage;
 import com.ekalips.instastudy.data.user.source.network.model.RemoteUserData;
 import com.ekalips.instastudy.data.user.source.network.model.RemoteUserDataWrap;
 import com.ekalips.instastudy.network.body.LoginBody;
 import com.ekalips.instastudy.network.body.UpdateUserNameBody;
 import com.ekalips.instastudy.network.response.PaginatedListResponse;
+
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -42,6 +45,9 @@ public interface InstaApi {
     @POST("user/me/avatar")
     Call<RemoteUserData> updateAvatar(@Header(AUTH_HEADER) String token, @Part MultipartBody.Part filePart);
 
-    @GET("group/{group_id/chat")
+    @GET("group/{group_id}/chat")
     Call<PaginatedListResponse<RemoteMessage>> getMessages(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Query("offset") int offset, @Query("limit") int limit);
+
+    @GET("group/{group_id}/schedule")
+    Call<List<RemoteLesson>> getLessons(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId);
 }
