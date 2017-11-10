@@ -33,6 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
@@ -41,18 +42,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
+                android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="@{lesson.subject.title}"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="@color/textColorPrimary"
                 app:autoSizeMaxTextSize="20sp"
-                app:autoSizeMinTextSize="6sp"
+                app:autoSizeMinTextSize="10sp"
                 app:autoSizeTextType="uniform"
                 tools:text="Lesson Name" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="@{lesson.teacher.userName}"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
