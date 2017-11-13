@@ -17,5 +17,5 @@ public class Const {
     public static final int MAX_GROUP_NUMBER_LENGTH = 1;
 
     public static final int MAX_DAYS = 5;
-    public static final int MAX_LESSONS = 5;
+    public static final int MAX_LESSONS = 6;
 }

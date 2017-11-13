@@ -12,6 +12,7 @@ import com.ekalips.instastudy.main.contract.MainActivityContract;
 import com.ekalips.instastudy.main.navigation.MainLocalNavigator;
 import com.ekalips.instastudy.navigation.NavigateToEnum;
 import com.ekalips.instastudy.stuff.CommonUtils;
+import com.ekalips.instastudy.stuff.ObservableString;
 import com.wonderslab.base.BR;
 import com.wonderslab.base.activity.BaseBindingActivity;
 import com.wonderslab.base.event_system.Event;
@@ -25,6 +26,8 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
     public static Intent getIntentFor(Context context) {
         return new Intent(context, MainActivity.class);
     }
+
+    private final ObservableString title = new ObservableString("");
 
     @Override
     public int layoutResId() {
@@ -70,6 +73,8 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        binding.setTitle(title);
+
         if (binding.includeHeader != null) {
             binding.includeHeader.userHeader.setPadding(binding.includeHeader.userHeader.getPaddingLeft(), CommonUtils.getStatusBarHeight(this),
                     binding.includeHeader.userHeader.getPaddingRight(), binding.includeHeader.userHeader.getPaddingBottom());
@@ -93,7 +98,7 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
 
     @Override
     public void onToolbarTitleChange(String title) {
-        binding.setTitle(title);
+        this.title.set(title);
     }
 
     @Override

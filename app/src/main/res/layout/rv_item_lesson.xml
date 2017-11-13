@@ -16,9 +16,10 @@
         android:layout_height="wrap_content"
         android:background="@{LessonUtils.getBackgroundColorForWeekType(context, lesson.date.week)}"
         android:gravity="center"
+        android:minHeight="64dp"
         android:orientation="horizontal"
-        android:padding="16dp"
-        app:layout_flexGrow="1">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <TextView
             android:layout_width="wrap_content"

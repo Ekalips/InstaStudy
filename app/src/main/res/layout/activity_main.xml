@@ -9,7 +9,7 @@
 
         <variable
             name="title"
-            type="String" />
+            type="com.ekalips.instastudy.stuff.ObservableString" />
 
 
         <variable

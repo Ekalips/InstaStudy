@@ -68,27 +68,39 @@ public class ScheduleScreenViewModel extends ScheduleScreenContract.ViewModel {
         evenLessons.clear();
         this.lessons.get().clear();
 
-        for (int i = 0; i < Const.MAX_DAYS; i++) {
-            evenLessons.put(i, new SparseArray<>());
-            oddLessons.put(i, new SparseArray<>());
-            for (int j = 0; j < Const.MAX_LESSONS; j++) {
-                evenLessons.get(i).put(j, new DummyLesson());
-                oddLessons.get(i).put(j, new DummyLesson());
-            }
-        }
+//        for (int i = 0; i < Const.MAX_DAYS; i++) {
+//            evenLessons.put(i, new SparseArray<>());
+//            oddLessons.put(i, new SparseArray<>());
+//            for (int j = 0; j < Const.MAX_LESSONS; j++) {
+//                evenLessons.get(i).put(j, new DummyLesson());
+//                oddLessons.get(i).put(j, new DummyLesson());
+//            }
+//        }
 
         for (Lesson lesson :
                 lessons) {
             switch (WeekType.fromType(lesson.getDate().getWeek())) {
                 case ODD: {
+                    if (oddLessons.get(lesson.getDate().getDay(), null) == null) {
+                        oddLessons.put(lesson.getDate().getDay(), new SparseArray<>());
+                    }
                     oddLessons.get(lesson.getDate().getDay()).put(lesson.getDate().getOrdinal(), lesson);
                     break;
                 }
                 case EVEN: {
+                    if (evenLessons.get(lesson.getDate().getDay(), null) == null) {
+                        evenLessons.put(lesson.getDate().getDay(), new SparseArray<>());
+                    }
                     evenLessons.get(lesson.getDate().getDay()).put(lesson.getDate().getOrdinal(), lesson);
                     break;
                 }
                 case ANY: {
+                    if (evenLessons.get(lesson.getDate().getDay(), null) == null) {
+                        evenLessons.put(lesson.getDate().getDay(), new SparseArray<>());
+                    }
+                    if (oddLessons.get(lesson.getDate().getDay(), null) == null) {
+                        oddLessons.put(lesson.getDate().getDay(), new SparseArray<>());
+                    }
                     oddLessons.get(lesson.getDate().getDay()).put(lesson.getDate().getOrdinal(), lesson);
                     evenLessons.get(lesson.getDate().getDay()).put(lesson.getDate().getOrdinal(), lesson);
                     break;
@@ -114,15 +126,29 @@ public class ScheduleScreenViewModel extends ScheduleScreenContract.ViewModel {
     }
 
     private List<LessonDay> getWeekScheduleFrom(SparseArray<SparseArray<? super Lesson>> weekLessons) {
+        int maxLessonsNumber = 0;
         List<LessonDay> list = new ArrayList<>();
-        for (int i = 0; i < Const.MAX_DAYS; i++) {
+        for (int i = 0; i < weekLessons.size(); i++) {
+            int key = weekLessons.keyAt(i);
             List<? super Lesson> lessonsForList = new ArrayList<>();
-            SparseArray<? super Lesson> lessonDay = weekLessons.get(i, new SparseArray<>());
+            SparseArray<? super Lesson> lessonDay = weekLessons.get(key, new SparseArray<>());
             for (int j = 0; j < Const.MAX_LESSONS; j++) {
                 Lesson lesson = (Lesson) lessonDay.get(j, new DummyLesson());
                 lessonsForList.add(lesson);
+                if (!(lesson instanceof DummyLesson) && j > maxLessonsNumber) {
+                    maxLessonsNumber = j;
+                }
             }
-            list.add(new LessonDay(CommonUtils.getDayName(i + 2), lessonsForList));
+            list.add(new LessonDay(CommonUtils.getDayName(key + 2), lessonsForList));
+        }
+
+        for (LessonDay day :
+                list) {
+            for (int i = day.getLessons().size() - 1; i >= 0; i--) {
+                if (i > maxLessonsNumber) {
+                    day.getLessons().remove(i);
+                }
+            }
         }
         return list;
     }
