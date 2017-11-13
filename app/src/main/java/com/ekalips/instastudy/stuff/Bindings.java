@@ -3,8 +3,8 @@ package com.ekalips.instastudy.stuff;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,11 +13,9 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ekalips.instastudy.data.groups.Group;
-import com.ekalips.instastudy.stuff.recyclerview.DataSetInterface;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * Created by Ekalips on 10/3/17.
@@ -33,14 +31,6 @@ public class Bindings {
     @BindingAdapter({"android:visibility"})
     public static void setVisibility(View view, boolean visible) {
         view.setVisibility(visible ? View.VISIBLE : View.GONE);
-    }
-
-    @BindingAdapter({"src"})
-    @SuppressWarnings("all")
-    public static void setDataToRecyclerView(RecyclerView recyclerView, List data) {
-        if (data != null && recyclerView.getAdapter() instanceof DataSetInterface) {
-            ((DataSetInterface) recyclerView.getAdapter()).setData(data);
-        }
     }
 
     @BindingAdapter({"src"})
@@ -106,6 +96,14 @@ public class Bindings {
     public static void setGroupText(TextView textView, Group group) {
         if (group != null) {
             textView.setText(group.getTitle());
+        }
+    }
+
+    @BindingAdapter("android:layout_gravity")
+    public static void setGravityToView(View view, int gravity) {
+        if (view.getLayoutParams() instanceof FrameLayout.LayoutParams) {
+            ((FrameLayout.LayoutParams) view.getLayoutParams()).gravity = gravity;
+            view.requestLayout();
         }
     }
 

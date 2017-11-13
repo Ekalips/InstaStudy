@@ -37,4 +37,5 @@
     <string name="menu_item_notifications">Notifications</string>
     <string name="week_odd">Odd</string>
     <string name="week_even">Even</string>
+    <string name="hint_enter_message">Say something...</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.ekalips.instastudy.stuff.recyclerview;
+package com.wonderslab.base.recyclerview;
 
 import java.util.List;
 

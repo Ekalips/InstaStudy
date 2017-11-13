@@ -1,4 +1,4 @@
-package com.ekalips.instastudy.stuff.recyclerview;
+package com.wonderslab.base.recyclerview;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
@@ -44,5 +44,16 @@ public abstract class BindingRecyclerViewAdapter<BindingView extends ViewDataBin
     public List<DataType> getData() {
         return data;
     }
+
+    //    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BindingViewHolder<BindingView> =
+//            BindingViewHolder(layoutRes, parent)
+//
+//    override fun setData(data: List<DataType>?) {
+//        this.data.clear()
+//        if (data != null) {
+//            this.data += data
+//        }
+//        notifyDataSetChanged()
+//    }
 
 }

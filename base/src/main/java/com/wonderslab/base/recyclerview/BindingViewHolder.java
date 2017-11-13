@@ -1,4 +1,4 @@
-package com.ekalips.instastudy.stuff.recyclerview;
+package com.wonderslab.base.recyclerview;
 
 
 import android.databinding.DataBindingUtil;
@@ -21,7 +21,7 @@ public class BindingViewHolder<BindingView extends ViewDataBinding> extends Recy
     }
 
     public BindingViewHolder(int layoutRes, ViewGroup parent) {
-        this(DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), layoutRes, parent, false));
+        this((BindingView) DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), layoutRes, parent, false));
     }
 
     public BindingView getBinding() {

@@ -57,7 +57,6 @@ dependencies {
     implementation "com.firebaseui:firebase-ui-auth:$firebaseUIVersion"
 
 
-    implementation 'com.android.support:support-v4:26.1.0'
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
 
@@ -78,7 +77,8 @@ dependencies {
     implementation "com.facebook.stetho:stetho:$stechoVersion"
     implementation "com.facebook.stetho:stetho-okhttp3:$stechoVersion"
 
-    implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
+//    implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
+    implementation "com.mikhaellopez:circularimageview:$circleImageViewVersion"
 
     implementation "com.amulyakhare:com.amulyakhare.textdrawable:$textDrawableVersion"
 

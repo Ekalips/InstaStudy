@@ -1,6 +1,6 @@
 package com.ekalips.instastudy.data.messages;
 
-import com.ekalips.instastudy.data.other_user.OtherUser;
+import com.ekalips.instastudy.data.user.User;
 
 /**
  * Created by Ekalips on 11/6/17.
@@ -16,7 +16,7 @@ public interface Message {
 
     int getType();
 
-    OtherUser getAuthor();
+    User getAuthor();
 
     boolean isMine();
 

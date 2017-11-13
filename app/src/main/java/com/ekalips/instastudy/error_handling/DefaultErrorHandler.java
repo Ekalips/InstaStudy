@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.error_handling.throwables.ServerErrorException;
-import com.ekalips.instastudy.providers.MessagingProvider;
+import com.ekalips.instastudy.providers.ToastProvider;
 
 import java.io.IOException;
 
@@ -19,11 +19,11 @@ import io.reactivex.exceptions.OnErrorNotImplementedException;
 public class DefaultErrorHandler implements com.wonderslab.base.rx.DefaultErrorHandler {
 
     private static final String TAG = DefaultErrorHandler.class.getSimpleName();
-    private final MessagingProvider messagingProvider;
+    private final ToastProvider toastProvider;
 
     @Inject
-    public DefaultErrorHandler(MessagingProvider messagingProvider) {
-        this.messagingProvider = messagingProvider;
+    public DefaultErrorHandler(ToastProvider toastProvider) {
+        this.toastProvider = toastProvider;
     }
 
     @Override
@@ -33,13 +33,13 @@ public class DefaultErrorHandler implements com.wonderslab.base.rx.DefaultErrorH
         }
 
         if (throwable instanceof ServerErrorException) {
-            messagingProvider.showToast(R.string.error_server);
+            toastProvider.showToast(R.string.error_server);
             return true;
         }
 
         if (throwable instanceof IOException) {
             Log.e(TAG, "handleError: ", throwable);
-            messagingProvider.showToast(R.string.error_network);
+            toastProvider.showToast(R.string.error_network);
             return true;
         }
 

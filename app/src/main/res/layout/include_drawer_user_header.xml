@@ -22,7 +22,7 @@
         android:paddingRight="16dp"
         android:theme="@style/Base.ThemeOverlay.AppCompat.Dark">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:layout_width="78dp"
             android:layout_height="78dp"
             android:elevation="4dp"
@@ -30,7 +30,7 @@
             app:civ_border_width="2dp"
             app:src="@{user.avatar}"
             app:text="@{user.userName}"
-            tools:src="@color/colorPrimary" />
+            tools:src="@drawable/user_icon" />
 
         <android.support.v4.widget.Space
             android:layout_width="16dp"

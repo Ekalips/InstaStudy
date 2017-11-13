@@ -49,12 +49,12 @@
             android:layout_width="0dp"
             android:layout_height="16dp" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:layout_width="180dp"
             android:layout_height="180dp"
-            android:elevation="2dp"
             app:file="@{vm.selectedImage}"
             app:placeholder="@{@drawable/user_icon}"
+            app:civ_shadow="true"
             tools:src="@drawable/user_icon" />
 
         <android.support.v4.widget.Space

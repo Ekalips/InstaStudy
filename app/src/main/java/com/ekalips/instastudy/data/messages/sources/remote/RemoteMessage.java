@@ -1,8 +1,8 @@
 package com.ekalips.instastudy.data.messages.sources.remote;
 
 import com.ekalips.instastudy.data.messages.Message;
-import com.ekalips.instastudy.data.other_user.OtherUser;
-import com.ekalips.instastudy.data.other_user.RemoteOtherUser;
+import com.ekalips.instastudy.data.user.User;
+import com.ekalips.instastudy.data.user.source.network.model.RemoteUserData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -15,19 +15,19 @@ public class RemoteMessage implements Message {
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("message")
+    @SerializedName("text")
     @Expose
     private String message;
-    @SerializedName("createdAt")
+    @SerializedName("timestamp")
     @Expose
     private long date;
     @SerializedName("type")
     @Expose
     private int type;
-    @SerializedName("sender")
+    @SerializedName("from")
     @Expose
-    private RemoteOtherUser sender;
-    @SerializedName("isMine")
+    private RemoteUserData sender;
+    @SerializedName("isMe")
     @Expose
     private boolean mine;
 
@@ -52,7 +52,7 @@ public class RemoteMessage implements Message {
     }
 
     @Override
-    public OtherUser getAuthor() {
+    public User getAuthor() {
         return sender;
     }
 

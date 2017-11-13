@@ -11,11 +11,11 @@ import java.util.List;
 
 public class PaginatedListResponse<T> {
 
-    @SerializedName("totalCount")
+    @SerializedName("count")
     @Expose
     private int count;
 
-    @SerializedName("data")
+    @SerializedName("items")
     @Expose
     private List<T> data;
 

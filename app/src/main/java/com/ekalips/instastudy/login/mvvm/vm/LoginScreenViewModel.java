@@ -11,7 +11,7 @@ import com.ekalips.instastudy.data.user.UserDataProvider;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
 import com.ekalips.instastudy.login.LoginScreenContract;
 import com.ekalips.instastudy.navigation.NavigateToEnum;
-import com.ekalips.instastudy.providers.MessagingProvider;
+import com.ekalips.instastudy.providers.ToastProvider;
 import com.ekalips.instastudy.providers.firebase_login.FirebaseLoginProvider;
 import com.ekalips.instastudy.stuff.StringUtils;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,16 +29,16 @@ public class LoginScreenViewModel extends LoginScreenContract.ViewModel {
 
     private final FirebaseLoginProvider firebaseLoginProvider;
     private final UserDataProvider userDataProvider;
-    private final MessagingProvider messagingProvider;
+    private final ToastProvider toastProvider;
 
     private final ObservableBoolean inProgress = new ObservableBoolean(false);
 
     @Inject
-    public LoginScreenViewModel(FirebaseLoginProvider loginProvider, @DataProvider UserDataProvider userDataProvider, RxRequests rxRequests, MessagingProvider messagingProvider) {
+    public LoginScreenViewModel(FirebaseLoginProvider loginProvider, @DataProvider UserDataProvider userDataProvider, RxRequests rxRequests, ToastProvider toastProvider) {
         super(rxRequests);
         this.firebaseLoginProvider = loginProvider;
         this.userDataProvider = userDataProvider;
-        this.messagingProvider = messagingProvider;
+        this.toastProvider = toastProvider;
         this.firebaseLoginProvider.setLoginCallbacks(loginCallbacks);
     }
 
@@ -97,7 +97,7 @@ public class LoginScreenViewModel extends LoginScreenContract.ViewModel {
 
     private void onGetFirebaseUserIdTokenError(@Nullable Exception exception) {
         Log.e(TAG, "onGetFirebaseUserIdTokenError: ", exception);
-        messagingProvider.showToast(R.string.error_login);
+        toastProvider.showToast(R.string.error_login);
     }
 
     private void handleLoginSuccess(DataWrap<? extends User> dataWrap) {
@@ -110,7 +110,7 @@ public class LoginScreenViewModel extends LoginScreenContract.ViewModel {
     }
 
     private void handleLoginError(Throwable throwable) {
-        messagingProvider.showToast(R.string.error_login);
+        toastProvider.showToast(R.string.error_login);
     }
 
     private void navigateToRegistrationActivity() {

@@ -5,11 +5,11 @@ import android.view.ViewGroup;
 
 import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.databinding.RvItemLessonCardBinding;
-import com.ekalips.instastudy.stuff.recyclerview.BindingRecyclerViewAdapter;
-import com.ekalips.instastudy.stuff.recyclerview.BindingViewHolder;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
+import com.wonderslab.base.recyclerview.BindingRecyclerViewAdapter;
+import com.wonderslab.base.recyclerview.BindingViewHolder;
 
 /**
  * Created by Ekalips on 11/8/17.

@@ -38,7 +38,8 @@
         <activity
             android:name=".registration.mvvm.view.RegistrationActivity"
             android:theme="@style/AppThemeGradient" />
-        <activity android:name=".main.mvvm.view.MainActivity"></activity>
+        <activity android:name=".main.mvvm.view.MainActivity"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

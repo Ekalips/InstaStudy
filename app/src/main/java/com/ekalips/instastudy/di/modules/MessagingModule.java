@@ -2,7 +2,7 @@ package com.ekalips.instastudy.di.modules;
 
 import android.content.Context;
 
-import com.ekalips.instastudy.providers.MessagingProvider;
+import com.ekalips.instastudy.providers.ToastProvider;
 
 import javax.inject.Singleton;
 
@@ -18,8 +18,8 @@ public class MessagingModule {
 
     @Provides
     @Singleton
-    MessagingProvider provideMessager(Context context) {
-        return new MessagingProvider(context);
+    ToastProvider provideMessager(Context context) {
+        return new ToastProvider(context);
     }
 
 }

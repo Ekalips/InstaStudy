@@ -5,9 +5,9 @@ import android.view.ViewGroup;
 import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.data.lessons.models.Lesson;
 import com.ekalips.instastudy.databinding.RvItemLessonBinding;
-import com.ekalips.instastudy.stuff.recyclerview.BindingRecyclerViewAdapter;
-import com.ekalips.instastudy.stuff.recyclerview.BindingViewHolder;
 import com.google.android.flexbox.FlexboxLayoutManager;
+import com.wonderslab.base.recyclerview.BindingRecyclerViewAdapter;
+import com.wonderslab.base.recyclerview.BindingViewHolder;
 
 /**
  * Created by Ekalips on 11/8/17.

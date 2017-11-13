@@ -10,12 +10,12 @@ import javax.inject.Inject;
  * Created by Ekalips on 10/3/17.
  */
 
-public class MessagingProvider {
+public class ToastProvider {
 
     private final Context context;
 
     @Inject
-    public MessagingProvider(Context context) {
+    public ToastProvider(Context context) {
         this.context = context;
     }
 

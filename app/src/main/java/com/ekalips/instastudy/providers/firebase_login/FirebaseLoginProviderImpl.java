@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
-import com.ekalips.instastudy.providers.MessagingProvider;
+import com.ekalips.instastudy.providers.ToastProvider;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,16 +28,16 @@ public class FirebaseLoginProviderImpl implements FirebaseLoginProvider {
     private final AuthUI authUI;
     private FragmentActivity parentActivity;
 
-    private final MessagingProvider messagingProvider;
+    private final ToastProvider toastProvider;
 
     @Nullable
     private LoginCallbacks loginCallbacks;
 
     @Inject
-    public FirebaseLoginProviderImpl(FirebaseAuth firebaseAuth, AuthUI authUI, MessagingProvider messagingProvider, FragmentActivity parentActivity) {
+    public FirebaseLoginProviderImpl(FirebaseAuth firebaseAuth, AuthUI authUI, ToastProvider toastProvider, FragmentActivity parentActivity) {
         this.firebaseAuth = firebaseAuth;
         this.authUI = authUI;
-        this.messagingProvider = messagingProvider;
+        this.toastProvider = toastProvider;
         this.parentActivity = parentActivity;
 
         firebaseAuth.addAuthStateListener(authStateListener);

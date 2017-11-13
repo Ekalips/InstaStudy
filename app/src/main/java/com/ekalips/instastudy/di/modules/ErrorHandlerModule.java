@@ -1,7 +1,7 @@
 package com.ekalips.instastudy.di.modules;
 
 import com.ekalips.instastudy.error_handling.ErrorThrower;
-import com.ekalips.instastudy.providers.MessagingProvider;
+import com.ekalips.instastudy.providers.ToastProvider;
 import com.wonderslab.base.rx.DefaultErrorHandler;
 
 import javax.inject.Singleton;
@@ -24,8 +24,8 @@ public class ErrorHandlerModule {
 
     @Provides
     @Singleton
-    DefaultErrorHandler providerDefaultHandler(MessagingProvider messagingProvider) {
-        return new com.ekalips.instastudy.error_handling.DefaultErrorHandler(messagingProvider);
+    DefaultErrorHandler providerDefaultHandler(ToastProvider toastProvider) {
+        return new com.ekalips.instastudy.error_handling.DefaultErrorHandler(toastProvider);
     }
 
 }

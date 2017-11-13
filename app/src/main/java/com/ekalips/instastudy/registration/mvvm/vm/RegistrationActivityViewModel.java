@@ -8,7 +8,7 @@ import com.ekalips.instastudy.data.groups.GroupDataProvider;
 import com.ekalips.instastudy.data.user.UserDataProvider;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
 import com.ekalips.instastudy.navigation.NavigateToEnum;
-import com.ekalips.instastudy.providers.MessagingProvider;
+import com.ekalips.instastudy.providers.ToastProvider;
 import com.ekalips.instastudy.registration.contract.RegistrationActivityContract;
 import com.ekalips.instastudy.registration.mvvm.model.FillDataObservable;
 import com.ekalips.instastudy.registration.rules.CredentialsValidator;
@@ -31,7 +31,7 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
 
     private final UserDataProvider userDataProvider;
     private final GroupDataProvider groupDataProvider;
-    private final MessagingProvider messagingProvider;
+    private final ToastProvider toastProvider;
 
     private boolean isNameSet = false;
     private final ObservableBoolean inProgress = new ObservableBoolean(false);
@@ -39,12 +39,12 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
 
     @Inject
     public RegistrationActivityViewModel(CredentialsValidator credentialsValidator, @DataProvider UserDataProvider userDataProvider,
-                                         @DataProvider GroupDataProvider groupDataProvider, RxRequests rxRequests, MessagingProvider messagingProvider) {
+                                         @DataProvider GroupDataProvider groupDataProvider, RxRequests rxRequests, ToastProvider toastProvider) {
         super(rxRequests);
         this.credentialsValidator = credentialsValidator;
         this.groupDataProvider = groupDataProvider;
         this.userDataProvider = userDataProvider;
-        this.messagingProvider = messagingProvider;
+        this.toastProvider = toastProvider;
         navigateTo(NavigateToEnum.FILL_DATA, null);
     }
 
@@ -84,7 +84,7 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
     private void onSaveNameError(Throwable throwable) {
         Log.e(TAG, "onSaveNameError: ", throwable);
         inProgress.set(false);
-        messagingProvider.showToast(R.string.error_save_name);
+        toastProvider.showToast(R.string.error_save_name);
     }
 
     private void sendGroup(String group) {
@@ -99,7 +99,7 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
     private void onSendGroupError(Throwable throwable) {
         Log.e(TAG, "onSendGroupError: ", throwable);
         inProgress.set(false);
-        messagingProvider.showToast(R.string.error_save_group);
+        toastProvider.showToast(R.string.error_save_group);
     }
 
     private synchronized void checkAndNavigateToImageSetting() {
@@ -121,7 +121,7 @@ public class RegistrationActivityViewModel extends RegistrationActivityContract.
 
     private void onImageSetError(Throwable throwable) {
         Log.e(TAG, "onImageSetError: ", throwable);
-        messagingProvider.showToast(R.string.error_save_avatar);
+        toastProvider.showToast(R.string.error_save_avatar);
     }
 
     @Override
