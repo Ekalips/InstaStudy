@@ -17,6 +17,13 @@ import java.util.List;
  */
 
 public class MessagesRecyclerViewAdapter extends PaginatedRecyclerViewAdapter<RvItemMessageBinding, Message> {
+
+    private String myUserId = "";
+
+    public MessagesRecyclerViewAdapter(@Nullable PaginatedListCallbacks callbacks) {
+        super(callbacks);
+    }
+
     @Override
     public int getLayoutRes() {
         return R.layout.rv_item_message;
@@ -24,13 +31,16 @@ public class MessagesRecyclerViewAdapter extends PaginatedRecyclerViewAdapter<Rv
 
     @Override
     public void onBindRegularHolder(BindingViewHolder<RvItemMessageBinding> holder, int position) {
+        Message currentMessage = getData().get(holder.getAdapterPosition());
+
         holder.getBinding().setMessage(getData().get(holder.getAdapterPosition()));
+        holder.getBinding().setIsMe(TextUtils.equals(myUserId, currentMessage.getAuthor() != null ? currentMessage.getAuthor().getUserId() : null));
 
-        Message thisMessage = safeGet(holder.getAdapterPosition());
-        Message nextMessage = safeGet(holder.getAdapterPosition() + 1);
 
-        if (thisMessage != null && nextMessage != null && thisMessage.getAuthor() != null && nextMessage.getAuthor() != null
-                && TextUtils.equals(thisMessage.getAuthor().getUserId(), nextMessage.getAuthor().getUserId())) {
+        Message nextMessage = safeGet(holder.getAdapterPosition() - 1);
+
+        if (nextMessage != null && currentMessage.getAuthor() != null && nextMessage.getAuthor() != null
+                && TextUtils.equals(currentMessage.getAuthor().getUserId(), nextMessage.getAuthor().getUserId())) {
             holder.getBinding().setShowAvatar(false);
         } else {
             holder.getBinding().setShowAvatar(true);
@@ -42,6 +52,11 @@ public class MessagesRecyclerViewAdapter extends PaginatedRecyclerViewAdapter<Rv
     @Nullable
     private Message safeGet(int position) {
         return position < getData().size() && position > 0 ? getData().get(position) : null;
+    }
+
+    public void setMyUserId(String myUserId) {
+        this.myUserId = myUserId;
+        setData(getData());
     }
 
     @Override

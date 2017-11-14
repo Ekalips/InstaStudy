@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class RemoteMessage implements Message {
 
-    @SerializedName("_id")
+    @SerializedName(value = "_id", alternate = "messageId")
     @Expose
     private String id;
     @SerializedName("text")

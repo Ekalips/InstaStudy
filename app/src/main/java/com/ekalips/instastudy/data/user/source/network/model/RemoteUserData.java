@@ -23,7 +23,7 @@ public class RemoteUserData implements User {
     @SerializedName("phone")
     @Expose
     private String number;
-    @SerializedName("_id")
+    @SerializedName(value = "_id", alternate = "userId")
     @Expose
     private String userId;
     @SerializedName("avatar")

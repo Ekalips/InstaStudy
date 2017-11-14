@@ -9,6 +9,7 @@ import com.ekalips.instastudy.data.groups.Group;
 import com.ekalips.instastudy.data.groups.GroupDataProvider;
 import com.ekalips.instastudy.data.messages.Message;
 import com.ekalips.instastudy.data.messages.MessageDataProvider;
+import com.ekalips.instastudy.data.user.UserDataProvider;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
 import com.ekalips.instastudy.firebase.firebase_handler.events.NewMessageEvent;
 import com.ekalips.instastudy.main.contract.GroupChatScreenContract;
@@ -16,6 +17,7 @@ import com.ekalips.instastudy.main.contract.MainActivityContract;
 import com.ekalips.instastudy.network.response.PaginatedListResponse;
 import com.ekalips.instastudy.providers.ToastProvider;
 import com.ekalips.instastudy.stuff.Const;
+import com.ekalips.instastudy.stuff.ObservableString;
 import com.ekalips.instastudy.stuff.StringUtils;
 import com.ekalips.instastudy.stuff.lists.EqualableArrayList;
 import com.ekalips.instastudy.stuff.lists.MessageEqualator;
@@ -42,10 +44,12 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
     private final GroupDataProvider groupDataProvider;
     private final MessageDataProvider messageDataProvider;
     private final ToastProvider toastProvider;
+    private final UserDataProvider userDataProvider;
 
     private final ObservableField<Group> group = new ObservableField<>(null);
     private final ObservableInt totalMessagesCount = new ObservableInt(0);
     private final ObservableField<List<Message>> messages = new ObservableField<>(new EqualableArrayList<>(new MessageEqualator()));
+    private final ObservableString myId = new ObservableString("");
 
     private final EventBus firebaseEventBus;
 
@@ -54,13 +58,17 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
     @Inject
     public GroupChatViewModule(MainActivityContract.FlexibleMainToolbar flexibleMainToolbar, @DataProvider GroupDataProvider groupDataProvider,
                                @DataProvider MessageDataProvider messageDataProvider, RxRequests rxRequests, ToastProvider toastProvider,
-                               @Named(Const.NAME_FIREBASE_EVENT_BUS) EventBus firebaseEventBus) {
+                               @Named(Const.NAME_FIREBASE_EVENT_BUS) EventBus firebaseEventBus, @DataProvider UserDataProvider userDataProvider) {
         super(rxRequests);
         this.messageDataProvider = messageDataProvider;
         this.flexibleMainToolbar = flexibleMainToolbar;
         this.groupDataProvider = groupDataProvider;
         this.toastProvider = toastProvider;
         this.firebaseEventBus = firebaseEventBus;
+        this.userDataProvider = userDataProvider;
+
+        request(userDataProvider.getUser(false), data -> myId.set(data.getData().getUserId()), throwable -> {
+        });
     }
 
     @Override
@@ -141,6 +149,11 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
                 view.clearInput();
             }
         }
+    }
+
+    @Override
+    public ObservableString getMyUserId() {
+        return myId;
     }
 
     private void onNewMessage(Message message) {

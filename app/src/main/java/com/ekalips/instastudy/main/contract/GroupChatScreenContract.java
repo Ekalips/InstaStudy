@@ -4,6 +4,7 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 
 import com.ekalips.instastudy.data.messages.Message;
+import com.ekalips.instastudy.stuff.ObservableString;
 import com.wonderslab.base.rx.RxRequests;
 import com.wonderslab.base.veiwmodel.BaseViewModel;
 import com.wonderslab.base.view.BaseView;
@@ -38,6 +39,7 @@ public interface GroupChatScreenContract {
 
         public abstract void sendMessage(CharSequence message);
 
+        public abstract ObservableString getMyUserId();
     }
 
 }

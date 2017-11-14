@@ -1,6 +1,8 @@
 package com.ekalips.instastudy.main.mvvm.view.group_chat;
 
 
+import android.databinding.Observable;
+import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +16,7 @@ import com.wonderslab.base.BR;
 import com.wonderslab.base.event_system.Event;
 import com.wonderslab.base.event_system.EventNavigate;
 import com.wonderslab.base.fragment.BaseBindingFragment;
+import com.wonderslab.base.recyclerview.PaginatedRecyclerViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +32,9 @@ public class ChatFragment extends BaseBindingFragment<FragmentChatBinding, Group
         fragment.setArguments(args);
         return fragment;
     }
+
+    @Nullable
+    private MessagesRecyclerViewAdapter messagesRecyclerViewAdapter;
 
     @Override
     protected int layoutResId() {
@@ -68,19 +74,25 @@ public class ChatFragment extends BaseBindingFragment<FragmentChatBinding, Group
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        messagesRecyclerViewAdapter = new MessagesRecyclerViewAdapter(paginatedListCallbacks);
+        messagesRecyclerViewAdapter.setMyUserId(getViewModel().getMyUserId().get());
+
+        getViewModel().getMyUserId().addOnPropertyChangedCallback(onMyIdChanged);
+
         extractAndInit();
     }
 
     @Override
     public void onBindingReady(FragmentChatBinding binding) {
         super.onBindingReady(binding);
-        binding.recyclerView.setAdapter(new MessagesRecyclerViewAdapter());
+        binding.recyclerView.setAdapter(messagesRecyclerViewAdapter);
         binding.messageInputContainer.addOnLayoutChangeListener(onLayoutChangeListener);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        getViewModel().getMyUserId().removeOnPropertyChangedCallback(onMyIdChanged);
         binding.messageInputContainer.removeOnLayoutChangeListener(onLayoutChangeListener);
     }
 
@@ -91,6 +103,17 @@ public class ChatFragment extends BaseBindingFragment<FragmentChatBinding, Group
 
     private final View.OnLayoutChangeListener onLayoutChangeListener = (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) ->
             binding.recyclerView.setPadding(binding.recyclerView.getPaddingLeft(),
-            binding.recyclerView.getPaddingTop(), binding.recyclerView.getPaddingRight(),
-            binding.messageInputContainer.getHeight());
+                    binding.recyclerView.getPaddingTop(), binding.recyclerView.getPaddingRight(),
+                    binding.messageInputContainer.getHeight());
+
+    private final ObservableField.OnPropertyChangedCallback onMyIdChanged = new Observable.OnPropertyChangedCallback() {
+        @Override
+        public void onPropertyChanged(Observable observable, int i) {
+            if (messagesRecyclerViewAdapter != null) {
+                messagesRecyclerViewAdapter.setMyUserId(getViewModel().getMyUserId().get());
+            }
+        }
+    };
+
+    private final PaginatedRecyclerViewAdapter.PaginatedListCallbacks paginatedListCallbacks = () -> getViewModel().requestNextPage();
 }
