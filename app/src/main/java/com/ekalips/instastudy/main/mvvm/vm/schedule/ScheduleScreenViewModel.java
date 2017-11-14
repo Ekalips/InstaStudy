@@ -162,14 +162,14 @@ public class ScheduleScreenViewModel extends ScheduleScreenContract.ViewModel {
             list.add(new LessonDay(CommonUtils.getDayName(key + 2), lessonsForList));
         }
 
-//        for (LessonDay day :
-//                list) {
-//            for (int i = day.getLessons().size() - 1; i >= 0; i--) {
-//                if (i > maxLessonsNumber) {
-//                    day.getLessons().remove(i);
-//                }
-//            }
-//        }
+        for (LessonDay day :
+                list) {
+            for (int i = day.getLessons().size() - 1; i >= 0; i--) {
+                if (i > maxLessonsNumber) {
+                    day.getLessons().remove(i);
+                }
+            }
+        }
         return list;
     }
 
