@@ -19,9 +19,6 @@ public class RemoteGroup implements Group {
     @SerializedName("picture")
     @Expose
     private String picture;
-    @SerializedName("chat")
-    @Expose
-    private String chat;
 
     @Override
     public String getId() {
@@ -38,8 +35,4 @@ public class RemoteGroup implements Group {
         return picture;
     }
 
-    @Override
-    public String getChatId() {
-        return chat;
-    }
 }

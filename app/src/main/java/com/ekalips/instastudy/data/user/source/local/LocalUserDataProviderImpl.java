@@ -73,8 +73,7 @@ public class LocalUserDataProviderImpl implements LocalUserDataProvider {
     }
 
     private void saveGroups(List<? extends Group> userGroups) {
-        groupBox.removeAll();
-
+//        groupBox.removeAll();
         List<LocalGroup> groups = new ArrayList<>(userGroups.size());
         for (Group g :
                 userGroups) {

@@ -25,4 +25,5 @@ public interface RemoteUserDataProvider {
 
     Single<DataWrap<? extends User>> setUserImage(String token, File image);
 
+    Single<DataWrap<Void>> updateFirebaseToken(String accessToken, String oldToken, String newToken);
 }

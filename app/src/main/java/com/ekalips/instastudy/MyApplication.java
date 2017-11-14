@@ -14,6 +14,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import dagger.android.HasServiceInjector;
+import io.objectbox.android.AndroidObjectBrowser;
 
 /**
  * Created by Ekalips on 10/2/17.
@@ -27,6 +28,9 @@ public class MyApplication extends Application implements HasActivityInjector, H
     @Inject
     DispatchingAndroidInjector<Service> serviceDispatchingAndroidInjector;
 
+    @Inject
+    AndroidObjectBrowser androidObjectBrowser;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -38,6 +42,7 @@ public class MyApplication extends Application implements HasActivityInjector, H
 
         if (BuildConfig.DEBUG) {
             initDebugStuff();
+            androidObjectBrowser.start(this);
         }
     }
 

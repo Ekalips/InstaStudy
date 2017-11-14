@@ -12,6 +12,4 @@ public interface Group {
 
     String getPicture();
 
-    String getChatId();
-
 }

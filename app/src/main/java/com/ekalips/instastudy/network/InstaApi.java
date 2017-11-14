@@ -7,6 +7,7 @@ import com.ekalips.instastudy.data.user.source.network.model.RemoteUserData;
 import com.ekalips.instastudy.data.user.source.network.model.RemoteUserDataWrap;
 import com.ekalips.instastudy.network.body.LoginBody;
 import com.ekalips.instastudy.network.body.SendMessageBody;
+import com.ekalips.instastudy.network.body.UpdateFirebaseTokenBody;
 import com.ekalips.instastudy.network.body.UpdateUserNameBody;
 import com.ekalips.instastudy.network.response.PaginatedListResponse;
 
@@ -54,4 +55,6 @@ public interface InstaApi {
 
     @POST("group/{group_id}/chat/messages")
     Call<RemoteMessage> sendMessage(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Body SendMessageBody messageBody);
+
+    Call<Void> updateDeviceToken(@Header(AUTH_HEADER) String accessToken, @Body UpdateFirebaseTokenBody body);
 }

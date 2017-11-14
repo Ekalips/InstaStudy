@@ -14,4 +14,6 @@ public interface LocalLessonDataProvider {
 
     Single<List<? extends Lesson>> getLessons();
 
+    void saveLessons(List<? extends Lesson> data);
+
 }

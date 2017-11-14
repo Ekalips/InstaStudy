@@ -5,7 +5,7 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import com.ekalips.instastudy.R;
-import com.ekalips.instastudy.data.lessons.LessonsDataProvider;
+import com.ekalips.instastudy.data.lessons.LessonDataProvider;
 import com.ekalips.instastudy.data.lessons.models.Lesson;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
 import com.ekalips.instastudy.main.contract.MainActivityContract;
@@ -43,14 +43,14 @@ public class ScheduleScreenViewModel extends ScheduleScreenContract.ViewModel {
     private final SparseArray<SparseArray<? super Lesson>> oddLessons = new SparseArray<>();
     private final SparseArray<SparseArray<? super Lesson>> evenLessons = new SparseArray<>();
 
-    private final LessonsDataProvider lessonsDataProvider;
+    private final LessonDataProvider lessonDataProvider;
 
     private final MainActivityContract.ViewModel mainActivityVM;
 
     @Inject
-    public ScheduleScreenViewModel(RxRequests rxRequests, @DataProvider LessonsDataProvider lessonsDataProvider, MainActivityContract.ViewModel mainActivityVM) {
+    public ScheduleScreenViewModel(RxRequests rxRequests, @DataProvider LessonDataProvider lessonDataProvider, MainActivityContract.ViewModel mainActivityVM) {
         super(rxRequests);
-        this.lessonsDataProvider = lessonsDataProvider;
+        this.lessonDataProvider = lessonDataProvider;
         this.mainActivityVM = mainActivityVM;
         setUpWeek();
         fetchLessons();
@@ -75,7 +75,7 @@ public class ScheduleScreenViewModel extends ScheduleScreenContract.ViewModel {
     }
 
     private void fetchLessons() {
-        request(lessonsDataProvider.getLessons(true).observeOn(Schedulers.computation()),
+        request(lessonDataProvider.getLessons(true).observeOn(Schedulers.computation()),
                 this::onFetchLessonSuccess, this::onFetchLessonError);
     }
 

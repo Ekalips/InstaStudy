@@ -3,7 +3,7 @@ package com.ekalips.instastudy.di.modules;
 import com.ekalips.instastudy.data.groups.GroupDataProvider;
 import com.ekalips.instastudy.data.groups.GroupDataProviderImpl;
 import com.ekalips.instastudy.data.lessons.LessonDataProviderImpl;
-import com.ekalips.instastudy.data.lessons.LessonsDataProvider;
+import com.ekalips.instastudy.data.lessons.LessonDataProvider;
 import com.ekalips.instastudy.data.messages.MessageDataProvider;
 import com.ekalips.instastudy.data.messages.MessagesDataProviderImpl;
 import com.ekalips.instastudy.data.user.UserDataProvider;
@@ -40,6 +40,6 @@ abstract public class DataModules {
     @DataProvider
     @Binds
     @Singleton
-    abstract LessonsDataProvider lessonsDataProvider(LessonDataProviderImpl lessonDataProvider);
+    abstract LessonDataProvider lessonsDataProvider(LessonDataProviderImpl lessonDataProvider);
 
 }

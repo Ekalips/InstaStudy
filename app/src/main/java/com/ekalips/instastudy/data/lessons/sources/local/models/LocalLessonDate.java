@@ -41,4 +41,16 @@ public class LocalLessonDate implements LessonDate {
     public int getWeek() {
         return week;
     }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public void setOrdinal(int ordinal) {
+        this.ordinal = ordinal;
+    }
+
+    public void setWeek(int week) {
+        this.week = week;
+    }
 }

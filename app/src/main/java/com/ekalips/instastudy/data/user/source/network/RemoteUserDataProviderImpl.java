@@ -10,6 +10,7 @@ import com.ekalips.instastudy.data.user.source.network.model.RemoteUserDataWrap;
 import com.ekalips.instastudy.error_handling.ErrorThrower;
 import com.ekalips.instastudy.network.InstaApi;
 import com.ekalips.instastudy.network.body.LoginBody;
+import com.ekalips.instastudy.network.body.UpdateFirebaseTokenBody;
 import com.ekalips.instastudy.network.body.UpdateUserNameBody;
 import com.ekalips.instastudy.stuff.NetworkUtils;
 import com.wonderslab.base.rx.RxUtils;
@@ -73,6 +74,18 @@ public class RemoteUserDataProviderImpl implements RemoteUserDataProvider {
     public Single<DataWrap<? extends User>> setUserImage(String token, @Nullable File image) {
         return RxUtils.wrapAsIO(Single.fromCallable(() -> {
             Response<RemoteUserData> response = api.updateAvatar(token, NetworkUtils.prepareFilePart(context, "avatar", image)).execute();
+            if (response.isSuccessful()) {
+                return new DataWrap<>(response.body(), response.code());
+            }
+            errorThrower.throwFromResponse(response);
+            return null;
+        }));
+    }
+
+    @Override
+    public Single<DataWrap<Void>> updateFirebaseToken(String accessToken, String oldToken, String newToken) {
+        return RxUtils.wrapAsIO(Single.fromCallable(() -> {
+            Response<Void> response = api.updateDeviceToken(accessToken, new UpdateFirebaseTokenBody(oldToken, newToken)).execute();
             if (response.isSuccessful()) {
                 return new DataWrap<>(response.body(), response.code());
             }

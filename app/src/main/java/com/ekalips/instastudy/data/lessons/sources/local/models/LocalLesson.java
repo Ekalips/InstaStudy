@@ -17,7 +17,7 @@ import io.objectbox.relation.ToOne;
 @Entity
 public class LocalLesson implements Lesson {
 
-    @Id
+    @Id(assignable = true)
     private long boxId;
 
     private String id;
@@ -32,6 +32,10 @@ public class LocalLesson implements Lesson {
 
     public void setBoxId(long boxId) {
         this.boxId = boxId;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

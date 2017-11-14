@@ -80,4 +80,36 @@ public class BoxLocalUser implements User {
     public int getRole() {
         return role;
     }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public void setFirebaseToken(String firebaseToken) {
+        this.firebaseToken = firebaseToken;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
 }

@@ -24,7 +24,7 @@ import io.reactivex.Single;
  * Created by Ekalips on 11/8/17.
  */
 
-public class LessonDataProviderImpl implements LessonsDataProvider {
+public class LessonDataProviderImpl implements LessonDataProvider {
 
     private final LocalLessonDataProvider localLessonDataProvider;
     private final RemoteLessonDataProvider remoteLessonDataProvider;
@@ -44,16 +44,21 @@ public class LessonDataProviderImpl implements LessonsDataProvider {
     }
 
     @Override
+    public void saveLessons(List<? extends Lesson> data) {
+        localLessonDataProvider.saveLessons(data);
+    }
+
+    @Override
     public Single<List<? extends Lesson>> getLessons(String token, String groupId) {
         return remoteLessonDataProvider.getLessons(token, groupId);
     }
 
     @Override
     public Observable<List<? extends Lesson>> getLessons(boolean fetchRemotely) {
-//        return Observable.fromCallable(this::getTestLessons);
         if (fetchRemotely) {
             return Observable.concat(getLessons().toObservable(), userDataProvider.getUser()
-                    .flatMap(user -> getLessons(user.getData().getToken(), user.getData().getGroups().get(0).getId()).toObservable()));
+                    .flatMap(user -> getLessons(user.getData().getToken(), user.getData().getGroups().get(0).getId()).toObservable())
+                    .doOnNext(this::saveLessons));
         } else {
             return getLessons().toObservable();
         }

@@ -3,7 +3,7 @@ apply from: "config.gradle"
 
 buildscript {
 
-    ext.objectboxVersion = '1.2.0'
+    ext.objectboxVersion = '1.2.1'
 
     repositories {
         google()

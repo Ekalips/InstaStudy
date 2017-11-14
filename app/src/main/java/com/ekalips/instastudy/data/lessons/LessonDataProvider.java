@@ -12,7 +12,7 @@ import io.reactivex.Observable;
  * Created by Ekalips on 11/8/17.
  */
 
-public interface LessonsDataProvider extends LocalLessonDataProvider, RemoteLessonDataProvider{
+public interface LessonDataProvider extends LocalLessonDataProvider, RemoteLessonDataProvider{
 
     Observable<List<? extends Lesson>> getLessons(boolean fetchRemotely);
 

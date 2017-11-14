@@ -18,7 +18,6 @@ public class LocalGroup implements Group {
     private String id;
     private String title;
     private String picture;
-    private String chatId;
 
     public LocalGroup() {
     }
@@ -27,7 +26,6 @@ public class LocalGroup implements Group {
         this.id = group.getId();
         this.title = group.getTitle();
         this.picture = group.getPicture();
-        this.chatId = group.getChatId();
     }
 
     public long getBoxId() {
@@ -51,10 +49,5 @@ public class LocalGroup implements Group {
     @Override
     public String getPicture() {
         return picture;
-    }
-
-    @Override
-    public String getChatId() {
-        return chatId;
     }
 }

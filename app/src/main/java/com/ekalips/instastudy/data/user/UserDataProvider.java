@@ -24,6 +24,8 @@ public interface UserDataProvider extends LocalUserDataProvider, RemoteUserDataP
 
     Single<DataWrap<? extends User>> updateUserImage(File image);
 
+    Single<DataWrap<Void>> updateFirebaseToken(String newToken);
+
     void addUserDataChangeCallback(UserDataChangeCallback changeCallback);
 
     void removeUserDataChangeCallback(UserDataChangeCallback changeCallback);

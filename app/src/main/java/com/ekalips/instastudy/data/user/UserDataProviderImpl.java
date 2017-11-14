@@ -65,9 +65,15 @@ public class UserDataProviderImpl implements UserDataProvider {
     }
 
     @Override
+    public Single<DataWrap<Void>> updateFirebaseToken(String accessToken, String oldToken, String newToken) {
+        return remoteDataProvider.updateFirebaseToken(accessToken, oldToken, newToken);
+    }
+
+    @Override
     public Single<DataWrap<? extends User>> login(String firebaseAuthToken, @Nullable String firebaseDeviceToken) {
         return remoteDataProvider.login(firebaseAuthToken, firebaseDeviceToken)
-                .doOnSuccess(dataWrap -> saveUser(dataWrap.getData().getToken(), dataWrap.getData()));
+                .doOnSuccess(dataWrap -> saveUser(dataWrap.getData().getToken(), dataWrap.getData()))
+                .doOnSuccess(data -> saveUserField(UserSharedPrefsDataHelper.UserFields.FIREBASE_TOKEN, firebaseAuthToken));
     }
 
     @Override
@@ -106,6 +112,12 @@ public class UserDataProviderImpl implements UserDataProvider {
     @Override
     public Single<DataWrap<? extends User>> setUserImage(String token, File image) {
         return remoteDataProvider.setUserImage(token, image);
+    }
+
+    @Override
+    public Single<DataWrap<Void>> updateFirebaseToken(String newToken) {
+        return Single.fromObservable(getUser(false).flatMap(data -> updateFirebaseToken(data.getData().getToken(), data.getData().getFirebaseToken(), newToken).toObservable()))
+                .doOnSuccess(data -> saveUserField(UserSharedPrefsDataHelper.UserFields.FIREBASE_TOKEN, newToken));
     }
 
     @Override
