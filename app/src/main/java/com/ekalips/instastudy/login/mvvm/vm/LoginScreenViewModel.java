@@ -15,6 +15,7 @@ import com.ekalips.instastudy.providers.ToastProvider;
 import com.ekalips.instastudy.providers.firebase_login.FirebaseLoginProvider;
 import com.ekalips.instastudy.stuff.StringUtils;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.wonderslab.base.rx.RxRequests;
 
 import javax.inject.Inject;
@@ -91,7 +92,7 @@ public class LoginScreenViewModel extends LoginScreenContract.ViewModel {
             return;
         }
         inProgress.set(true);
-        request(userDataProvider.login(token, null).toObservable()
+        request(userDataProvider.login(token, FirebaseInstanceId.getInstance().getToken()).toObservable()
                 , this::handleLoginSuccess, this::handleLoginError, () -> inProgress.set(false));
     }
 
