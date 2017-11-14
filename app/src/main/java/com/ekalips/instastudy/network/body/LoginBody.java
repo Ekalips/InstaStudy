@@ -15,7 +15,7 @@ public class LoginBody {
     @Expose
     private String firebaseAuthToken;
 
-    @SerializedName("device_token")
+    @SerializedName("deviceToken")
     @Expose
     private String firebaseDeviceToken;
 
