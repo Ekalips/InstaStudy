@@ -60,4 +60,28 @@ public class RemoteMessage implements Message {
     public boolean isMine() {
         return mine;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setSender(RemoteUserData sender) {
+        this.sender = sender;
+    }
+
+    public void setMine(boolean mine) {
+        this.mine = mine;
+    }
 }

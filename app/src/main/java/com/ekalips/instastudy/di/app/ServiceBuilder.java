@@ -2,6 +2,7 @@ package com.ekalips.instastudy.di.app;
 
 
 import com.ekalips.instastudy.di.scopes.ServiceScope;
+import com.ekalips.instastudy.firebase.FirebaseFCMService;
 import com.ekalips.instastudy.firebase.FirebaseTokenService;
 
 import dagger.Module;
@@ -17,5 +18,9 @@ public abstract class ServiceBuilder {
     @ServiceScope
     @ContributesAndroidInjector
     abstract FirebaseTokenService firebaseInstanceService();
+
+    @ServiceScope
+    @ContributesAndroidInjector
+    abstract FirebaseFCMService firebaseFCMService();
 
 }

@@ -10,6 +10,7 @@ public class Const {
 
     public static final String CONTENT_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
 
+    public static final String NAME_FIREBASE_EVENT_BUS = "firebase_bus";
 
     public static final int MAX_GROUP_LENGTH = 9;
     public static final int MAX_GROUP_NAME_LENGTH = 4;

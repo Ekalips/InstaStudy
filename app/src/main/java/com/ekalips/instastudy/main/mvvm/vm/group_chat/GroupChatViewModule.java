@@ -10,17 +10,25 @@ import com.ekalips.instastudy.data.groups.GroupDataProvider;
 import com.ekalips.instastudy.data.messages.Message;
 import com.ekalips.instastudy.data.messages.MessageDataProvider;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
+import com.ekalips.instastudy.firebase.firebase_handler.events.NewMessageEvent;
 import com.ekalips.instastudy.main.contract.GroupChatScreenContract;
 import com.ekalips.instastudy.main.contract.MainActivityContract;
 import com.ekalips.instastudy.network.response.PaginatedListResponse;
 import com.ekalips.instastudy.providers.ToastProvider;
+import com.ekalips.instastudy.stuff.Const;
 import com.ekalips.instastudy.stuff.StringUtils;
+import com.ekalips.instastudy.stuff.lists.EqualableArrayList;
+import com.ekalips.instastudy.stuff.lists.MessageEqualator;
 import com.wonderslab.base.rx.RxRequests;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Created by Ekalips on 11/6/17.
@@ -37,18 +45,34 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
 
     private final ObservableField<Group> group = new ObservableField<>(null);
     private final ObservableInt totalMessagesCount = new ObservableInt(0);
-    private final ObservableField<List<Message>> messages = new ObservableField<>(new ArrayList<>());
+    private final ObservableField<List<Message>> messages = new ObservableField<>(new EqualableArrayList<>(new MessageEqualator()));
+
+    private final EventBus firebaseEventBus;
 
     private String groupId;
 
     @Inject
     public GroupChatViewModule(MainActivityContract.FlexibleMainToolbar flexibleMainToolbar, @DataProvider GroupDataProvider groupDataProvider,
-                               @DataProvider MessageDataProvider messageDataProvider, RxRequests rxRequests, ToastProvider toastProvider) {
+                               @DataProvider MessageDataProvider messageDataProvider, RxRequests rxRequests, ToastProvider toastProvider,
+                               @Named(Const.NAME_FIREBASE_EVENT_BUS) EventBus firebaseEventBus) {
         super(rxRequests);
         this.messageDataProvider = messageDataProvider;
         this.flexibleMainToolbar = flexibleMainToolbar;
         this.groupDataProvider = groupDataProvider;
         this.toastProvider = toastProvider;
+        this.firebaseEventBus = firebaseEventBus;
+    }
+
+    @Override
+    public void onAttach(GroupChatScreenContract.View view) {
+        super.onAttach(view);
+        firebaseEventBus.register(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        firebaseEventBus.unregister(this);
     }
 
     @Override
@@ -81,10 +105,13 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
     }
 
     private void onGetMessagesSuccess(PaginatedListResponse<? extends Message> messages) {
-        totalMessagesCount.set(messages.getCount());
-        this.messages.get().removeAll(messages.getData());
-        this.messages.get().addAll(messages.getData());
-        this.messages.notifyChange();
+
+        synchronized (this.messages) {
+            totalMessagesCount.set(messages.getCount());
+            this.messages.get().removeAll(messages.getData());
+            this.messages.get().addAll(messages.getData());
+            this.messages.notifyChange();
+        }
     }
 
     private void onGetMessagesError(Throwable throwable) {
@@ -130,5 +157,10 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
     private void onMessageSendError(Throwable throwable) {
         Log.e(TAG, "onMessageSendError: ", throwable);
         toastProvider.showToast(R.string.error_send_message);
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onNewMessageEvent(NewMessageEvent event) {
+        onNewMessage(event.getMessage());
     }
 }
