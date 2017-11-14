@@ -8,6 +8,7 @@ import com.ekalips.instastudy.data.user.User;
 import com.ekalips.instastudy.data.user.UserDataProvider;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
 import com.ekalips.instastudy.main.contract.MainActivityContract;
+import com.ekalips.instastudy.main.mvvm.model.MenuItemSelectedEvent;
 import com.ekalips.instastudy.providers.ToastProvider;
 import com.wonderslab.base.rx.RxRequests;
 
@@ -70,5 +71,10 @@ public class MainActivityViewModel extends MainActivityContract.ViewModel {
     @Override
     public void navigateTo(MainActivityContract.Screens screens) {
         changeScreen(screens, null);
+    }
+
+    @Override
+    public void onMenuItemSelected(int itemId) {
+        getEventPublishSubject().post(new MenuItemSelectedEvent(itemId));
     }
 }

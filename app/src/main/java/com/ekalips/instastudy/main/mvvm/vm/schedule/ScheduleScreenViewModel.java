@@ -4,16 +4,22 @@ import android.databinding.ObservableField;
 import android.util.Log;
 import android.util.SparseArray;
 
+import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.data.lessons.LessonsDataProvider;
 import com.ekalips.instastudy.data.lessons.models.Lesson;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
+import com.ekalips.instastudy.main.contract.MainActivityContract;
 import com.ekalips.instastudy.main.contract.ScheduleScreenContract;
 import com.ekalips.instastudy.main.mvvm.model.DummyLesson;
 import com.ekalips.instastudy.main.mvvm.model.LessonDay;
+import com.ekalips.instastudy.main.mvvm.model.MenuItemSelectedEvent;
 import com.ekalips.instastudy.stuff.CommonUtils;
 import com.ekalips.instastudy.stuff.Const;
 import com.ekalips.instastudy.stuff.learning.WeekType;
 import com.wonderslab.base.rx.RxRequests;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,13 +45,27 @@ public class ScheduleScreenViewModel extends ScheduleScreenContract.ViewModel {
 
     private final LessonsDataProvider lessonsDataProvider;
 
+    private final MainActivityContract.ViewModel mainActivityVM;
+
     @Inject
-    public ScheduleScreenViewModel(RxRequests rxRequests, @DataProvider LessonsDataProvider lessonsDataProvider) {
+    public ScheduleScreenViewModel(RxRequests rxRequests, @DataProvider LessonsDataProvider lessonsDataProvider, MainActivityContract.ViewModel mainActivityVM) {
         super(rxRequests);
         this.lessonsDataProvider = lessonsDataProvider;
-
+        this.mainActivityVM = mainActivityVM;
         setUpWeek();
         fetchLessons();
+    }
+
+    @Override
+    public void onAttach(ScheduleScreenContract.View view) {
+        super.onAttach(view);
+        mainActivityVM.getEventPublishSubject().register(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mainActivityVM.getEventPublishSubject().unregister(this);
     }
 
     private void setUpWeek() {
@@ -142,14 +162,14 @@ public class ScheduleScreenViewModel extends ScheduleScreenContract.ViewModel {
             list.add(new LessonDay(CommonUtils.getDayName(key + 2), lessonsForList));
         }
 
-        for (LessonDay day :
-                list) {
-            for (int i = day.getLessons().size() - 1; i >= 0; i--) {
-                if (i > maxLessonsNumber) {
-                    day.getLessons().remove(i);
-                }
-            }
-        }
+//        for (LessonDay day :
+//                list) {
+//            for (int i = day.getLessons().size() - 1; i >= 0; i--) {
+//                if (i > maxLessonsNumber) {
+//                    day.getLessons().remove(i);
+//                }
+//            }
+//        }
         return list;
     }
 
@@ -171,5 +191,15 @@ public class ScheduleScreenViewModel extends ScheduleScreenContract.ViewModel {
     @Override
     public ObservableField<WeekType> getWeekType() {
         return weekType;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMenuItemSelectedEvent(MenuItemSelectedEvent event) {
+        switch (event.getMenuItemRes()) {
+            case R.id.menu_switch: {
+                switchWeek();
+                break;
+            }
+        }
     }
 }

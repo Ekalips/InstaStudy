@@ -1,6 +1,7 @@
 package com.ekalips.instastudy.main.contract;
 
 import android.databinding.ObservableField;
+import android.support.annotation.IdRes;
 import android.support.annotation.MenuRes;
 
 import com.ekalips.instastudy.data.user.User;
@@ -30,6 +31,8 @@ public interface MainActivityContract {
         public abstract ObservableField<Screens> getCurrentScreen();
 
         public abstract void navigateTo(Screens screens);
+
+        public abstract void onMenuItemSelected(@IdRes int itemId);
     }
 
     interface FlexibleMainToolbar {

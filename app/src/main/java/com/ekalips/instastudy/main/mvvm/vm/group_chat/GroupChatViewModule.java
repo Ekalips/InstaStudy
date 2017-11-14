@@ -109,7 +109,7 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
     @Override
     public void sendMessage(CharSequence message) {
         if (!StringUtils.isEmpty(message)) {
-            request(messageDataProvider.sendMessage(group.get().getId(), message.toString().trim()), data -> onNewMessage(data.getData()));
+            request(messageDataProvider.sendMessage(group.get().getId(), message.toString().trim()), data -> onNewMessage(data.getData()), this::onMessageSendError);
             if (view != null) {
                 view.clearInput();
             }
@@ -125,5 +125,10 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
         if (message.isMine() && view != null) {
             view.scrollToBottom();
         }
+    }
+
+    private void onMessageSendError(Throwable throwable) {
+        Log.e(TAG, "onMessageSendError: ", throwable);
+        toastProvider.showToast(R.string.error_send_message);
     }
 }

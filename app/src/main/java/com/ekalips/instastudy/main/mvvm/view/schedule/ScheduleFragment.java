@@ -66,6 +66,7 @@ public class ScheduleFragment extends BaseBindingFragment<FragmentScheduleBindin
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         flexibleMainToolbar.onToolbarTitleChange(getString(R.string.schedule_title));
+        flexibleMainToolbar.onMenuChange(R.menu.menu_schedule);
     }
 
     @Override

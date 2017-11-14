@@ -2,9 +2,14 @@ package com.ekalips.instastudy.main.mvvm.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.Observable;
+import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.databinding.ActivityMainBinding;
@@ -28,6 +33,7 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
     }
 
     private final ObservableString title = new ObservableString("");
+    private final ObservableInt menuRes = new ObservableInt(0);
 
     @Override
     public int layoutResId() {
@@ -73,6 +79,7 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        menuRes.addOnPropertyChangedCallback(onMenuChangeCallback);
         binding.setTitle(title);
 
         if (binding.includeHeader != null) {
@@ -93,7 +100,16 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        menuRes.removeOnPropertyChangedCallback(onMenuChangeCallback);
         binding.drawerLayout.removeDrawerListener(actionBarDrawerToggle);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (menuRes.get() > 0) {
+            getMenuInflater().inflate(menuRes.get(), menu);
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -103,8 +119,21 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
 
     @Override
     public void onMenuChange(int menu) {
-
+        menuRes.set(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        getViewModel().onMenuItemSelected(item.getItemId());
+        return super.onOptionsItemSelected(item);
+    }
+
+    private final ObservableField.OnPropertyChangedCallback onMenuChangeCallback = new Observable.OnPropertyChangedCallback() {
+        @Override
+        public void onPropertyChanged(Observable observable, int i) {
+            invalidateOptionsMenu();
+        }
+    };
 
 
 }
