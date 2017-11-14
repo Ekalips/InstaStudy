@@ -5,7 +5,7 @@ package com.ekalips.instastudy.stuff.learning;
  */
 
 public enum WeekType {
-    ANY(0), ODD(1), EVEN(2);
+    ANY(0), ODD(2), EVEN(1);
 
     private final int type;
 
