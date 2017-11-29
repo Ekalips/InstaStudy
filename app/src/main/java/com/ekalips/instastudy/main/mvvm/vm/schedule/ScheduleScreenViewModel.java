@@ -16,6 +16,8 @@ import com.ekalips.instastudy.main.mvvm.model.MenuItemSelectedEvent;
 import com.ekalips.instastudy.stuff.CommonUtils;
 import com.ekalips.instastudy.stuff.Const;
 import com.ekalips.instastudy.stuff.learning.WeekType;
+import com.wonderslab.base.event_system.Event;
+import com.wonderslab.base.event_system.Events;
 import com.wonderslab.base.rx.RxRequests;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -70,6 +72,7 @@ public class ScheduleScreenViewModel extends ScheduleScreenContract.ViewModel {
 
     private void setUpWeek() {
         Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
         int week = calendar.get(Calendar.WEEK_OF_MONTH);
         weekType.set(week % 2 == 0 ? WeekType.EVEN : WeekType.ODD);
     }
@@ -143,6 +146,7 @@ public class ScheduleScreenViewModel extends ScheduleScreenContract.ViewModel {
             }
         }
         lessons.notifyChange();
+        findAndScrollToToday();
     }
 
     private List<LessonDay> getWeekScheduleFrom(SparseArray<SparseArray<? super Lesson>> weekLessons) {
@@ -181,6 +185,12 @@ public class ScheduleScreenViewModel extends ScheduleScreenContract.ViewModel {
             weekType.set(WeekType.ODD);
         }
         validateWeekListDueToWeek();
+    }
+
+    private void findAndScrollToToday() {
+        Calendar calendar = Calendar.getInstance();
+        int today = calendar.get(Calendar.DAY_OF_WEEK) - 2;  // monday will be 0
+        getEventPublishSubject().postSticky(new Event<>(Events.ScrollTo, today));
     }
 
     @Override

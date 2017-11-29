@@ -49,7 +49,12 @@ public class ScheduleFragment extends BaseBindingFragment<FragmentScheduleBindin
 
     @Override
     public void handleEvent(Event event) {
-
+        switch (event.getEventType()) {
+            case ScrollTo: {
+                binding.recyclerView.scrollToPosition((Integer) event.getPayload());
+                break;
+            }
+        }
     }
 
     @Override

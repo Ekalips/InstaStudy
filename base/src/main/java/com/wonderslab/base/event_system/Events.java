@@ -5,5 +5,5 @@ package com.wonderslab.base.event_system;
  */
 
 public enum Events {
-    NavigateTo;
+    NavigateTo, ScrollTo;
 }
