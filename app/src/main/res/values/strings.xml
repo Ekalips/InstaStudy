@@ -40,4 +40,6 @@
     <string name="hint_enter_message">Say something…</string>
     <string name="menu_switch_week">Switch week</string>
     <string name="error_send_message">Error sending message</string>
+    <string name="permissions_camera_text">We need access to your camera so you can make some photos</string>
+    <string name="grant_access">Grant access</string>
 </resources>

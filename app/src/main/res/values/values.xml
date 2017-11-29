@@ -14,6 +14,9 @@
         <attr name="cornersRadius" format="dimension" />
         <attr name="circle" format="boolean" />
         <attr name="backgroundColor" format="color" />
+        <attr name="r_border" format="boolean" />
+        <attr name="r_borderWidth" format="dimension" />
+        <attr name="r_borderColor" format="color" />
     </declare-styleable>
 
 

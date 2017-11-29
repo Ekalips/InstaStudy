@@ -37,7 +37,7 @@ public abstract class BaseViewModel<ViewInterface extends BaseView> {
     private final RxRequests rxRequests;
 
     public BaseViewModel(RxRequests rxRequests) {
-        eventPublishSubject = EventBus.getDefault();
+        eventPublishSubject = new EventBus();
         this.rxRequests = rxRequests;
     }
 

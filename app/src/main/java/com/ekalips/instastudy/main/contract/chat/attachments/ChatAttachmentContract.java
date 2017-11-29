@@ -1,4 +1,6 @@
-package com.ekalips.instastudy.main.contract.chat;
+package com.ekalips.instastudy.main.contract.chat.attachments;
+
+import android.databinding.ObservableField;
 
 import com.wonderslab.base.rx.RxRequests;
 import com.wonderslab.base.veiwmodel.BaseViewModel;
@@ -17,6 +19,12 @@ public interface ChatAttachmentContract {
         public ViewModel(RxRequests rxRequests) {
             super(rxRequests);
         }
+
+        public abstract ObservableField<Pages> getCurrentPage();
+    }
+
+    enum Pages {
+        TAKE_PHOTO, SELECT_IMAGE
     }
 
 }

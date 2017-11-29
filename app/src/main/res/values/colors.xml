@@ -25,4 +25,6 @@
     <color name="files_icon_tint">#A4AAAA</color>
     <color name="notifications_icon_tint">#D9D315</color>
     <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="grey">#757575</color>
 </resources>

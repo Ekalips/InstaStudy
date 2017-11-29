@@ -3,7 +3,7 @@ package com.ekalips.instastudy.main.navigation.chat_navigation;
 import android.support.v4.app.FragmentManager;
 
 import com.ekalips.instastudy.di.scopes.FragmentScope;
-import com.ekalips.instastudy.main.mvvm.view.group_chat.ChatAttachmentDialog;
+import com.ekalips.instastudy.main.mvvm.view.group_chat.attachments.ChatAttachmentDialog;
 import com.ekalips.instastudy.main.mvvm.view.group_chat.ChatFragment;
 
 import javax.inject.Inject;

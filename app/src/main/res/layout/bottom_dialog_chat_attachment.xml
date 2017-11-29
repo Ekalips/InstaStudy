@@ -3,9 +3,11 @@
 
     <data>
 
+        <import type="com.ekalips.instastudy.main.contract.chat.attachments.ChatAttachmentContract.Pages" />
+
         <variable
             name="vm"
-            type="com.ekalips.instastudy.main.contract.chat.ChatAttachmentContract"/>
+            type="com.ekalips.instastudy.main.contract.chat.attachments.ChatAttachmentContract.ViewModel" />
 
     </data>
 
@@ -23,7 +25,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:clipToPadding="false"
-            android:padding="16dp">
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp">
 
             <android.support.v7.widget.CardView
                 android:layout_width="wrap_content"
@@ -45,6 +50,7 @@
                     <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
                         android:layout_width="52dp"
                         android:layout_height="32dp"
+                        android:checked="@{vm.currentPage == Pages.TAKE_PHOTO}"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
                         android:src="@drawable/ic_camera_shutter"
@@ -61,6 +67,7 @@
                     <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
                         android:layout_width="52dp"
                         android:layout_height="32dp"
+                        android:checked="@{vm.currentPage == Pages.SELECT_IMAGE}"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
                         android:src="@drawable/ic_photo_library"

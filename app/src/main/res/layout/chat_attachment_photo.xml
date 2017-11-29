@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="permissionsGranted"
+            type="boolean" />
+
+        <variable
+            name="vm"
+            type="com.ekalips.instastudy.main.contract.chat.attachments.AttachmentTakePhotoContract.ViewModel" />
+
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <io.fotoapparat.view.CameraView
+            android:id="@+id/cameraView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black" />
+
+        <com.ekalips.instastudy.stuff.custom_views.RoundableImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="64dp"
+            android:onClick="@{() -> vm.takePicture()}"
+            android:visibility="@{permissionsGranted &amp;&amp; vm.takenFile == null}"
+            app:backgroundColor="@color/primaryWhite"
+            app:circle="true"
+            app:r_border="true"
+            app:r_borderColor="@color/grey"
+            app:r_borderWidth="16dp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="64dp"
+            android:visibility="@{vm.takenFile != null}">
+
+            <com.ekalips.instastudy.stuff.custom_views.RoundableImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:onClick="@{() -> vm.undo()}"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_undo"
+                android:tint="@color/colorPrimary"
+                android:visibility="@{permissionsGranted}"
+                app:backgroundColor="@color/primaryWhite"
+                app:circle="true" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="16dp"
+                android:layout_height="wrap_content" />
+
+            <com.ekalips.instastudy.stuff.custom_views.RoundableImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:onClick="@{() -> vm.send()}"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_done_white"
+                android:visibility="@{permissionsGranted}"
+                app:backgroundColor="@color/colorPrimary"
+                app:circle="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:visibility="@{!permissionsGranted}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/permissions_camera_text"
+                android:textColor="@color/primary_white_color_selector"
+                android:textSize="16sp" />
+
+            <Button
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> vm.requestPermissions()}"
+                android:text="@string/grant_access"
+                android:textColor="@color/colorAccent" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>
