@@ -37,10 +37,10 @@ public class MessagesRecyclerViewAdapter extends PaginatedRecyclerViewAdapter<Rv
         holder.getBinding().setIsMe(TextUtils.equals(myUserId, currentMessage.getAuthor() != null ? currentMessage.getAuthor().getUserId() : null));
 
 
-        Message nextMessage = safeGet(holder.getAdapterPosition() - 1);
+        Message prevMessage = safeGet(holder.getAdapterPosition() - 1);
 
-        if (nextMessage != null && currentMessage.getAuthor() != null && nextMessage.getAuthor() != null
-                && TextUtils.equals(currentMessage.getAuthor().getUserId(), nextMessage.getAuthor().getUserId())) {
+        if (prevMessage != null && currentMessage.getAuthor() != null && prevMessage.getAuthor() != null
+                && TextUtils.equals(currentMessage.getAuthor().getUserId(), prevMessage.getAuthor().getUserId())) {
             holder.getBinding().setShowAvatar(false);
         } else {
             holder.getBinding().setShowAvatar(true);
@@ -51,7 +51,7 @@ public class MessagesRecyclerViewAdapter extends PaginatedRecyclerViewAdapter<Rv
 
     @Nullable
     private Message safeGet(int position) {
-        return position < getData().size() && position > 0 ? getData().get(position) : null;
+        return position < getData().size() && position >= 0 ? getData().get(position) : null;
     }
 
     public void setMyUserId(String myUserId) {
