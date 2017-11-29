@@ -72,7 +72,7 @@ public class Bindings {
         if (file == null) {
             setImageSrcWithPlaceholderText(imageView, src, text);
         } else {
-            Glide.with(imageView.getContext()).load(file).apply(RequestOptions.centerCropTransform()).into(imageView);
+            setFileSrc(imageView, file);
         }
     }
 
@@ -107,4 +107,8 @@ public class Bindings {
         }
     }
 
+    @BindingAdapter("src")
+    public static void setFileSrc(ImageView imageView, File file){
+        Glide.with(imageView.getContext()).load(file).apply(RequestOptions.centerCropTransform()).into(imageView);
+    }
 }
