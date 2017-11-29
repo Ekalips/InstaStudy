@@ -103,7 +103,7 @@
         <Button
             android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/primary_color_selector"
+            android:backgroundTint="@color/primary_white_color_selector"
             android:enabled="@{vm.validator.isGroupValid(vm.data.group) &amp;&amp; vm.validator.isNameValid(vm.data.name)}"
             android:onClick="@{() -> vm.signUp()}"
             android:paddingBottom="22dp"

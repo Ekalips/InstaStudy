@@ -48,7 +48,7 @@
         <Button
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/primary_color_selector"
+            android:backgroundTint="@color/primary_white_color_selector"
             android:enabled="@{!vm.inProgress}"
             android:onClick="@{() -> vm.login()}"
             android:paddingBottom="22dp"

@@ -1,4 +1,4 @@
-package com.ekalips.instastudy.main.contract;
+package com.ekalips.instastudy.main.contract.chat;
 
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
@@ -21,6 +21,8 @@ public interface GroupChatScreenContract {
         void clearInput();
 
         void scrollToBottom();
+
+        void showAttachmentDialog();
     }
 
     abstract class ViewModel extends BaseViewModel<View> {
@@ -40,6 +42,8 @@ public interface GroupChatScreenContract {
         public abstract void sendMessage(CharSequence message);
 
         public abstract ObservableString getMyUserId();
+
+        public abstract void showAttachmentDialog();
     }
 
 }

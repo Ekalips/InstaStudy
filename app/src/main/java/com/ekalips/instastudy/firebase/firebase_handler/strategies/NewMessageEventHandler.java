@@ -17,8 +17,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import io.reactivex.internal.functions.Functions;
-
 /**
  * Created by Ekalips on 11/14/17.
  */
@@ -41,15 +39,12 @@ public class NewMessageEventHandler implements FirebaseEventStrategy {
 
     @Override
     public void handleEvent(Map<String, String> data) {
-        userDataProvider.getUser(false).subscribe(myUser -> {
-            RemoteMessage message = gson.fromJson(gson.toJson(data), RemoteMessage.class);
-            RemoteUserData user = gson.fromJson(gson.toJson(data), RemoteUserData.class);
-            message.setSender(user);
-            if (bus.hasSubscriberForEvent(NewMessageEvent.class)) {
-                bus.post(new NewMessageEvent(message));
-            }
-        }, Functions.emptyConsumer());
-
+        RemoteMessage message = gson.fromJson(gson.toJson(data), RemoteMessage.class);
+        RemoteUserData user = gson.fromJson(gson.toJson(data), RemoteUserData.class);
+        message.setSender(user);
+        if (bus.hasSubscriberForEvent(NewMessageEvent.class)) {
+            bus.post(new NewMessageEvent(message));
+        }
     }
 
     @Override

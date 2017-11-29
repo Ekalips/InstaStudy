@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.ekalips.instastudy.main.contract.chat.ChatAttachmentContract"/>
+
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:clipToPadding="false"
+            android:padding="16dp">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:cardCornerRadius="16dp"
+                app:contentPaddingBottom="6dp"
+                app:contentPaddingLeft="16dp"
+                app:contentPaddingRight="16dp"
+                app:contentPaddingTop="6dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
+                        android:layout_width="52dp"
+                        android:layout_height="32dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:src="@drawable/ic_camera_shutter"
+                        android:tint="@color/primary_color_selector" />
+
+                    <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
+                        android:layout_width="52dp"
+                        android:layout_height="32dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:src="@drawable/ic_camera"
+                        android:tint="@color/primary_color_selector" />
+
+                    <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
+                        android:layout_width="52dp"
+                        android:layout_height="32dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:src="@drawable/ic_photo_library"
+                        android:tint="@color/primary_color_selector" />
+
+                    <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
+                        android:layout_width="52dp"
+                        android:layout_height="32dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:src="@drawable/ic_file"
+                        android:tint="@color/primary_color_selector" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </FrameLayout>
+
+
+    </FrameLayout>
+</layout>

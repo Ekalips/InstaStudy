@@ -4,7 +4,7 @@
 
         <variable
             name="vm"
-            type="com.ekalips.instastudy.main.contract.GroupChatScreenContract.ViewModel" />
+            type="com.ekalips.instastudy.main.contract.chat.GroupChatScreenContract.ViewModel" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingTop="16dp"
             android:paddingBottom="72dp"
+            android:paddingTop="16dp"
             app:layoutManager="LinearLayoutManager"
             app:reverseLayout="true"
             app:src="@{vm.messages}"
@@ -60,15 +60,35 @@
                         android:padding="16dp"
                         android:textSize="14sp" />
 
-                    <android.support.design.widget.FloatingActionButton
+                    <com.ekalips.instastudy.stuff.custom_views.RoundableImageView
+                        android:id="@+id/sendMessageBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?selectableItemBackground"
                         android:onClick="@{() -> vm.sendMessage(messageEt.getText())}"
+                        android:padding="10dp"
                         android:src="@drawable/ic_send"
                         android:tint="@color/white"
-                        app:backgroundTint="@color/colorPrimary"
-                        app:elevation="0dp"
-                        app:fabSize="mini" />
+                        android:visibility="gone"
+                        app:backgroundColor="@color/colorPrimary"
+                        app:circle="true"/>
+
+                    <com.ekalips.instastudy.stuff.custom_views.RoundableImageView
+                        android:id="@+id/showAttachmentsBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?selectableItemBackground"
+                        android:onClick="@{() -> vm.showAttachmentDialog()}"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_add"
+                        android:tint="@color/colorPrimary"
+                        app:circle="true" />
 
                 </LinearLayout>
 

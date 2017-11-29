@@ -12,7 +12,7 @@ import com.ekalips.instastudy.data.messages.MessageDataProvider;
 import com.ekalips.instastudy.data.user.UserDataProvider;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
 import com.ekalips.instastudy.firebase.firebase_handler.events.NewMessageEvent;
-import com.ekalips.instastudy.main.contract.GroupChatScreenContract;
+import com.ekalips.instastudy.main.contract.chat.GroupChatScreenContract;
 import com.ekalips.instastudy.main.contract.MainActivityContract;
 import com.ekalips.instastudy.network.response.PaginatedListResponse;
 import com.ekalips.instastudy.providers.ToastProvider;
@@ -175,5 +175,12 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onNewMessageEvent(NewMessageEvent event) {
         onNewMessage(event.getMessage());
+    }
+
+    @Override
+    public void showAttachmentDialog() {
+        if (view!=null){
+            view.showAttachmentDialog();
+        }
     }
 }
