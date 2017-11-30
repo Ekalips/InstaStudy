@@ -1,7 +1,16 @@
 package com.ekalips.instastudy.main.mvvm.view.group_chat.attachments;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.databinding.BottomDialogChatAttachmentBinding;
@@ -24,6 +33,8 @@ import dagger.android.support.HasSupportFragmentInjector;
 
 public class ChatAttachmentDialog extends BaseBindingBottomSheetDialogFragment<BottomDialogChatAttachmentBinding, ChatAttachmentContract.View, ChatAttachmentContract.ViewModel>
         implements ChatAttachmentContract.View, HasSupportFragmentInjector {
+
+    private static final String TAG = ChatAttachmentDialog.class.getSimpleName();
 
     public static ChatAttachmentDialog newInstance() {
         Bundle args = new Bundle();
@@ -52,6 +63,32 @@ public class ChatAttachmentDialog extends BaseBindingBottomSheetDialogFragment<B
 
     }
 
+    int startPeekH;
+    int screenH;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        startPeekH = (int) getResources().getDimension(R.dimen.bottom_sheet_init_height);
+        screenH = getResources().getDisplayMetrics().heightPixels;
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.setOnShowListener(onShowListener);
+        return dialog;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (getDialog() != null) {
+            getDialog().setOnShowListener(null);
+        }
+    }
+
     @Inject
     AttachmentsLocalNavigator attachmentsLocalNavigator;
     @Inject
@@ -74,5 +111,56 @@ public class ChatAttachmentDialog extends BaseBindingBottomSheetDialogFragment<B
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
+    }
+
+    private final Dialog.OnShowListener onShowListener = new DialogInterface.OnShowListener() {
+        @Override
+        public void onShow(DialogInterface dialog) {
+            BottomSheetDialog d = (BottomSheetDialog) dialog;
+            FrameLayout bottomSheet = d.findViewById(android.support.design.R.id.design_bottom_sheet);
+            if (bottomSheet != null) {
+                BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+                bottomSheetBehavior.setPeekHeight(startPeekH);
+                bottomSheetBehavior.setBottomSheetCallback(bottomSheetCallback);
+                bottomSheetBehavior.setSkipCollapsed(true);
+                bottomSheetBehavior.setHideable(false);
+            }
+        }
+    };
+
+    private final BottomSheetBehavior.BottomSheetCallback bottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback() {
+        @Override
+        public void onStateChanged(@NonNull View bottomSheet, int newState) {
+            Log.d(TAG, "onStateChanged() called with: bottomSheet = [" + bottomSheet + "], newState = [" + newState + "]");
+
+            switch (newState) {
+                case BottomSheetBehavior.STATE_EXPANDED: {
+                    hideControls();
+                    break;
+                }
+                case BottomSheetBehavior.STATE_COLLAPSED: {
+                    showControls();
+                    break;
+                }
+            }
+
+        }
+
+        @Override
+        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            Log.d(TAG, "onSlide: " + slideOffset);
+            if (slideOffset >= 0) {
+                binding.fragmentContainer.getLayoutParams().height = (int) (((screenH - startPeekH) * slideOffset) + startPeekH);
+                binding.fragmentContainer.requestLayout();
+            }
+        }
+    };
+
+    private void hideControls() {
+        binding.navigationContainer.animate().translationYBy(binding.navigationContainer.getHeight() * 0.75f).start();
+    }
+
+    private void showControls() {
+        binding.navigationContainer.animate().translationY(0).start();
     }
 }
