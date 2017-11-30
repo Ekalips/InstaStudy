@@ -106,6 +106,7 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
         if (menuRes.get() > 0) {
             getMenuInflater().inflate(menuRes.get(), menu);
         }
@@ -113,13 +114,9 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
     }
 
     @Override
-    public void onToolbarTitleChange(String title) {
-        this.title.set(title);
-    }
-
-    @Override
-    public void onMenuChange(int menu) {
-        menuRes.set(menu);
+    public void onChange(String toolbarTitle, int menu) {
+        this.title.set(toolbarTitle);
+        this.menuRes.set(menu);
     }
 
     @Override

@@ -133,7 +133,7 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
 
     private void setUpGroup(Group group) {
         this.group.set(group);
-        flexibleMainToolbar.onToolbarTitleChange(group.getTitle());
+        flexibleMainToolbar.onChange(group.getTitle(), -1);
     }
 
     private void onGetGroupError(Throwable throwable) {
@@ -179,7 +179,7 @@ public class GroupChatViewModule extends GroupChatScreenContract.ViewModel {
 
     @Override
     public void showAttachmentDialog() {
-        if (view!=null){
+        if (view != null) {
             view.showAttachmentDialog();
         }
     }

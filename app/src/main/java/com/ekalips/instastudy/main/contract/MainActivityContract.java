@@ -37,9 +37,7 @@ public interface MainActivityContract {
 
     interface FlexibleMainToolbar {
 
-        void onToolbarTitleChange(String title);
-
-        void onMenuChange(@MenuRes int menu);
+        void onChange(String toolbarTitle, @MenuRes int menu);
 
     }
 
