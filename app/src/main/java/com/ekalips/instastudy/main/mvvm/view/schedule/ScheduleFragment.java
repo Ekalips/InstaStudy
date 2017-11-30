@@ -51,7 +51,7 @@ public class ScheduleFragment extends BaseBindingFragment<FragmentScheduleBindin
     public void handleEvent(Event event) {
         switch (event.getEventType()) {
             case ScrollTo: {
-                binding.recyclerView.scrollToPosition((Integer) event.getPayload());
+                binding.recyclerView.postDelayed(() -> binding.recyclerView.smoothScrollToPosition((Integer) event.getPayload()), 400);
                 break;
             }
         }

@@ -3,6 +3,8 @@ package com.ekalips.instastudy.main.mvvm.model;
 import android.support.v7.util.DiffUtil;
 import android.text.TextUtils;
 
+import com.ekalips.instastudy.data.lessons.models.Lesson;
+
 import java.util.List;
 
 /**
@@ -10,6 +12,8 @@ import java.util.List;
  */
 
 public class ScheduleDiffUtil extends DiffUtil.Callback {
+
+    private static final String TAG = ScheduleDiffUtil.class.getSimpleName();
 
     private final List<LessonDay> oldList;
     private final List<LessonDay> newList;
@@ -36,6 +40,18 @@ public class ScheduleDiffUtil extends DiffUtil.Callback {
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        return false;
+        LessonDay oldDay = oldList.get(oldItemPosition);
+        LessonDay newDay = newList.get(newItemPosition);
+        if (oldDay.getLessons().size() != newDay.getLessons().size()) {
+            return false;
+        }
+        for (int i = 0; i < oldDay.getLessons().size(); i++) {
+            Lesson oldLesson = (Lesson) oldDay.getLessons().get(i);
+            Lesson newLesson = (Lesson) newDay.getLessons().get(i);
+            if (!TextUtils.equals(oldLesson.getId(), newLesson.getId())) {
+                return false;
+            }
+        }
+        return true;
     }
 }
