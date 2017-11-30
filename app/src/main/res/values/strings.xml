@@ -43,4 +43,5 @@
     <string name="permissions_camera_text">We need access to your camera so you can make some photos</string>
     <string name="grant_access">Grant access</string>
     <string name="error_camera">Looks like your camera is unavailable</string>
+    <string name="gallery">Gallery</string>
 </resources>

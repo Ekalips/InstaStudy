@@ -134,7 +134,7 @@ public abstract class BaseBindingBottomSheetDialogFragment<Binding extends ViewD
     protected abstract void handleNavigationEvent(EventNavigate eventNavigate);
 
     public void handleGoBackEvent(EventGoBack eventGoBack) {
-
+        dismiss();
     }
 
 }

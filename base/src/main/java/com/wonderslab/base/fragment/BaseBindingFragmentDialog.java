@@ -5,7 +5,6 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.DialogFragment;
 import android.transition.ChangeBounds;
 import android.view.LayoutInflater;
@@ -135,7 +134,7 @@ public abstract class BaseBindingFragmentDialog<Binding extends ViewDataBinding,
     protected abstract void handleNavigationEvent(EventNavigate eventNavigate);
 
     public void handleGoBackEvent(EventGoBack eventGoBack) {
-
+        dismiss();
     }
 
 }

@@ -3,6 +3,7 @@ package com.ekalips.instastudy.main.di.group_chat;
 import com.ekalips.instastudy.di.scopes.SubFragmentScope;
 import com.ekalips.instastudy.di.scopes.SubSubFragmentScope;
 import com.ekalips.instastudy.main.contract.chat.attachments.ChatAttachmentContract;
+import com.ekalips.instastudy.main.mvvm.view.group_chat.attachments.AttachmentGalleryFragment;
 import com.ekalips.instastudy.main.mvvm.view.group_chat.attachments.AttachmentTakeImageFragment;
 import com.ekalips.instastudy.main.mvvm.vm.group_chat.attachments.ChatAttachmentViewModule;
 
@@ -25,5 +26,9 @@ public abstract class ChatAttachmentModule {
     @SubSubFragmentScope
     @ContributesAndroidInjector(modules = AttachmentsModule.class)
     abstract AttachmentTakeImageFragment attachemtTakeImageFragment();
+
+    @SubSubFragmentScope
+    @ContributesAndroidInjector(modules = AttachmentsModule.class)
+    abstract AttachmentGalleryFragment attachmentGalleryFragment();
 
 }

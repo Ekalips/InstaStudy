@@ -1,7 +1,9 @@
 package com.ekalips.instastudy.main.di.group_chat;
 
 import com.ekalips.instastudy.di.scopes.SubSubFragmentScope;
+import com.ekalips.instastudy.main.contract.chat.attachments.AttachmentGalleryContract;
 import com.ekalips.instastudy.main.contract.chat.attachments.AttachmentTakePhotoContract;
+import com.ekalips.instastudy.main.mvvm.vm.group_chat.attachments.AttachmentGalleryViewModel;
 import com.ekalips.instastudy.main.mvvm.vm.group_chat.attachments.AttachmentTakePhotoViewModel;
 
 import dagger.Binds;
@@ -18,5 +20,9 @@ public abstract class AttachmentsModule {
     @Binds
     @SubSubFragmentScope
     abstract AttachmentTakePhotoContract.ViewModel takePhotoVM(AttachmentTakePhotoViewModel viewModel);
+
+    @Binds
+    @SubSubFragmentScope
+    abstract AttachmentGalleryContract.ViewModel galleryVM(AttachmentGalleryViewModel viewModel);
 
 }

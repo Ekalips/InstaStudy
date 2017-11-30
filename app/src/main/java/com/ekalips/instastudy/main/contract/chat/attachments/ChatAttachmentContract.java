@@ -21,10 +21,12 @@ public interface ChatAttachmentContract {
         }
 
         public abstract ObservableField<Pages> getCurrentPage();
+
+        public abstract void changePage(Pages page);
     }
 
     enum Pages {
-        TAKE_PHOTO, SELECT_IMAGE
+        TAKE_PHOTO, SELECT_IMAGE, PHONE_GALLERY, PHONE_CAMERA
     }
 
 }

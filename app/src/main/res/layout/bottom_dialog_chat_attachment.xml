@@ -12,14 +12,14 @@
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/parentView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/parentView">
+        android:layout_height="match_parent">
 
         <FrameLayout
+            android:id="@+id/dummyView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/dummyView"/>
+            android:layout_height="match_parent" />
 
         <FrameLayout
             android:id="@+id/fragment_container"
@@ -27,9 +27,9 @@
             android:layout_height="@dimen/bottom_sheet_init_height" />
 
         <FrameLayout
+            android:id="@+id/navigationContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/navigationContainer"
             android:layout_alignBottom="@id/fragment_container"
             android:layout_gravity="bottom"
             android:clipToPadding="false"
@@ -59,6 +59,7 @@
                         android:layout_width="52dp"
                         android:layout_height="32dp"
                         android:checked="@{vm.currentPage == Pages.TAKE_PHOTO}"
+                        android:onClick="@{() -> vm.changePage(Pages.TAKE_PHOTO)}"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
                         android:src="@drawable/ic_camera_shutter"
@@ -67,6 +68,7 @@
                     <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
                         android:layout_width="52dp"
                         android:layout_height="32dp"
+                        android:onClick="@{() -> vm.changePage(Pages.PHONE_CAMERA)}"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
                         android:src="@drawable/ic_camera"
@@ -76,6 +78,7 @@
                         android:layout_width="52dp"
                         android:layout_height="32dp"
                         android:checked="@{vm.currentPage == Pages.SELECT_IMAGE}"
+                        android:onClick="@{() -> vm.changePage(Pages.SELECT_IMAGE)}"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
                         android:src="@drawable/ic_photo_library"
@@ -84,6 +87,7 @@
                     <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
                         android:layout_width="52dp"
                         android:layout_height="32dp"
+                        android:onClick="@{() -> vm.changePage(Pages.PHONE_GALLERY)}"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
                         android:src="@drawable/ic_file"

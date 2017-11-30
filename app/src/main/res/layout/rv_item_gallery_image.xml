@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="onFileClick"
+            type="com.ekalips.instastudy.stuff.ClickAdapter" />
+
+        <variable
+            name="file"
+            type="com.ekalips.instastudy.main.mvvm.model.SelectableFile" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{onFileClick}"
+        android:padding="2dp">
+
+        <com.ekalips.instastudy.stuff.custom_views.FixedAspectRatioImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:aspectRatio="1"
+            app:aspectRatioEnabled="true"
+            app:src="@{file.file}"
+            tools:src="@drawable/user_icon" />
+
+        <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="12dp"
+            android:background="@drawable/file_check"
+            android:checked="@{file.selected}"
+            android:src="@drawable/ic_done_white" />
+
+    </FrameLayout>
+</layout>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="permissionsGranted"
+            type="boolean" />
+
+        <variable
+            name="toolbarVisible"
+            type="boolean" />
+
+        <variable
+            name="vm"
+            type="com.ekalips.instastudy.main.contract.chat.attachments.AttachmentGalleryContract.ViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/white"
+            android:elevation="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="@{toolbarVisible}">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?selectableItemBackground"
+                android:onClick="@{() -> vm.goBack()}"
+                android:padding="16dp"
+                android:src="@drawable/ic_arrow_back"
+                android:tint="@color/grey" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/gallery"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+            <FrameLayout
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:padding="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:onClick="@{() -> vm.unselectAll()}">
+
+                <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:checked="@{vm.selectedFiles.size > 0}"
+                    android:src="@drawable/file_check" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@{String.valueOf(vm.selectedFiles.size)}"
+                    android:textColor="@color/white"
+                    android:visibility="@{vm.selectedFiles.size > 0}"
+                    tools:text="9" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="6dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="6dp"
+                android:visibility="@{permissionsGranted}"
+                app:layoutManager="GridLayoutManager"
+                app:spanCount="4"
+                app:src="@{vm.images}"
+                tools:listitem="@layout/rv_item_gallery_image" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="32dp"
+                android:visibility="@{!permissionsGranted}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/permissions_camera_text"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="16sp" />
+
+                <Button
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> vm.requestPermissions()}"
+                    android:text="@string/grant_access"
+                    android:textColor="@color/colorPrimary" />
+
+            </LinearLayout>
+
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{() -> vm.sendSelected()}"
+                android:layout_marginBottom="@dimen/attachment_buttons_bottom_margin"
+                android:src="@drawable/ic_done_white"
+                android:tint="@color/colorPrimary"
+                app:backgroundTint="@color/white"
+                app:fabSize="normal" />
+
+        </FrameLayout>
+    </LinearLayout>
+</layout>

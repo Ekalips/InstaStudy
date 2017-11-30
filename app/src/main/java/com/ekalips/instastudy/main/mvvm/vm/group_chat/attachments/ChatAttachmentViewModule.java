@@ -27,8 +27,10 @@ public class ChatAttachmentViewModule extends ChatAttachmentContract.ViewModel {
         return currentPage;
     }
 
-    private void changePage(ChatAttachmentContract.Pages page) {
-        currentPage.set(page);
-        navigateTo(page, null);
+    public void changePage(ChatAttachmentContract.Pages page) {
+        if (page != currentPage.get()) {
+            currentPage.set(page);
+            navigateTo(page, null);
+        }
     }
 }
