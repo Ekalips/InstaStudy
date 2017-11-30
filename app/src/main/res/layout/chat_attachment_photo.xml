@@ -4,6 +4,10 @@
     <data>
 
         <variable
+            name="cameraUnAvailable"
+            type="boolean"/>
+
+        <variable
             name="permissionsGranted"
             type="boolean" />
 
@@ -27,8 +31,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:src="@{vm.takenFile}"
-            android:visibility="@{vm.takenFile!=null}" />
+            android:visibility="@{vm.takenFile!=null}"
+            app:src="@{vm.takenFile}" />
 
         <com.ekalips.instastudy.stuff.custom_views.RoundableImageView
             android:layout_width="64dp"
@@ -104,6 +108,16 @@
                 android:textColor="@color/colorAccent" />
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/error_camera"
+            android:textColor="@color/primaryWhite"
+            android:textSize="16sp"
+            android:visibility="@{permissionsGranted &amp;&amp; cameraUnAvailable}"/>
 
     </FrameLayout>
 </layout>

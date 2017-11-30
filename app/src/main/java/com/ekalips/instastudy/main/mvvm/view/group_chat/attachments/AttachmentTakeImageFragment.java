@@ -63,6 +63,7 @@ public class AttachmentTakeImageFragment extends BaseBindingFragment<ChatAttachm
                 .into(binding.cameraView)
                 .previewScaleType(ScaleType.CENTER_CROP)
                 .photoSize(SizeSelectors.biggestSize())
+                .cameraErrorCallback(e -> binding.setCameraUnAvailable(true))
                 .lensPosition(LensPositionSelectors.back())
                 .focusMode(Selectors.firstAvailable(
                         FocusModeSelectors.continuousFocus(),
