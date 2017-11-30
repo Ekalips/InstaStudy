@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -131,8 +130,6 @@ public class ChatAttachmentDialog extends BaseBindingBottomSheetDialogFragment<B
     private final BottomSheetBehavior.BottomSheetCallback bottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback() {
         @Override
         public void onStateChanged(@NonNull View bottomSheet, int newState) {
-            Log.d(TAG, "onStateChanged() called with: bottomSheet = [" + bottomSheet + "], newState = [" + newState + "]");
-
             switch (newState) {
                 case BottomSheetBehavior.STATE_EXPANDED: {
                     hideControls();
@@ -148,7 +145,6 @@ public class ChatAttachmentDialog extends BaseBindingBottomSheetDialogFragment<B
 
         @Override
         public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-            Log.d(TAG, "onSlide: " + slideOffset);
             if (slideOffset >= 0) {
                 binding.fragmentContainer.getLayoutParams().height = (int) (((screenH - startPeekH) * slideOffset) + startPeekH);
                 binding.fragmentContainer.requestLayout();
