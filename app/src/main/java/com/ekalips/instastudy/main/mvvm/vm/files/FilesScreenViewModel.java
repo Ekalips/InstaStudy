@@ -133,7 +133,7 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
     @Override
     public void onOpenDirectory(Directory directory) {
         if (directory != null) {
-            String path = directory.getPath();
+            String path = this.directory + directory.getPath();
             parentVM.navigateTo(NavigateToEnum.FILES, path);
         }
     }
