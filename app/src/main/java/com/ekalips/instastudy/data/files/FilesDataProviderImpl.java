@@ -1,5 +1,6 @@
 package com.ekalips.instastudy.data.files;
 
+import com.ekalips.instastudy.data.files.models.File;
 import com.ekalips.instastudy.data.files.models.FileOrDirectory;
 import com.ekalips.instastudy.data.files.source.remote.RemoteFilesDataSource;
 import com.ekalips.instastudy.data.user.UserDataProvider;
@@ -41,5 +42,20 @@ public class FilesDataProviderImpl implements FilesDataProvider {
     @Override
     public Observable<List<? extends FileOrDirectory>> getDirectoryContent(String token, String groupId, String path) {
         return remoteFilesDataSource.getDirectoryContent(token, groupId, path);
+    }
+
+    @Override
+    public Observable<? extends File> uploadFile(String token, String groupId, java.io.File file) {
+        return remoteFilesDataSource.uploadFile(token, groupId, file);
+    }
+
+    @Override
+    public Observable<? extends File> uploadFile(String groupId, java.io.File file) {
+        return userDataProvider.getUserToken().switchMap(token -> uploadFile(token, groupId, file));
+    }
+
+    @Override
+    public Observable<? extends File> uploadFileToMyGroup(java.io.File file) {
+        return userDataProvider.getUser(false).switchMap(user -> uploadFile(user.getData().getGroups().get(0).getId(), file));
     }
 }

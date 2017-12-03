@@ -1,5 +1,6 @@
 package com.ekalips.instastudy.data.files;
 
+import com.ekalips.instastudy.data.files.models.File;
 import com.ekalips.instastudy.data.files.models.FileOrDirectory;
 import com.ekalips.instastudy.data.files.source.remote.RemoteFilesDataSource;
 
@@ -17,4 +18,7 @@ public interface FilesDataProvider extends RemoteFilesDataSource {
 
     Observable<List<? extends FileOrDirectory>> getMainGroupDirectoryContent(String path);
 
+    Observable<? extends File> uploadFile(String groupId, java.io.File file);
+
+    Observable<? extends File> uploadFileToMyGroup(java.io.File file);
 }

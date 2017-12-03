@@ -1,10 +1,16 @@
 package com.ekalips.instastudy.main.mvvm.view.files;
 
 
+import android.Manifest;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.widget.DividerItemDecoration;
+import android.widget.Toast;
 
 import com.ekalips.instastudy.BR;
 import com.ekalips.instastudy.R;
@@ -20,6 +26,8 @@ import com.wonderslab.base.fragment.BaseBindingFragment;
 
 import javax.inject.Inject;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -27,6 +35,8 @@ public class FilesFragment extends BaseBindingFragment<FragmentFilesBinding, Fil
 
     private static final String ARG_GROUP = "group_id";
     private static final String ARG_PATH = "path";
+
+    private static final int FILE_SELECT_CODE = 0;
 
 
     public static FilesFragment newInstance(String groupId, String path) {
@@ -100,4 +110,36 @@ public class FilesFragment extends BaseBindingFragment<FragmentFilesBinding, Fil
             getViewModel().onOpenDirectory(directory);
         }
     };
+
+    @Override
+    public void showFileChooser() {
+        if (PermissionChecker.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PermissionChecker.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+            return;
+        }
+
+
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        try {
+            startActivityForResult(
+                    Intent.createChooser(intent, getString(R.string.file_selector_title)),
+                    FILE_SELECT_CODE);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getContext(), R.string.error_no_file_manager,
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == FILE_SELECT_CODE) {
+            Uri uri = data.getData();
+            if (uri != null)
+                getViewModel().onFileSelected(uri);
+        }
+    }
 }

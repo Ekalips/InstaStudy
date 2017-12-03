@@ -45,4 +45,6 @@
     <string name="error_camera">Looks like your camera is unavailable</string>
     <string name="gallery">Gallery</string>
     <string name="files_tile">Files</string>
+    <string name="file_selector_title">Select a File to Upload</string>
+    <string name="error_no_file_manager">Please install a File Manager.</string>
 </resources>

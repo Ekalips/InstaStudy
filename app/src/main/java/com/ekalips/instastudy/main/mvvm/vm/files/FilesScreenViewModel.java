@@ -1,8 +1,12 @@
 package com.ekalips.instastudy.main.mvvm.vm.files;
 
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.net.Uri;
 import android.text.TextUtils;
+import android.util.FloatProperty;
 import android.util.Log;
+import android.widget.TabHost;
 
 import com.ekalips.instastudy.data.files.FilesDataProvider;
 import com.ekalips.instastudy.data.files.models.Directory;
@@ -14,6 +18,7 @@ import com.ekalips.instastudy.main.contract.MainActivityContract;
 import com.ekalips.instastudy.main.mvvm.model.files.DirectoryModel;
 import com.ekalips.instastudy.main.mvvm.model.files.FileModel;
 import com.ekalips.instastudy.navigation.NavigateToEnum;
+import com.ekalips.instastudy.providers.FilesProvider;
 import com.ekalips.instastudy.stuff.Const;
 import com.ekalips.instastudy.stuff.StringUtils;
 import com.wonderslab.base.rx.Response;
@@ -36,17 +41,21 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
     private static final String TAG = FilesScreenViewModel.class.getSimpleName();
 
     private final ObservableField<List<Object>> content = new ObservableField<>(new ArrayList<>());
+    private final ObservableBoolean loading = new ObservableBoolean(false);
     private final FilesDataProvider filesDataProvider;
     private final MainActivityContract.ViewModel parentVM;
+    private final FilesProvider filesProvider;
 
     private String groupId;
     private String directory;
 
     @Inject
-    public FilesScreenViewModel(RxRequests rxRequests, @DataProvider FilesDataProvider filesDataProvider, MainActivityContract.ViewModel parentVM) {
+    public FilesScreenViewModel(RxRequests rxRequests, @DataProvider FilesDataProvider filesDataProvider, MainActivityContract.ViewModel parentVM,
+                                FilesProvider filesProvider) {
         super(rxRequests);
         this.filesDataProvider = filesDataProvider;
         this.parentVM = parentVM;
+        this.filesProvider = filesProvider;
     }
 
     @Override
@@ -68,39 +77,31 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
     }
 
     private void requestContent() {
+        loading.set(true);
         if (StringUtils.isEmpty(groupId)) {
-            request(filesDataProvider.getMainGroupDirectoryContent(directory), this::onNewFiles, this::onGetFilesError);
+            request(filesDataProvider.getMainGroupDirectoryContent(directory), this::onNewFiles, this::onGetFilesError, () -> loading.set(false));
         } else {
-            request(filesDataProvider.getDirectoryContent(groupId, directory), this::onNewFiles, this::onGetFilesError);
+            request(filesDataProvider.getDirectoryContent(groupId, directory), this::onNewFiles, this::onGetFilesError, () -> loading.set(false));
         }
     }
 
     private void onNewFiles(List<? extends FileOrDirectory> fileOrDirectory) {
-        content.get().clear();
-        for (FileOrDirectory c :
-                fileOrDirectory) {
-            if (c.isDirectory()) {
-                DirectoryModel directoryModel = new DirectoryModel(c);
-                directoryModel.setPath(fixDirectoryPath(directoryModel.getPath()));
-                content.get().add(directoryModel);
-            } else if (c.isFile()) {
-                content.get().add(new FileModel(c));
-            }
-        }
-
-        Collections.sort(content.get(), (first, second) -> {
-            if (first instanceof Directory) {
-                if (second instanceof Directory) {
-                    return ((Directory) first).getPath().compareTo(((Directory) second).getPath());
-                } else {
-                    return -1;
+        synchronized (content) {
+            content.get().clear();
+            for (FileOrDirectory c :
+                    fileOrDirectory) {
+                if (c.isDirectory()) {
+                    DirectoryModel directoryModel = new DirectoryModel(c);
+                    directoryModel.setPath(fixDirectoryPath(directoryModel.getPath()));
+                    content.get().add(directoryModel);
+                } else if (c.isFile()) {
+                    content.get().add(new FileModel(c));
                 }
-            } else if (second instanceof Directory) {
-                return -1;
             }
-            return 1;
-        });
-        content.notifyChange();
+
+            sortContent();
+            content.notifyChange();
+        }
     }
 
     private void onGetFilesError(Throwable throwable) {
@@ -136,5 +137,69 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
             String path = this.directory + directory.getPath();
             parentVM.navigateTo(NavigateToEnum.FILES, path);
         }
+    }
+
+    @Override
+    public void showUploadDialog() {
+        if (view != null && !loading.get()) {
+            view.showFileChooser();
+        }
+    }
+
+    @Override
+    public void onFileSelected(Uri uri) {
+        loading.set(true);
+        request(filesProvider.getFileFromUri(uri), this::uploadFile, this::onGetFileError);
+    }
+
+    @Override
+    public ObservableBoolean getLoading() {
+        return loading;
+    }
+
+    private void onGetFileError(Throwable throwable) {
+        Log.e(TAG, "onGetFileError: ", throwable);
+        loading.set(false);
+    }
+
+    private void uploadFile(java.io.File file) {
+        if (StringUtils.isEmpty(groupId)) {
+            loading.set(true);
+            request(filesDataProvider.uploadFileToMyGroup(file), this::onFileUploadSuccess, this::onFileUploadError, () -> {
+                loading.set(false);
+                file.deleteOnExit();
+            });
+        }
+    }
+
+    private void onFileUploadSuccess(File file) {
+        synchronized (content) {
+            content.get().add(new FileModel(file));
+            sortContent();
+            content.notifyChange();
+        }
+    }
+
+    private void onFileUploadError(Throwable throwable) {
+
+    }
+
+    private void sortContent() {
+        Collections.sort(content.get(), (first, second) -> {
+            if (first instanceof Directory) {
+                if (second instanceof Directory) {
+                    if (((Directory) first).getPath() != null && ((Directory) second).getPath() != null) {
+                        return ((Directory) first).getPath().compareTo(((Directory) second).getPath());
+                    } else {
+                        return 0;
+                    }
+                } else {
+                    return -1;
+                }
+            } else if (second instanceof Directory) {
+                return -1;
+            }
+            return 1;
+        });
     }
 }

@@ -1,6 +1,8 @@
 package com.ekalips.instastudy.main.contract;
 
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.net.Uri;
 
 import com.ekalips.instastudy.data.files.models.Directory;
 import com.ekalips.instastudy.data.files.models.File;
@@ -18,6 +20,7 @@ public interface FilesScreenContract {
 
     interface View extends BaseView {
 
+        void showFileChooser();
     }
 
     abstract class ViewModel extends BaseViewModel<View> {
@@ -33,6 +36,12 @@ public interface FilesScreenContract {
         public abstract void onDownloadFile(File file);
 
         public abstract void onOpenDirectory(Directory directory);
+
+        public abstract void showUploadDialog();
+
+        public abstract void onFileSelected(Uri uri);
+
+        public abstract ObservableBoolean getLoading();
     }
 
 }

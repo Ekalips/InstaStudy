@@ -11,6 +11,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         tools:context="com.ekalips.instastudy.main.mvvm.view.files.FilesFragment">
 
         <android.support.v7.widget.RecyclerView
@@ -21,12 +22,29 @@
             app:src="@{vm.content}"
             tools:listitem="@layout/rv_item_file" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.3"
+            android:background="@color/lightGray"
+            android:elevation="16dp"
+            android:visibility="@{vm.loading}" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="18dp"
+            android:visibility="@{vm.loading}" />
+
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:backgroundTint="@color/darkBlue"
+            android:enabled="@{!vm.loading}"
+            android:onClick="@{() -> vm.showUploadDialog()}"
             android:src="@drawable/ic_add"
             android:tint="@color/white"
             app:fabSize="normal" />

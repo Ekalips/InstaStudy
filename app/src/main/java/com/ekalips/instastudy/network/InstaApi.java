@@ -64,4 +64,8 @@ public interface InstaApi {
     @GET("group/{group_id}/files")
     Call<List<RemoteFileOrDirectoryEntity>> getDirectoryContent(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Query("path") String path);
 
+    @POST("group/{group_id}/files")
+    @Multipart
+    Call<RemoteFileOrDirectoryEntity> uploadFile(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Part MultipartBody.Part filePart);
+
 }
