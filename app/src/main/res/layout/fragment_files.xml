@@ -37,17 +37,37 @@
             android:elevation="18dp"
             android:visibility="@{vm.loading}" />
 
-        <android.support.design.widget.FloatingActionButton
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:backgroundTint="@color/darkBlue"
-            android:enabled="@{!vm.loading}"
-            android:onClick="@{() -> vm.showUploadDialog()}"
-            android:src="@drawable/ic_add"
-            android:tint="@color/white"
-            app:fabSize="normal" />
+            app:fab_addButtonColorNormal="@color/darkBlue"
+            app:fab_addButtonColorPressed="@color/darkBlue"
+            app:fab_expandDirection="up">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/newFileBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> vm.showUploadDialog()}"
+                android:src="@drawable/ic_file"
+                android:tint="@color/white"
+                app:fab_colorNormal="@color/colorPrimary"
+                app:fab_colorPressed="@color/colorPrimary"
+                app:fab_size="mini" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/newDirBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_folder"
+                android:tint="@color/white"
+                app:fab_colorNormal="@color/colorPrimary"
+                app:fab_colorPressed="@color/colorPrimary"
+                app:fab_size="mini" />
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     </FrameLayout>
 </layout>

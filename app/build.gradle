@@ -93,7 +93,9 @@ dependencies {
     debugCompile "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
     releaseCompile "io.objectbox:objectbox-android:$objectboxVersion"
 
-    compile 'io.fotoapparat.fotoapparat:library:1.4.1'
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+
+    implementation 'io.fotoapparat.fotoapparat:library:1.4.1'
 
     implementation project(path: ':base')
 
