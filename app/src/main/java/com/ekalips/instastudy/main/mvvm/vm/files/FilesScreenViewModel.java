@@ -10,8 +10,10 @@ import com.ekalips.instastudy.data.files.models.File;
 import com.ekalips.instastudy.data.files.models.FileOrDirectory;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
 import com.ekalips.instastudy.main.contract.FilesScreenContract;
+import com.ekalips.instastudy.main.contract.MainActivityContract;
 import com.ekalips.instastudy.main.mvvm.model.files.DirectoryModel;
 import com.ekalips.instastudy.main.mvvm.model.files.FileModel;
+import com.ekalips.instastudy.navigation.NavigateToEnum;
 import com.ekalips.instastudy.stuff.Const;
 import com.ekalips.instastudy.stuff.StringUtils;
 import com.wonderslab.base.rx.Response;
@@ -35,14 +37,16 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
 
     private final ObservableField<List<Object>> content = new ObservableField<>(new ArrayList<>());
     private final FilesDataProvider filesDataProvider;
+    private final MainActivityContract.ViewModel parentVM;
 
     private String groupId;
     private String directory;
 
     @Inject
-    public FilesScreenViewModel(RxRequests rxRequests, @DataProvider FilesDataProvider filesDataProvider) {
+    public FilesScreenViewModel(RxRequests rxRequests, @DataProvider FilesDataProvider filesDataProvider, MainActivityContract.ViewModel parentVM) {
         super(rxRequests);
         this.filesDataProvider = filesDataProvider;
+        this.parentVM = parentVM;
     }
 
     @Override
@@ -119,5 +123,18 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
             }
         }
         return res;
+    }
+
+    @Override
+    public void onDownloadFile(File file) {
+
+    }
+
+    @Override
+    public void onOpenDirectory(Directory directory) {
+        if (directory != null) {
+            String path = directory.getPath();
+            parentVM.navigateTo(NavigateToEnum.FILES, path);
+        }
     }
 }

@@ -68,7 +68,10 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
                 break;
             }
             case FILES: {
-                localNavigator.navigateToFiles(null, null);
+                String directory = null;
+                if (eventNavigate.getPayload() instanceof String)
+                    directory = (String) eventNavigate.getPayload();
+                localNavigator.navigateToFiles(null, directory);
                 break;
             }
         }

@@ -8,6 +8,10 @@
         <variable
             name="file"
             type="com.ekalips.instastudy.data.files.models.File" />
+
+        <variable
+            name="downloadClick"
+            type="com.ekalips.instastudy.stuff.ClickAdapter"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -46,6 +50,7 @@
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{downloadClick}"
             android:padding="16dp"
             android:src="@drawable/ic_file_download"
             android:tint="@color/grey" />

@@ -2,15 +2,18 @@ package com.ekalips.instastudy.main.mvvm.model.files;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.ekalips.instastudy.BR;
 import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.data.files.models.Directory;
 import com.ekalips.instastudy.data.files.models.File;
+import com.ekalips.instastudy.stuff.ClickAdapter;
 import com.wonderslab.base.recyclerview.BindingViewHolder;
 import com.wonderslab.base.recyclerview.DataSetInterface;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,12 @@ public class FilesRecyclerViewAdapter extends RecyclerView.Adapter<BindingViewHo
 
     private static final int TYPE_FILE = 0;
     private static final int TYPE_DIR = 1;
+
+    private final WeakReference<AdapterCallbacks> adapterCallbacksWeakReference;
+
+    public FilesRecyclerViewAdapter(AdapterCallbacks adapterCallbacks) {
+        adapterCallbacksWeakReference = new WeakReference<>(adapterCallbacks);
+    }
 
 
     private final List<Object> data = new ArrayList<>();
@@ -43,6 +52,22 @@ public class FilesRecyclerViewAdapter extends RecyclerView.Adapter<BindingViewHo
     public void onBindViewHolder(BindingViewHolder<ViewDataBinding> holder, int position) {
         holder.getBinding().setVariable(BR.file, data.get(holder.getAdapterPosition()));
         holder.getBinding().setVariable(BR.directory, data.get(holder.getAdapterPosition()));
+        holder.getBinding().setVariable(BR.downloadClick, new ClickAdapter() {
+            @Override
+            public void onClick(View view) {
+                if (adapterCallbacksWeakReference.get() != null) {
+                    adapterCallbacksWeakReference.get().onDownloadFileClicked((File) data.get(holder.getAdapterPosition()));
+                }
+            }
+        });
+        holder.getBinding().setVariable(BR.directoryClick, new ClickAdapter() {
+            @Override
+            public void onClick(View view) {
+                if (adapterCallbacksWeakReference.get() != null) {
+                    adapterCallbacksWeakReference.get().onDirectoryClicked((Directory) data.get(holder.getAdapterPosition()));
+                }
+            }
+        });
     }
 
     @Override
@@ -59,12 +84,19 @@ public class FilesRecyclerViewAdapter extends RecyclerView.Adapter<BindingViewHo
 
     @Override
     public int getItemViewType(int position) {
-        if (data.get(position) instanceof File){
+        if (data.get(position) instanceof File) {
             return TYPE_FILE;
-        }
-        else if (data.get(position) instanceof Directory){
+        } else if (data.get(position) instanceof Directory) {
             return TYPE_DIR;
         }
         return -1;
+    }
+
+    public interface AdapterCallbacks {
+
+        void onDownloadFileClicked(File file);
+
+        void onDirectoryClicked(Directory directory);
+
     }
 }

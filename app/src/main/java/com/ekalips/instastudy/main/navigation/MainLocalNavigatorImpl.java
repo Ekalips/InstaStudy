@@ -27,6 +27,8 @@ public class MainLocalNavigatorImpl implements MainLocalNavigator {
 
     @Override
     public void navigateToGroupChat(String groupId) {
+        popBackStack();
+
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, ChatFragment.newInstance(groupId))
                 .commit();
@@ -34,6 +36,8 @@ public class MainLocalNavigatorImpl implements MainLocalNavigator {
 
     @Override
     public void navigateToSchedule() {
+        popBackStack();
+
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, ScheduleFragment.newInstance())
                 .commit();
@@ -43,6 +47,13 @@ public class MainLocalNavigatorImpl implements MainLocalNavigator {
     public void navigateToFiles(String groupId, String directory) {
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, FilesFragment.newInstance(groupId, directory))
+                .addToBackStack(FilesFragment.class.getSimpleName() + directory)
                 .commit();
+    }
+
+    private void popBackStack() {
+        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+            fragmentManager.popBackStack();
+        }
     }
 }
