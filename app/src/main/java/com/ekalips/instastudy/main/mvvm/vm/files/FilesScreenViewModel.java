@@ -8,6 +8,7 @@ import android.util.FloatProperty;
 import android.util.Log;
 import android.widget.TabHost;
 
+import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.data.files.FilesDataProvider;
 import com.ekalips.instastudy.data.files.models.Directory;
 import com.ekalips.instastudy.data.files.models.File;
@@ -19,6 +20,7 @@ import com.ekalips.instastudy.main.mvvm.model.files.DirectoryModel;
 import com.ekalips.instastudy.main.mvvm.model.files.FileModel;
 import com.ekalips.instastudy.navigation.NavigateToEnum;
 import com.ekalips.instastudy.providers.FilesProvider;
+import com.ekalips.instastudy.providers.ToastProvider;
 import com.ekalips.instastudy.stuff.Const;
 import com.ekalips.instastudy.stuff.StringUtils;
 import com.wonderslab.base.rx.Response;
@@ -45,14 +47,16 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
     private final FilesDataProvider filesDataProvider;
     private final MainActivityContract.ViewModel parentVM;
     private final FilesProvider filesProvider;
+    private final ToastProvider toastProvider;
 
     private String groupId;
     private String directory;
 
     @Inject
     public FilesScreenViewModel(RxRequests rxRequests, @DataProvider FilesDataProvider filesDataProvider, MainActivityContract.ViewModel parentVM,
-                                FilesProvider filesProvider) {
+                                FilesProvider filesProvider, ToastProvider toastProvider) {
         super(rxRequests);
+        this.toastProvider = toastProvider;
         this.filesDataProvider = filesDataProvider;
         this.parentVM = parentVM;
         this.filesProvider = filesProvider;
@@ -106,6 +110,7 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
 
     private void onGetFilesError(Throwable throwable) {
         Log.e(TAG, "onGetFilesError: ", throwable);
+        toastProvider.showToast(R.string.error_fetching_files);
     }
 
     @Override
@@ -128,7 +133,7 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
 
     @Override
     public void onDownloadFile(File file) {
-        if (view!=null){
+        if (view != null) {
             view.openUrl(file.getUrl());
         }
     }
@@ -161,13 +166,20 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
 
     private void onGetFileError(Throwable throwable) {
         Log.e(TAG, "onGetFileError: ", throwable);
+        toastProvider.showToast(R.string.error_file_upload);
         loading.set(false);
     }
 
     private void uploadFile(java.io.File file) {
+        loading.set(true);
+
         if (StringUtils.isEmpty(groupId)) {
-            loading.set(true);
-            request(filesDataProvider.uploadFileToMyGroup(file), this::onFileUploadSuccess, this::onFileUploadError, () -> {
+            request(filesDataProvider.uploadFileToMyGroup(directory, file), this::onFileUploadSuccess, this::onFileUploadError, () -> {
+                loading.set(false);
+                file.deleteOnExit();
+            });
+        } else {
+            request(filesDataProvider.uploadFile(groupId, directory, file), this::onFileUploadSuccess, this::onFileUploadError, () -> {
                 loading.set(false);
                 file.deleteOnExit();
             });
@@ -183,7 +195,8 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
     }
 
     private void onFileUploadError(Throwable throwable) {
-
+        Log.e(TAG, "onFileUploadError: ", throwable);
+        toastProvider.showToast(R.string.error_file_upload);
     }
 
     private void sortContent() {
@@ -203,5 +216,17 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
             }
             return 1;
         });
+    }
+
+    @Override
+    public void onNewDirectory() {
+        if (view != null) {
+            view.showDirectoryCreateDialog();
+        }
+    }
+
+    @Override
+    public void createNewDirectory(String name) {
+        onOpenDirectory(new DirectoryModel(name));
     }
 }

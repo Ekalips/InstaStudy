@@ -15,5 +15,5 @@ public interface RemoteFilesDataSource {
 
     Observable<List<? extends FileOrDirectory>> getDirectoryContent(String token, String groupId, String path);
 
-    Observable<? extends File> uploadFile(String token, String groupId, java.io.File file);
+    Observable<? extends File> uploadFile(String token, String groupId, String path, java.io.File file);
 }

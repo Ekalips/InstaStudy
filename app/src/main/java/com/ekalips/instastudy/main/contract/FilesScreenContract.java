@@ -22,6 +22,8 @@ public interface FilesScreenContract {
 
         void showFileChooser();
 
+        void showDirectoryCreateDialog();
+
         void openUrl(String url);
     }
 
@@ -41,9 +43,13 @@ public interface FilesScreenContract {
 
         public abstract void showUploadDialog();
 
+        public abstract void onNewDirectory();
+
         public abstract void onFileSelected(Uri uri);
 
         public abstract ObservableBoolean getLoading();
+
+        public abstract void createNewDirectory(String name);
     }
 
 }

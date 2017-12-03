@@ -11,6 +11,10 @@ public class DirectoryModel implements Directory {
     private int type;
     private String path;
 
+    public DirectoryModel(String path) {
+        this.path = path;
+    }
+
     public DirectoryModel(Directory directory) {
         this.type = directory.getType();
         this.path = directory.getPath();

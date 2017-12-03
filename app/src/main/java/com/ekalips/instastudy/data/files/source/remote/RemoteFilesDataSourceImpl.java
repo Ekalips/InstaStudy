@@ -50,9 +50,9 @@ public class RemoteFilesDataSourceImpl implements RemoteFilesDataSource {
     }
 
     @Override
-    public Observable<? extends File> uploadFile(String token, String groupId, java.io.File file) {
+    public Observable<? extends File> uploadFile(String token, String groupId, String path, java.io.File file) {
         return RxUtils.wrapAsIO(Observable.fromCallable((Callable<File>) () -> {
-            Response<RemoteFileOrDirectoryEntity> response = api.uploadFile(token, groupId, NetworkUtils.prepareFilePart(context, "file", file)).execute();
+            Response<RemoteFileOrDirectoryEntity> response = api.uploadFile(token, groupId, path, NetworkUtils.prepareFilePart(context, "file", file)).execute();
             if (response.isSuccessful()) {
                 return response.body();
             }

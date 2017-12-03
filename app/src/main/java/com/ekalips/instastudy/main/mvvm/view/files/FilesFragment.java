@@ -3,13 +3,19 @@ package com.ekalips.instastudy.main.mvvm.view.files;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.PermissionChecker;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
+import android.text.InputType;
+import android.util.TypedValue;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.ekalips.instastudy.BR;
@@ -19,6 +25,7 @@ import com.ekalips.instastudy.data.files.models.File;
 import com.ekalips.instastudy.databinding.FragmentFilesBinding;
 import com.ekalips.instastudy.main.contract.FilesScreenContract;
 import com.ekalips.instastudy.main.contract.MainActivityContract;
+import com.ekalips.instastudy.main.mvvm.model.files.DirectoryModel;
 import com.ekalips.instastudy.main.mvvm.model.files.FilesRecyclerViewAdapter;
 import com.ekalips.instastudy.stuff.StringUtils;
 import com.wonderslab.base.event_system.Event;
@@ -150,5 +157,22 @@ public class FilesFragment extends BaseBindingFragment<FragmentFilesBinding, Fil
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(Intent.createChooser(browserIntent, "Browser"));
         }
+    }
+
+    @Override
+    public void showDirectoryCreateDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(R.string.dialog_create_directory_title);
+        final FrameLayout frameLayout = new FrameLayout(getContext());
+        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
+        frameLayout.setPadding(padding, padding, padding, padding);
+        final EditText input = new EditText(getContext());
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setHint(R.string.hint_directory);
+        frameLayout.addView(input);
+        builder.setView(frameLayout);
+        builder.setPositiveButton(android.R.string.ok, (dialog, which) -> getViewModel().createNewDirectory(input.getText().toString()));
+        builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
+        builder.show();
     }
 }

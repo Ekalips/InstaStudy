@@ -18,7 +18,7 @@ public interface FilesDataProvider extends RemoteFilesDataSource {
 
     Observable<List<? extends FileOrDirectory>> getMainGroupDirectoryContent(String path);
 
-    Observable<? extends File> uploadFile(String groupId, java.io.File file);
+    Observable<? extends File> uploadFile(String groupId, String path, java.io.File file);
 
-    Observable<? extends File> uploadFileToMyGroup(java.io.File file);
+    Observable<? extends File> uploadFileToMyGroup(String path, java.io.File file);
 }

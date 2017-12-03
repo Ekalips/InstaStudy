@@ -47,4 +47,8 @@
     <string name="files_tile">Files</string>
     <string name="file_selector_title">Select a File to Upload</string>
     <string name="error_no_file_manager">Please install a File Manager.</string>
+    <string name="error_file_upload">Error uploading file</string>
+    <string name="error_fetching_files">Error fetching files for this directory</string>
+    <string name="dialog_create_directory_title">New directory</string>
+    <string name="hint_directory">New directory name</string>
 </resources>

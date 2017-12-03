@@ -66,6 +66,6 @@ public interface InstaApi {
 
     @POST("group/{group_id}/files")
     @Multipart
-    Call<RemoteFileOrDirectoryEntity> uploadFile(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Part MultipartBody.Part filePart);
+    Call<RemoteFileOrDirectoryEntity> uploadFile(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Query("path") String path, @Part MultipartBody.Part filePart);
 
 }

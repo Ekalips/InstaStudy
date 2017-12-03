@@ -45,17 +45,17 @@ public class FilesDataProviderImpl implements FilesDataProvider {
     }
 
     @Override
-    public Observable<? extends File> uploadFile(String token, String groupId, java.io.File file) {
-        return remoteFilesDataSource.uploadFile(token, groupId, file);
+    public Observable<? extends File> uploadFile(String token, String groupId, String path, java.io.File file) {
+        return remoteFilesDataSource.uploadFile(token, groupId, path, file);
     }
 
     @Override
-    public Observable<? extends File> uploadFile(String groupId, java.io.File file) {
-        return userDataProvider.getUserToken().switchMap(token -> uploadFile(token, groupId, file));
+    public Observable<? extends File> uploadFile(String groupId, String path, java.io.File file) {
+        return userDataProvider.getUserToken().switchMap(token -> uploadFile(token, groupId, path, file));
     }
 
     @Override
-    public Observable<? extends File> uploadFileToMyGroup(java.io.File file) {
-        return userDataProvider.getUser(false).switchMap(user -> uploadFile(user.getData().getGroups().get(0).getId(), file));
+    public Observable<? extends File> uploadFileToMyGroup(String path, java.io.File file) {
+        return userDataProvider.getUser(false).switchMap(user -> uploadFile(user.getData().getGroups().get(0).getId(), path, file));
     }
 }
