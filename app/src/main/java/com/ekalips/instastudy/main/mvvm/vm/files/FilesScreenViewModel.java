@@ -128,7 +128,9 @@ public class FilesScreenViewModel extends FilesScreenContract.ViewModel {
 
     @Override
     public void onDownloadFile(File file) {
-
+        if (view!=null){
+            view.openUrl(file.getUrl());
+        }
     }
 
     @Override

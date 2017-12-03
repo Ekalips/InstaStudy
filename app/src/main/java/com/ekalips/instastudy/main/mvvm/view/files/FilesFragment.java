@@ -20,6 +20,7 @@ import com.ekalips.instastudy.databinding.FragmentFilesBinding;
 import com.ekalips.instastudy.main.contract.FilesScreenContract;
 import com.ekalips.instastudy.main.contract.MainActivityContract;
 import com.ekalips.instastudy.main.mvvm.model.files.FilesRecyclerViewAdapter;
+import com.ekalips.instastudy.stuff.StringUtils;
 import com.wonderslab.base.event_system.Event;
 import com.wonderslab.base.event_system.EventNavigate;
 import com.wonderslab.base.fragment.BaseBindingFragment;
@@ -140,6 +141,14 @@ public class FilesFragment extends BaseBindingFragment<FragmentFilesBinding, Fil
             Uri uri = data.getData();
             if (uri != null)
                 getViewModel().onFileSelected(uri);
+        }
+    }
+
+    @Override
+    public void openUrl(String url) {
+        if (!StringUtils.isEmpty(url)) {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(Intent.createChooser(browserIntent, "Browser"));
         }
     }
 }

@@ -21,6 +21,8 @@ public interface FilesScreenContract {
     interface View extends BaseView {
 
         void showFileChooser();
+
+        void openUrl(String url);
     }
 
     abstract class ViewModel extends BaseViewModel<View> {
