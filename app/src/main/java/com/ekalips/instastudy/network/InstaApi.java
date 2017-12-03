@@ -1,5 +1,6 @@
 package com.ekalips.instastudy.network;
 
+import com.ekalips.instastudy.data.files.source.remote.RemoteFileOrDirectoryEntity;
 import com.ekalips.instastudy.data.groups.source.remote.RemoteGroup;
 import com.ekalips.instastudy.data.lessons.sources.remote.models.RemoteLesson;
 import com.ekalips.instastudy.data.messages.sources.remote.RemoteMessage;
@@ -20,6 +21,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -56,5 +58,10 @@ public interface InstaApi {
     @POST("group/{group_id}/chat/messages")
     Call<RemoteMessage> sendMessage(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Body SendMessageBody messageBody);
 
+    @PUT("user/device-token")
     Call<Void> updateDeviceToken(@Header(AUTH_HEADER) String accessToken, @Body UpdateFirebaseTokenBody body);
+
+    @GET("group/{group_id}/files")
+    Call<List<RemoteFileOrDirectoryEntity>> getDirectoryContent(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Query("path") String path);
+
 }

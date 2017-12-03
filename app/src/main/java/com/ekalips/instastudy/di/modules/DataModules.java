@@ -1,5 +1,7 @@
 package com.ekalips.instastudy.di.modules;
 
+import com.ekalips.instastudy.data.files.FilesDataProvider;
+import com.ekalips.instastudy.data.files.FilesDataProviderImpl;
 import com.ekalips.instastudy.data.groups.GroupDataProvider;
 import com.ekalips.instastudy.data.groups.GroupDataProviderImpl;
 import com.ekalips.instastudy.data.lessons.LessonDataProviderImpl;
@@ -19,7 +21,7 @@ import dagger.Module;
  * Created by Ekalips on 10/2/17.
  */
 
-@Module(includes = {UserDataModule.class, GroupsDataModule.class, MessagesDataModule.class, LessonsDataModule.class})
+@Module(includes = {UserDataModule.class, GroupsDataModule.class, MessagesDataModule.class, LessonsDataModule.class, FilesDataModule.class})
 abstract public class DataModules {
 
     @DataProvider
@@ -41,5 +43,10 @@ abstract public class DataModules {
     @Binds
     @Singleton
     abstract LessonDataProvider lessonsDataProvider(LessonDataProviderImpl lessonDataProvider);
+
+    @DataProvider
+    @Binds
+    @Singleton
+    abstract FilesDataProvider filesDataProvider(FilesDataProviderImpl filesDataProvider);
 
 }

@@ -10,4 +10,6 @@ public interface MainLocalNavigator {
 
     void navigateToSchedule();
 
+    void navigateToFiles(String groupId, String directory);
+
 }

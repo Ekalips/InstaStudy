@@ -67,6 +67,10 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
                 localNavigator.navigateToSchedule();
                 break;
             }
+            case FILES: {
+                localNavigator.navigateToFiles(null, null);
+                break;
+            }
         }
     }
 

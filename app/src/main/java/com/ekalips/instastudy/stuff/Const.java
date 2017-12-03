@@ -19,4 +19,6 @@ public class Const {
 
     public static final int MAX_DAYS = 5;
     public static final int MAX_LESSONS = 6;
+    public static final String INITAL_DIR = Const.DIR_DIVIDER;
+    public static final String DIR_DIVIDER = "/";
 }
