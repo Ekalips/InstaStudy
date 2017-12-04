@@ -103,6 +103,39 @@ public class NotificationsScreenViewModel extends NotificationsScreenContract.Vi
     }
 
     @Override
+    public void showSendNotificationDialog() {
+        if (view != null) {
+            view.showSendNotificationDialog();
+        }
+    }
+
+    @Override
+    public void sendNotification(CharSequence title, CharSequence body) {
+        if (StringUtils.isEmpty(title) || StringUtils.isEmpty(body)) {
+            toastProvider.showToast(R.string.error_fields);
+            return;
+        }
+        sendNotification(title.toString(), body.toString());
+    }
+
+    private void sendNotification(String title, String body) {
+        if (StringUtils.isEmpty(groupId)) {
+            request(notificationsDataProvider.postMainGroupNotification(title, body), this::onNotificationSent, this::onNotificationSendError);
+        } else {
+            request(notificationsDataProvider.postNotification(groupId, title, body), this::onNotificationSent, this::onNotificationSendError);
+        }
+    }
+
+    private void onNotificationSent(Notification notification) {
+        fetchNotifications();
+    }
+
+    private void onNotificationSendError(Throwable throwable) {
+        Log.e(TAG, "onNotificationSendError: ", throwable);
+        toastProvider.showToast(R.string.error_send_notification);
+    }
+
+    @Override
     public ObservableBoolean getCanPublish() {
         return canPublish;
     }

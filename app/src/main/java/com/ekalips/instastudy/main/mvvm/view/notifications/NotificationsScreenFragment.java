@@ -1,11 +1,14 @@
 package com.ekalips.instastudy.main.mvvm.view.notifications;
 
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 
 import com.ekalips.instastudy.R;
+import com.ekalips.instastudy.databinding.DialogSendNotificationsBinding;
 import com.ekalips.instastudy.databinding.FragmentNotificationsScreenBinding;
 import com.ekalips.instastudy.main.contract.NotificationsScreenContract;
 import com.ekalips.instastudy.main.mvvm.model.notifications.NotificationsRecyclerViewAdapter;
@@ -69,5 +72,16 @@ public class NotificationsScreenFragment extends BaseBindingFragment<FragmentNot
     private void extractAndInit() {
         String groupId = getArguments().getString(ARG_GROUP_ID);
         getViewModel().init(groupId);
+    }
+
+    @Override
+    public void showSendNotificationDialog() {
+        DialogSendNotificationsBinding binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.dialog_send_notifications, null, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(R.string.dialog_send_notification)
+                .setView(binding.getRoot())
+                .setPositiveButton(R.string.send, (dialog, which) -> getViewModel().sendNotification(binding.titleEt.getText(), binding.bodyEt.getText()))
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 }

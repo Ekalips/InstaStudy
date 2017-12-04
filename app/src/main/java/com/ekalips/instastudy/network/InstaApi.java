@@ -70,9 +70,9 @@ public interface InstaApi {
     @Multipart
     Call<RemoteFileOrDirectoryEntity> uploadFile(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Query("path") String path, @Part MultipartBody.Part filePart);
 
-    @GET("group/{group_id}/notifications")
+    @GET("group/{group_id}/notify")
     Call<List<RemoteNotification>> getNotifications(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId);
 
-    @POST("group/{group_id/notifications")
+    @POST("group/{group_id/notify")
     Call<RemoteNotification> postNotification(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Body PostNotificationBody body);
 }

@@ -17,6 +17,7 @@ public interface NotificationsScreenContract {
 
     interface View extends BaseView {
 
+        void showSendNotificationDialog();
     }
 
     abstract class ViewModel extends BaseViewModel<View> {
@@ -34,6 +35,10 @@ public interface NotificationsScreenContract {
         public abstract ObservableField<List<Object>> getData();
 
         public abstract ObservableBoolean getLoading();
+
+        public abstract void showSendNotificationDialog();
+
+        public abstract void sendNotification(CharSequence title, CharSequence body);
     }
 
 }

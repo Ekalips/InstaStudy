@@ -56,4 +56,10 @@
     <string name="admin">Admin</string>
     <string name="user">User</string>
     <string name="starosta">Captain</string>
+    <string name="dialog_send_notification_title">Notification title</string>
+    <string name="dialog_send_notification_body">Notification body</string>
+    <string name="dialog_send_notification">Post notification</string>
+    <string name="send">Send</string>
+    <string name="error_fields">You need to fill all fields</string>
+    <string name="error_send_notification">Error sending notification</string>
 </resources>
