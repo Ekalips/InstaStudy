@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.ekalips.instastudy.stuff.Role" />
+
+        <import type="com.ekalips.instastudy.stuff.NotificationUtils" />
+
+        <variable
+            name="onExpandClick"
+            type="com.ekalips.instastudy.stuff.ClickAdapter" />
+
+        <variable
+            name="notification"
+            type="com.ekalips.instastudy.data.notifications.models.Notification" />
+
+        <variable
+            name="expanded"
+            type="boolean" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@{expanded?@dimen/d_4:@dimen/d_0}">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{notification.title}"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="@{expanded?160:2}"
+                            android:text="@{notification.body}"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:onClick="@{onExpandClick}"
+                        android:padding="16dp"
+                        android:src="@{expanded?@drawable/ic_keyboard_arrow_up:@drawable/ic_keyboard_arrow_down}"
+                        android:tint="@color/grey"
+                        tools:src="@drawable/ic_keyboard_arrow_down" />
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.1"
+                    android:background="@color/grey"
+                    android:visibility="@{expanded}" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="4dp"
+                    android:visibility="@{expanded}">
+
+
+                    <com.ekalips.instastudy.stuff.custom_views.RoundableImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:visibility="@{notification.author != null}"
+                        app:src="@{notification.author.avatar}"
+                        app:text="@{notification.author.userName}" />
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="16dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{notification.author != null}" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{notification.author==null?@string/admin:notification.author.userName}"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{NotificationUtils.getRoleName(context, Role.getRoleFromInt(notification.author.role))}" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+    </FrameLayout>
+</layout>

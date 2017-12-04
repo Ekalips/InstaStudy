@@ -74,6 +74,10 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
                 localNavigator.navigateToFiles(null, directory);
                 break;
             }
+            case NOTIFICATIONS: {
+                localNavigator.navigateToNotifications((String) eventNavigate.getPayload());
+                break;
+            }
         }
     }
 

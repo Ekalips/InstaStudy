@@ -6,6 +6,7 @@ import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.main.mvvm.view.MainActivity;
 import com.ekalips.instastudy.main.mvvm.view.files.FilesFragment;
 import com.ekalips.instastudy.main.mvvm.view.group_chat.ChatFragment;
+import com.ekalips.instastudy.main.mvvm.view.notifications.NotificationsScreenFragment;
 import com.ekalips.instastudy.main.mvvm.view.schedule.ScheduleFragment;
 
 import javax.inject.Inject;
@@ -48,6 +49,15 @@ public class MainLocalNavigatorImpl implements MainLocalNavigator {
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, FilesFragment.newInstance(groupId, directory))
                 .addToBackStack(FilesFragment.class.getSimpleName() + directory)
+                .commit();
+    }
+
+    @Override
+    public void navigateToNotifications(String groupId) {
+        popBackStack();
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, NotificationsScreenFragment.newInstance(groupId), NotificationsScreenFragment.class.getSimpleName())
                 .commit();
     }
 

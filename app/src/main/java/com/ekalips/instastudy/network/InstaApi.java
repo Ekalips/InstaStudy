@@ -4,9 +4,11 @@ import com.ekalips.instastudy.data.files.source.remote.RemoteFileOrDirectoryEnti
 import com.ekalips.instastudy.data.groups.source.remote.RemoteGroup;
 import com.ekalips.instastudy.data.lessons.sources.remote.models.RemoteLesson;
 import com.ekalips.instastudy.data.messages.sources.remote.RemoteMessage;
+import com.ekalips.instastudy.data.notifications.sources.remote.RemoteNotification;
 import com.ekalips.instastudy.data.user.source.network.model.RemoteUserData;
 import com.ekalips.instastudy.data.user.source.network.model.RemoteUserDataWrap;
 import com.ekalips.instastudy.network.body.LoginBody;
+import com.ekalips.instastudy.network.body.PostNotificationBody;
 import com.ekalips.instastudy.network.body.SendMessageBody;
 import com.ekalips.instastudy.network.body.UpdateFirebaseTokenBody;
 import com.ekalips.instastudy.network.body.UpdateUserNameBody;
@@ -68,4 +70,9 @@ public interface InstaApi {
     @Multipart
     Call<RemoteFileOrDirectoryEntity> uploadFile(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Query("path") String path, @Part MultipartBody.Part filePart);
 
+    @GET("group/{group_id}/notifications")
+    Call<List<RemoteNotification>> getNotifications(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId);
+
+    @POST("group/{group_id/notifications")
+    Call<RemoteNotification> postNotification(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Body PostNotificationBody body);
 }

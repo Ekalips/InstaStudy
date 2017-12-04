@@ -12,4 +12,6 @@ public interface MainLocalNavigator {
 
     void navigateToFiles(String groupId, String directory);
 
+    void navigateToNotifications(String groupId);
+
 }

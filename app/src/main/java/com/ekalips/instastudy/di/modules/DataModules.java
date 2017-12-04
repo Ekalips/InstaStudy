@@ -8,6 +8,8 @@ import com.ekalips.instastudy.data.lessons.LessonDataProviderImpl;
 import com.ekalips.instastudy.data.lessons.LessonDataProvider;
 import com.ekalips.instastudy.data.messages.MessageDataProvider;
 import com.ekalips.instastudy.data.messages.MessagesDataProviderImpl;
+import com.ekalips.instastudy.data.notifications.NotificationsDataProvider;
+import com.ekalips.instastudy.data.notifications.NotificationsDataProviderImpl;
 import com.ekalips.instastudy.data.user.UserDataProvider;
 import com.ekalips.instastudy.data.user.UserDataProviderImpl;
 import com.ekalips.instastudy.di.source_qualifier.DataProvider;
@@ -21,7 +23,7 @@ import dagger.Module;
  * Created by Ekalips on 10/2/17.
  */
 
-@Module(includes = {UserDataModule.class, GroupsDataModule.class, MessagesDataModule.class, LessonsDataModule.class, FilesDataModule.class})
+@Module(includes = {UserDataModule.class, GroupsDataModule.class, MessagesDataModule.class, LessonsDataModule.class, FilesDataModule.class, NotificationsDataModule.class})
 abstract public class DataModules {
 
     @DataProvider
@@ -48,5 +50,10 @@ abstract public class DataModules {
     @Binds
     @Singleton
     abstract FilesDataProvider filesDataProvider(FilesDataProviderImpl filesDataProvider);
+
+    @DataProvider
+    @Binds
+    @Singleton
+    abstract NotificationsDataProvider notificationsDataProvider(NotificationsDataProviderImpl notificationsDataProvider);
 
 }

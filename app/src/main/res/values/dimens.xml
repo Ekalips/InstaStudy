@@ -2,4 +2,8 @@
 <resources>
     <dimen name="bottom_sheet_init_height">300dp</dimen>
     <dimen name="attachment_buttons_bottom_margin">64dp</dimen>
+
+    <dimen name="d_0">0dp</dimen>
+    <dimen name="d_2">2dp</dimen>
+    <dimen name="d_4">4dp</dimen>
 </resources>

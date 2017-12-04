@@ -52,4 +52,8 @@
     <string name="dialog_create_directory_title">New directory</string>
     <string name="hint_directory">New directory name</string>
     <string name="error_setup_role">Can\'t setup role</string>
+    <string name="error_fetching_notifications">Error fetching notifications</string>
+    <string name="admin">Admin</string>
+    <string name="user">User</string>
+    <string name="starosta">Captain</string>
 </resources>
