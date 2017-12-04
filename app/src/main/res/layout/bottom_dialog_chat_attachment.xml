@@ -65,14 +65,14 @@
                         android:src="@drawable/ic_camera_shutter"
                         android:tint="@color/primary_color_selector" />
 
-                    <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
-                        android:layout_width="52dp"
-                        android:layout_height="32dp"
-                        android:onClick="@{() -> vm.changePage(Pages.PHONE_CAMERA)}"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
-                        android:src="@drawable/ic_camera"
-                        android:tint="@color/primary_color_selector" />
+                    <!--<com.ekalips.instastudy.stuff.custom_views.CheckableImageView-->
+                        <!--android:layout_width="52dp"-->
+                        <!--android:layout_height="32dp"-->
+                        <!--android:onClick="@{() -> vm.changePage(Pages.PHONE_CAMERA)}"-->
+                        <!--android:paddingLeft="12dp"-->
+                        <!--android:paddingRight="12dp"-->
+                        <!--android:src="@drawable/ic_camera"-->
+                        <!--android:tint="@color/primary_color_selector" />-->
 
                     <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
                         android:layout_width="52dp"
@@ -84,14 +84,14 @@
                         android:src="@drawable/ic_photo_library"
                         android:tint="@color/primary_color_selector" />
 
-                    <com.ekalips.instastudy.stuff.custom_views.CheckableImageView
-                        android:layout_width="52dp"
-                        android:layout_height="32dp"
-                        android:onClick="@{() -> vm.changePage(Pages.PHONE_GALLERY)}"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
-                        android:src="@drawable/ic_file"
-                        android:tint="@color/primary_color_selector" />
+                    <!--<com.ekalips.instastudy.stuff.custom_views.CheckableImageView-->
+                        <!--android:layout_width="52dp"-->
+                        <!--android:layout_height="32dp"-->
+                        <!--android:onClick="@{() -> vm.changePage(Pages.PHONE_GALLERY)}"-->
+                        <!--android:paddingLeft="12dp"-->
+                        <!--android:paddingRight="12dp"-->
+                        <!--android:src="@drawable/ic_file"-->
+                        <!--android:tint="@color/primary_color_selector" />-->
 
                 </LinearLayout>
 

@@ -19,6 +19,8 @@ public interface AttachmentTakePhotoContract {
         void requestPermissions();
 
         void takePicture(File imageFile);
+
+        void switchCamera();
     }
 
     abstract class ViewModel extends BaseViewModel<View> {
@@ -38,5 +40,7 @@ public interface AttachmentTakePhotoContract {
         public abstract void undo();
 
         public abstract void send();
+
+        public abstract void switchCamera();
     }
 }

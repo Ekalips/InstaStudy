@@ -58,4 +58,11 @@ public class AttachmentTakePhotoViewModel extends AttachmentTakePhotoContract.Vi
     public void send() {
 
     }
+
+    @Override
+    public void switchCamera() {
+        if (view != null) {
+            view.switchCamera();
+        }
+    }
 }
