@@ -74,7 +74,7 @@ public interface InstaApi {
     @GET("group/{group_id}/notify")
     Call<List<RemoteNotification>> getNotifications(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId);
 
-    @POST("group/{group_id/notify")
+    @POST("group/{group_id}/notify")
     Call<RemoteNotification> postNotification(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Body PostNotificationBody body);
 
     @GET("user/me")
