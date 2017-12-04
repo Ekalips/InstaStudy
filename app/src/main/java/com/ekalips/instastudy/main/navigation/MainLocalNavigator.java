@@ -14,4 +14,5 @@ public interface MainLocalNavigator {
 
     void navigateToNotifications(String groupId);
 
+    void showUserPage(String userId);
 }

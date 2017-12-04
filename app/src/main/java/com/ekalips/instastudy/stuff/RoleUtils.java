@@ -8,7 +8,7 @@ import com.ekalips.instastudy.R;
  * Created by ekalips on 12/4/17.
  */
 
-public class NotificationUtils {
+public class RoleUtils {
 
     public static String getRoleName(Context context, Role role) {
         if (role != null) {
@@ -28,6 +28,11 @@ public class NotificationUtils {
         } else {
             return "";
         }
+    }
+
+    public static boolean hasPermissions(int roleInt) {
+        Role role = Role.getRoleFromInt(roleInt);
+        return role != Role.USER;
     }
 
 }

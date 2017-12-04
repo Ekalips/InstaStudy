@@ -14,6 +14,8 @@ import com.wonderslab.base.rx.RxRequests;
 
 import javax.inject.Inject;
 
+import io.reactivex.internal.functions.Functions;
+
 /**
  * Created by Ekalips on 11/6/17.
  */
@@ -76,5 +78,14 @@ public class MainActivityViewModel extends MainActivityContract.ViewModel {
     @Override
     public void onMenuItemSelected(int itemId) {
         getEventPublishSubject().post(new MenuItemSelectedEvent(itemId));
+    }
+
+    @Override
+    public void openMyUserPage() {
+        userDataProvider.getUser(false).subscribe(data -> {
+            if (view != null) {
+                view.shoUserPage(user.get().getUserId());
+            }
+        }, Functions.emptyConsumer());
     }
 }

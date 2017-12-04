@@ -19,4 +19,5 @@ public interface GroupDataProvider extends LocalGroupDataProvider, RemoteGroupDa
 
     Observable<DataWrap<? extends Group>> getGroup(String groupId, boolean fetchRemotely);
 
+    Single<DataWrap<Void>> upraise(String code);
 }

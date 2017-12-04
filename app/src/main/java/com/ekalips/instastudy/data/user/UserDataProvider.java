@@ -32,6 +32,8 @@ public interface UserDataProvider extends LocalUserDataProvider, RemoteUserDataP
 
     void clearAllCallbacks();
 
+    Observable<DataWrap<? extends User>> getUserById(String userId);
+
     interface UserDataChangeCallback {
         void onUserDataChanged(User user);
     }

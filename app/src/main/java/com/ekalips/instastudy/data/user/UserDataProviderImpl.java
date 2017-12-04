@@ -1,6 +1,7 @@
 package com.ekalips.instastudy.data.user;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.ekalips.instastudy.data.stuff.DataWrap;
 import com.ekalips.instastudy.data.user.source.local.LocalUserDataProvider;
@@ -70,6 +71,11 @@ public class UserDataProviderImpl implements UserDataProvider {
     }
 
     @Override
+    public Observable<DataWrap<? extends User>> getUserById(String token, String userId) {
+        return remoteDataProvider.getUserById(token, userId);
+    }
+
+    @Override
     public Single<DataWrap<? extends User>> login(String firebaseAuthToken, @Nullable String firebaseDeviceToken) {
         return remoteDataProvider.login(firebaseAuthToken, firebaseDeviceToken)
                 .doOnSuccess(dataWrap -> saveUser(dataWrap.getData().getToken(), dataWrap.getData()))
@@ -121,6 +127,17 @@ public class UserDataProviderImpl implements UserDataProvider {
     }
 
     @Override
+    public Observable<DataWrap<? extends User>> getUserById(String userId) {
+        return getUser(false).switchMap(user -> {
+            if (TextUtils.equals(userId, user.getData().getUserId())) {
+                return getUser(true);
+            } else {
+                return remoteDataProvider.getUserById(user.getData().getToken(), userId);
+            }
+        });
+    }
+
+    @Override
     public void clear() {
         localDataProvider.clear();
     }
@@ -147,6 +164,7 @@ public class UserDataProviderImpl implements UserDataProvider {
             changeCallback.onUserDataChanged(user);
         }
     }
+
 
     @Override
     public void markCacheDirty() {

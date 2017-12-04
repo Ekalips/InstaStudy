@@ -76,10 +76,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <include
-                        android:id="@+id/include_header"
-                        layout="@layout/include_drawer_user_header"
-                        app:user="@{vm.user}" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:onClick="@{() -> vm.openMyUserPage()}">
+
+                        <include
+                            android:id="@+id/include_header"
+                            layout="@layout/include_drawer_user_header"
+                            app:user="@{vm.user}" />
+                    </FrameLayout>
 
                     <android.support.v4.widget.Space
                         android:layout_width="0dp"

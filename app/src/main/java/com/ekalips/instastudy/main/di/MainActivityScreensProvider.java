@@ -9,6 +9,8 @@ import com.ekalips.instastudy.main.mvvm.view.files.FilesFragment;
 import com.ekalips.instastudy.main.mvvm.view.group_chat.ChatFragment;
 import com.ekalips.instastudy.main.mvvm.view.notifications.NotificationsScreenFragment;
 import com.ekalips.instastudy.main.mvvm.view.schedule.ScheduleFragment;
+import com.ekalips.instastudy.profile.di.ProfileModule;
+import com.ekalips.instastudy.profile.mvvm.view.ProfileDialog;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -35,5 +37,9 @@ public abstract class MainActivityScreensProvider {
     @ContributesAndroidInjector(modules = NotificationsScreenModule.class)
     @FragmentScope
     abstract NotificationsScreenFragment notificationsScreenFragment();
+
+    @ContributesAndroidInjector(modules = ProfileModule.class)
+    @FragmentScope
+    abstract ProfileDialog profileDialog();
 
 }

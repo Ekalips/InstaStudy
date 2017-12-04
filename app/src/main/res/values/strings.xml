@@ -62,4 +62,9 @@
     <string name="send">Send</string>
     <string name="error_fields">You need to fill all fields</string>
     <string name="error_send_notification">Error sending notification</string>
+    <string name="error_fetching_user">Error loading user info</string>
+    <string name="hint_access_code">Access code</string>
+    <string name="enter_code_dialog_title">Grant captain permissions</string>
+    <string name="confirm">Confirm</string>
+    <string name="error_uprising">Error during permission granting</string>
 </resources>

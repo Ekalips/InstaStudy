@@ -43,7 +43,14 @@ public class RemoteUserDataProviderImpl implements RemoteUserDataProvider {
 
     @Override
     public Observable<DataWrap<? extends User>> getUser(String token) {
-        return Observable.empty();
+        return RxUtils.wrapAsIO(Observable.fromCallable((Callable<DataWrap<? extends User>>) () -> {
+            Response<RemoteUserData> response = api.getMyUser(token).execute();
+            if (response.isSuccessful()) {
+                return new DataWrap<>(response.body(), response.code());
+            }
+            errorThrower.throwFromResponse(response);
+            return null;
+        }));
     }
 
     @Override
@@ -86,6 +93,18 @@ public class RemoteUserDataProviderImpl implements RemoteUserDataProvider {
     public Single<DataWrap<Void>> updateFirebaseToken(String accessToken, String oldToken, String newToken) {
         return RxUtils.wrapAsIO(Single.fromCallable(() -> {
             Response<Void> response = api.updateDeviceToken(accessToken, new UpdateFirebaseTokenBody(oldToken, newToken)).execute();
+            if (response.isSuccessful()) {
+                return new DataWrap<>(response.body(), response.code());
+            }
+            errorThrower.throwFromResponse(response);
+            return null;
+        }));
+    }
+
+    @Override
+    public Observable<DataWrap<? extends User>> getUserById(String token, String userId) {
+        return RxUtils.wrapAsIO(Observable.fromCallable((Callable<DataWrap<? extends User>>) () -> {
+            Response<RemoteUserData> response = api.getUser(token, userId).execute();
             if (response.isSuccessful()) {
                 return new DataWrap<>(response.body(), response.code());
             }

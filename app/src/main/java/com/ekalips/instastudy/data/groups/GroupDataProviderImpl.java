@@ -74,4 +74,14 @@ public class GroupDataProviderImpl implements GroupDataProvider {
     public void saveGroup(Group data) {
         localGroupDataProvider.saveGroup(data);
     }
+
+    @Override
+    public Single<DataWrap<Void>> upraise(String token, String code) {
+        return remoteGroupDataProvider.upraise(token, code);
+    }
+
+    @Override
+    public Single<DataWrap<Void>> upraise(String code) {
+        return Single.fromObservable(userDataProvider.getUserToken()).flatMap(token -> upraise(token, code));
+    }
 }

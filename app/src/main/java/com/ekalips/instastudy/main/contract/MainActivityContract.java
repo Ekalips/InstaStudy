@@ -18,6 +18,7 @@ public interface MainActivityContract {
 
     interface View extends BaseView {
 
+        void shoUserPage(String userId);
     }
 
     abstract class ViewModel extends BaseViewModel<View> {
@@ -33,6 +34,8 @@ public interface MainActivityContract {
         public abstract void navigateTo(Screens screens);
 
         public abstract void onMenuItemSelected(@IdRes int itemId);
+
+        public abstract void openMyUserPage();
     }
 
     interface FlexibleMainToolbar {

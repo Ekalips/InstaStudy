@@ -9,6 +9,7 @@ import com.ekalips.instastudy.data.user.source.network.model.RemoteUserData;
 import com.ekalips.instastudy.data.user.source.network.model.RemoteUserDataWrap;
 import com.ekalips.instastudy.network.body.LoginBody;
 import com.ekalips.instastudy.network.body.PostNotificationBody;
+import com.ekalips.instastudy.network.body.PromoteBody;
 import com.ekalips.instastudy.network.body.SendMessageBody;
 import com.ekalips.instastudy.network.body.UpdateFirebaseTokenBody;
 import com.ekalips.instastudy.network.body.UpdateUserNameBody;
@@ -75,4 +76,13 @@ public interface InstaApi {
 
     @POST("group/{group_id/notify")
     Call<RemoteNotification> postNotification(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Body PostNotificationBody body);
+
+    @GET("user/me")
+    Call<RemoteUserData> getMyUser(@Header(AUTH_HEADER) String token);
+
+    @GET("user/{user_id}")
+    Call<RemoteUserData> getUser(@Header(AUTH_HEADER) String token, @Path("user_id") String userId);
+
+    @POST("group/promote")
+    Call<Void> promoteUser(@Header(AUTH_HEADER) String token, @Body PromoteBody body);
 }

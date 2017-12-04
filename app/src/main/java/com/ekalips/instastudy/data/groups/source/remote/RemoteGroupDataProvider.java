@@ -15,4 +15,5 @@ public interface RemoteGroupDataProvider {
 
     Single<DataWrap<? extends Group>> getGroup(String token, String groupId);
 
+    Single<DataWrap<Void>> upraise(String token, String code);
 }

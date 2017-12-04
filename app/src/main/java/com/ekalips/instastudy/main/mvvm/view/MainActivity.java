@@ -144,4 +144,8 @@ public class MainActivity extends BaseBindingActivity<ActivityMainBinding, MainA
     };
 
 
+    @Override
+    public void shoUserPage(String userId) {
+        localNavigator.showUserPage(userId);
+    }
 }
