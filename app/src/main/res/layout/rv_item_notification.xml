@@ -19,34 +19,44 @@
 
         <variable
             name="expanded"
-            type="boolean" />
+            type="android.databinding.ObservableBoolean" />
 
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:paddingTop="@{expanded?@dimen/d_4:@dimen/d_0}">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -91,11 +101,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:minHeight="48dp"
                     android:orientation="horizontal"
-                    android:paddingBottom="4dp"
+                    android:paddingBottom="8dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:paddingTop="4dp"
+                    android:paddingTop="8dp"
                     android:visibility="@{expanded}">
 
 
@@ -103,6 +114,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:visibility="@{notification.author != null}"
+                        app:circle="true"
                         app:src="@{notification.author.avatar}"
                         app:text="@{notification.author.userName}" />
 

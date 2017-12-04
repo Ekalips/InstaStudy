@@ -21,6 +21,6 @@ public class TimeUtilsProvider {
     }
 
     public String getRelativeTime(long time) {
-        return DateUtils.getRelativeDateTimeString(context, time, DateUtils.DAY_IN_MILLIS, DateUtils.DAY_IN_MILLIS, 0).toString();
+        return DateUtils.getRelativeTimeSpanString(time, System.currentTimeMillis(), DateUtils.DAY_IN_MILLIS, DateUtils.FORMAT_SHOW_DATE).toString();
     }
 }

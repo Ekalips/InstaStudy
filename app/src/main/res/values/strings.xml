@@ -67,4 +67,5 @@
     <string name="enter_code_dialog_title">Grant captain permissions</string>
     <string name="confirm">Confirm</string>
     <string name="error_uprising">Error during permission granting</string>
+    <string name="dummy_no_notifications">There are no notifications yet</string>
 </resources>

@@ -24,11 +24,11 @@ public class RemoteNotification implements Notification {
     @Expose
     private String body;
 
-    @SerializedName("author")
+    @SerializedName("from")
     @Expose
     private RemoteUserData author;
 
-    @SerializedName("createdAt")
+    @SerializedName("sentAt")
     @Expose
     private long date;
 

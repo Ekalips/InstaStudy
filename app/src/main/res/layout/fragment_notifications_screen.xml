@@ -11,21 +11,42 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         tools:context="com.ekalips.instastudy.main.mvvm.view.notifications.NotificationsScreenFragment">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingBottom="64dp"
             app:layoutManager="LinearLayoutManager"
+            app:src='@{vm.data}'
             tools:listitem="@layout/rv_item_notification" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{vm.loading &amp;&amp; vm.data.size == 0}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="32dp"
+            android:text="@string/dummy_no_notifications"
+            android:textColor="@color/textColorPrimary"
+            android:visibility="@{!vm.loading &amp;&amp; vm.data.size == 0}" />
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:onClick="@{() -> vm.showSendNotificationDialog()}"
             android:layout_margin="16dp"
+            android:onClick="@{() -> vm.showSendNotificationDialog()}"
             android:src="@drawable/ic_add"
             android:tint="@color/white"
             android:visibility="@{vm.canPublish}" />
