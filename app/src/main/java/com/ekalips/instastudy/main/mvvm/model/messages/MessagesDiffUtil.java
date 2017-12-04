@@ -1,4 +1,4 @@
-package com.ekalips.instastudy.main.mvvm.model;
+package com.ekalips.instastudy.main.mvvm.model.messages;
 
 import android.support.v7.util.DiffUtil;
 import android.text.TextUtils;

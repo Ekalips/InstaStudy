@@ -15,7 +15,7 @@ import android.view.View;
 import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.databinding.FragmentChatBinding;
 import com.ekalips.instastudy.main.contract.chat.GroupChatScreenContract;
-import com.ekalips.instastudy.main.mvvm.model.MessagesRecyclerViewAdapter;
+import com.ekalips.instastudy.main.mvvm.model.messages.MessagesRecyclerViewAdapter;
 import com.ekalips.instastudy.main.navigation.chat_navigation.LocalChatNavigator;
 import com.wonderslab.base.BR;
 import com.wonderslab.base.event_system.Event;

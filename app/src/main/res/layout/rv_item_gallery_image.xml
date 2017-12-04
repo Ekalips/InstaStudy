@@ -10,7 +10,7 @@
 
         <variable
             name="file"
-            type="com.ekalips.instastudy.main.mvvm.model.SelectableFile" />
+            type="com.ekalips.instastudy.main.mvvm.model.messages.SelectableFile" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"

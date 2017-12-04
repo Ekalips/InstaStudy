@@ -11,7 +11,7 @@ import android.view.ViewTreeObserver;
 import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.databinding.ChatAttachmentGalleryBinding;
 import com.ekalips.instastudy.main.contract.chat.attachments.AttachmentGalleryContract;
-import com.ekalips.instastudy.main.mvvm.model.GalleryRecyclerViewAdapter;
+import com.ekalips.instastudy.main.mvvm.model.messages.GalleryRecyclerViewAdapter;
 import com.wonderslab.base.BR;
 import com.wonderslab.base.event_system.Event;
 import com.wonderslab.base.event_system.EventNavigate;

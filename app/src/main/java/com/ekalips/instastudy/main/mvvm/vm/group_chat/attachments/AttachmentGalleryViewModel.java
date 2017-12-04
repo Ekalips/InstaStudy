@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.ekalips.instastudy.main.contract.chat.attachments.AttachmentGalleryContract;
 import com.ekalips.instastudy.main.contract.chat.attachments.ChatAttachmentContract;
-import com.ekalips.instastudy.main.mvvm.model.SelectableFile;
+import com.ekalips.instastudy.main.mvvm.model.messages.SelectableFile;
 import com.ekalips.instastudy.providers.FilesProvider;
 import com.wonderslab.base.rx.RxRequests;
 

@@ -51,4 +51,5 @@
     <string name="error_fetching_files">Error fetching files for this directory</string>
     <string name="dialog_create_directory_title">New directory</string>
     <string name="hint_directory">New directory name</string>
+    <string name="error_setup_role">Can\'t setup role</string>
 </resources>

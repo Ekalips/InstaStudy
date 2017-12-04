@@ -1,4 +1,4 @@
-package com.ekalips.instastudy.main.mvvm.model;
+package com.ekalips.instastudy.main.mvvm.model.messages;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

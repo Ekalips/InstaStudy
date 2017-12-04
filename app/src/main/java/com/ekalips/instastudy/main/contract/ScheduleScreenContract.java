@@ -2,7 +2,7 @@ package com.ekalips.instastudy.main.contract;
 
 import android.databinding.ObservableField;
 
-import com.ekalips.instastudy.main.mvvm.model.LessonDay;
+import com.ekalips.instastudy.main.mvvm.model.schedule.LessonDay;
 import com.ekalips.instastudy.stuff.learning.WeekType;
 import com.wonderslab.base.rx.RxRequests;
 import com.wonderslab.base.veiwmodel.BaseViewModel;

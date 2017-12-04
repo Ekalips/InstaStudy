@@ -1,4 +1,4 @@
-package com.ekalips.instastudy.main.mvvm.model;
+package com.ekalips.instastudy.main.mvvm.model.schedule;
 
 import com.ekalips.instastudy.data.lessons.models.Lesson;
 import com.ekalips.instastudy.data.lessons.models.LessonDate;

@@ -26,4 +26,8 @@ public enum Role {
         }
         return USER;
     }
+
+    public boolean canPublishNotifications() {
+        return this != USER;
+    }
 }

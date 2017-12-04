@@ -2,7 +2,7 @@ package com.ekalips.instastudy.main.contract.chat.attachments;
 
 import android.databinding.ObservableField;
 
-import com.ekalips.instastudy.main.mvvm.model.SelectableFile;
+import com.ekalips.instastudy.main.mvvm.model.messages.SelectableFile;
 import com.wonderslab.base.rx.RxRequests;
 import com.wonderslab.base.veiwmodel.BaseViewModel;
 import com.wonderslab.base.view.BaseView;

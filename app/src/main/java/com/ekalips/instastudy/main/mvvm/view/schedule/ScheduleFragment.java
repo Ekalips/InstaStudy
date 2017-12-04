@@ -10,7 +10,7 @@ import com.ekalips.instastudy.R;
 import com.ekalips.instastudy.databinding.FragmentScheduleBinding;
 import com.ekalips.instastudy.main.contract.MainActivityContract;
 import com.ekalips.instastudy.main.contract.ScheduleScreenContract;
-import com.ekalips.instastudy.main.mvvm.model.LessonCardRecyclerViewAdapter;
+import com.ekalips.instastudy.main.mvvm.model.schedule.LessonCardRecyclerViewAdapter;
 import com.wonderslab.base.BR;
 import com.wonderslab.base.event_system.Event;
 import com.wonderslab.base.event_system.EventNavigate;
