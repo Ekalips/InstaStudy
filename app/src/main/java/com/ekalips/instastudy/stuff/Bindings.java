@@ -63,7 +63,7 @@ public class Bindings {
     public static void setImageSrcWithPlaceholderText(ImageView imageView, String src, String text) {
         String placeholderText = StringUtils.getFirstLetters(text);
         TextDrawable placeholder = TextDrawable.builder()
-                .buildRect(placeholderText, ColorGenerator.MATERIAL.getColor(text != null ? text : ""));
+                .buildRound(placeholderText, ColorGenerator.MATERIAL.getColor(text != null ? text : ""));
         Glide.with(imageView.getContext()).load(src).apply(RequestOptions.centerCropTransform().placeholder(placeholder)).into(imageView);
     }
 
