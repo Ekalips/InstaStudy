@@ -3,10 +3,13 @@ package com.ekalips.instastudy.main.mvvm.model.messages;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.ekalips.instastudy.R;
+import com.ekalips.instastudy.data.files.models.File;
 import com.ekalips.instastudy.data.messages.Message;
 import com.ekalips.instastudy.databinding.RvItemMessageBinding;
+import com.ekalips.instastudy.stuff.ClickAdapter;
 import com.wonderslab.base.recyclerview.BindingViewHolder;
 import com.wonderslab.base.recyclerview.PaginatedRecyclerViewAdapter;
 
@@ -20,7 +23,7 @@ public class MessagesRecyclerViewAdapter extends PaginatedRecyclerViewAdapter<Rv
 
     private String myUserId = "";
 
-    public MessagesRecyclerViewAdapter(@Nullable PaginatedListCallbacks callbacks) {
+    public MessagesRecyclerViewAdapter(@Nullable AdapterCallbacks callbacks) {
         super(callbacks);
     }
 
@@ -35,7 +38,14 @@ public class MessagesRecyclerViewAdapter extends PaginatedRecyclerViewAdapter<Rv
 
         holder.getBinding().setMessage(getData().get(holder.getAdapterPosition()));
         holder.getBinding().setIsMe(TextUtils.equals(myUserId, currentMessage.getAuthor() != null ? currentMessage.getAuthor().getUserId() : null));
-
+        holder.getBinding().setOnDownloadClick(new ClickAdapter() {
+            @Override
+            public void onClick(View v) {
+                if (getCallbacks() instanceof AdapterCallbacks) {
+                    ((AdapterCallbacks) getCallbacks()).onDownloadFileClicked(getData().get(holder.getAdapterPosition()).getFile());
+                }
+            }
+        });
 
         Message prevMessage = safeGet(holder.getAdapterPosition() - 1);
 
@@ -72,5 +82,9 @@ public class MessagesRecyclerViewAdapter extends PaginatedRecyclerViewAdapter<Rv
     @Override
     public void setTotalCount(int count) {
         super.setTotalCount(count);
+    }
+
+    public interface AdapterCallbacks extends PaginatedListCallbacks {
+        void onDownloadFileClicked(File file);
     }
 }

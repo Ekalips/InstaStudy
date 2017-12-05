@@ -1,8 +1,10 @@
 package com.ekalips.instastudy.main.mvvm.view.group_chat;
 
 
+import android.content.Intent;
 import android.databinding.Observable;
 import android.databinding.ObservableField;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.transition.AutoTransition;
@@ -13,15 +15,16 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.ekalips.instastudy.R;
+import com.ekalips.instastudy.data.files.models.File;
 import com.ekalips.instastudy.databinding.FragmentChatBinding;
 import com.ekalips.instastudy.main.contract.chat.GroupChatScreenContract;
 import com.ekalips.instastudy.main.mvvm.model.messages.MessagesRecyclerViewAdapter;
 import com.ekalips.instastudy.main.navigation.chat_navigation.LocalChatNavigator;
+import com.ekalips.instastudy.stuff.StringUtils;
 import com.wonderslab.base.BR;
 import com.wonderslab.base.event_system.Event;
 import com.wonderslab.base.event_system.EventNavigate;
 import com.wonderslab.base.fragment.BaseBindingFragment;
-import com.wonderslab.base.recyclerview.PaginatedRecyclerViewAdapter;
 
 import javax.inject.Inject;
 
@@ -144,7 +147,18 @@ public class ChatFragment extends BaseBindingFragment<FragmentChatBinding, Group
         }
     };
 
-    private final PaginatedRecyclerViewAdapter.PaginatedListCallbacks paginatedListCallbacks = () -> getViewModel().requestNextPage();
+    private final MessagesRecyclerViewAdapter.AdapterCallbacks paginatedListCallbacks = new MessagesRecyclerViewAdapter.AdapterCallbacks() {
+        @Override
+        public void onDownloadFileClicked(File file) {
+            openFile(file);
+        }
+
+        @Override
+        public void onRequestNextPage() {
+            getViewModel().requestNextPage();
+        }
+    };
+
     private final TextWatcher messageTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -167,5 +181,14 @@ public class ChatFragment extends BaseBindingFragment<FragmentChatBinding, Group
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
+    }
+
+    private void openFile(File file) {
+        if (file == null || StringUtils.isEmpty(file.getUrl())) {
+            return;
+        }
+        Intent newIntent = new Intent(Intent.ACTION_VIEW);
+        newIntent.setData(Uri.parse(file.getUrl()));
+        startActivity(Intent.createChooser(newIntent, "Open file"));
     }
 }

@@ -1,10 +1,14 @@
 package com.ekalips.instastudy.data.messages.sources.remote;
 
+import com.ekalips.instastudy.data.files.models.File;
+import com.ekalips.instastudy.data.files.source.remote.RemoteFileOrDirectoryEntity;
 import com.ekalips.instastudy.data.messages.Message;
 import com.ekalips.instastudy.data.user.User;
 import com.ekalips.instastudy.data.user.source.network.model.RemoteUserData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by Ekalips on 11/6/17.
@@ -30,6 +34,9 @@ public class RemoteMessage implements Message {
     @SerializedName("isMe")
     @Expose
     private boolean mine;
+    @SerializedName("file")
+    @Expose
+    private RemoteFileOrDirectoryEntity file;
 
     @Override
     public String getId() {
@@ -83,5 +90,11 @@ public class RemoteMessage implements Message {
 
     public void setMine(boolean mine) {
         this.mine = mine;
+    }
+
+    @Nullable
+    @Override
+    public File getFile() {
+        return file;
     }
 }
