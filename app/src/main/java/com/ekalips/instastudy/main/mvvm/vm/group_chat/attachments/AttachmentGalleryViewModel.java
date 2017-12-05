@@ -9,6 +9,7 @@ import com.ekalips.instastudy.main.mvvm.model.messages.SelectableFile;
 import com.ekalips.instastudy.providers.FilesProvider;
 import com.wonderslab.base.rx.RxRequests;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,7 +105,11 @@ public class AttachmentGalleryViewModel extends AttachmentGalleryContract.ViewMo
         if (selectedFiles.get().size() == 0) {
             goBack();
         } else {
-            // TODO: 12/1/17 Send files
+            File[] files = new File[selectedFiles.get().size()];
+            for (int i = 0; i < selectedFiles.get().size(); i++) {
+                files[i] = selectedFiles.get().get(i).getFile();
+            }
+            parentDialogVM.sendFiles(files);
         }
     }
 }

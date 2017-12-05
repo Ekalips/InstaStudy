@@ -5,7 +5,7 @@ import com.ekalips.instastudy.di.scopes.SubSubFragmentScope;
 import com.ekalips.instastudy.main.contract.chat.attachments.ChatAttachmentContract;
 import com.ekalips.instastudy.main.mvvm.view.group_chat.attachments.AttachmentGalleryFragment;
 import com.ekalips.instastudy.main.mvvm.view.group_chat.attachments.AttachmentTakeImageFragment;
-import com.ekalips.instastudy.main.mvvm.vm.group_chat.attachments.ChatAttachmentViewModule;
+import com.ekalips.instastudy.main.mvvm.vm.group_chat.attachments.ChatAttachmentViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -21,7 +21,7 @@ public abstract class ChatAttachmentModule {
 
     @Binds
     @SubFragmentScope
-    abstract ChatAttachmentContract.ViewModel viewModel(ChatAttachmentViewModule viewModule);
+    abstract ChatAttachmentContract.ViewModel viewModel(ChatAttachmentViewModel viewModule);
 
     @SubSubFragmentScope
     @ContributesAndroidInjector(modules = AttachmentsModule.class)

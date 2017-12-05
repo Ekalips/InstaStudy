@@ -7,6 +7,8 @@ import com.ekalips.instastudy.di.source_qualifier.DataProvider;
 import com.ekalips.instastudy.di.source_qualifier.Remote;
 import com.ekalips.instastudy.network.response.PaginatedListResponse;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
@@ -50,5 +52,15 @@ public class MessagesDataProviderImpl implements MessageDataProvider {
     @Override
     public Observable<DataWrap<? extends Message>> sendMessage(String groupId, String message) {
         return userDataProvider.getUserToken().switchMap(token -> sendMessage(token, groupId, message));
+    }
+
+    @Override
+    public Observable<? extends Message> sendChatAttachment(String token, String chatId, File file) {
+        return remoteMessageDataSource.sendChatAttachment(token, chatId, file);
+    }
+
+    @Override
+    public Observable<? extends Message> sendChatAttachment(String chatId, File file) {
+        return userDataProvider.getUserToken().switchMap(token -> sendChatAttachment(token, chatId, file));
     }
 }

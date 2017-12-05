@@ -121,8 +121,8 @@ public class ChatFragment extends BaseBindingFragment<FragmentChatBinding, Group
     }
 
     @Override
-    public void showAttachmentDialog() {
-        localChatNavigator.showChatAttachmentDialog();
+    public void showAttachmentDialog(String chatId) {
+        localChatNavigator.showChatAttachmentDialog(chatId);
     }
 
     private void extractAndInit() {

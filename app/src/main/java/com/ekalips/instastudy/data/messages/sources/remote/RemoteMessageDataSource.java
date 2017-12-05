@@ -4,6 +4,8 @@ import com.ekalips.instastudy.data.messages.Message;
 import com.ekalips.instastudy.data.stuff.DataWrap;
 import com.ekalips.instastudy.network.response.PaginatedListResponse;
 
+import java.io.File;
+
 import io.reactivex.Observable;
 
 /**
@@ -16,4 +18,5 @@ public interface RemoteMessageDataSource {
 
     Observable<DataWrap<? extends Message>> sendMessage(String token, String chatId, String message);
 
+    Observable<? extends Message> sendChatAttachment(String token, String chatId, File file);
 }

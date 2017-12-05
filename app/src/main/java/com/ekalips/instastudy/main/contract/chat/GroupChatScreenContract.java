@@ -22,7 +22,7 @@ public interface GroupChatScreenContract {
 
         void scrollToBottom();
 
-        void showAttachmentDialog();
+        void showAttachmentDialog(String chatId);
     }
 
     abstract class ViewModel extends BaseViewModel<View> {
@@ -42,6 +42,8 @@ public interface GroupChatScreenContract {
         public abstract void sendMessage(CharSequence message);
 
         public abstract ObservableString getMyUserId();
+
+        public abstract void onNewMessage(Message message);
 
         public abstract void showAttachmentDialog();
     }

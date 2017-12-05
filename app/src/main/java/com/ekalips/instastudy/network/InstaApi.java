@@ -85,4 +85,8 @@ public interface InstaApi {
 
     @POST("group/promote")
     Call<Void> promoteUser(@Header(AUTH_HEADER) String token, @Body PromoteBody body);
+
+    @Multipart
+    @POST("group/{group_id}/chat/messages/file")
+    Call<RemoteMessage> uploadAttachment(@Header(AUTH_HEADER) String token, @Path("group_id") String groupId, @Part MultipartBody.Part filePart);
 }

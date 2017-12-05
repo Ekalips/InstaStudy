@@ -3,6 +3,7 @@ package com.ekalips.instastudy.main.mvvm.vm.group_chat.attachments;
 import android.databinding.ObservableField;
 
 import com.ekalips.instastudy.main.contract.chat.attachments.AttachmentTakePhotoContract;
+import com.ekalips.instastudy.main.contract.chat.attachments.ChatAttachmentContract;
 import com.ekalips.instastudy.providers.FilesProvider;
 import com.wonderslab.base.rx.RxRequests;
 
@@ -18,11 +19,13 @@ public class AttachmentTakePhotoViewModel extends AttachmentTakePhotoContract.Vi
 
     private final FilesProvider filesProvider;
     private final ObservableField<File> takenFile = new ObservableField<>();
+    private final ChatAttachmentContract.ViewModel parentVM;
 
     @Inject
-    public AttachmentTakePhotoViewModel(RxRequests rxRequests, FilesProvider filesProvider) {
+    public AttachmentTakePhotoViewModel(RxRequests rxRequests, FilesProvider filesProvider, ChatAttachmentContract.ViewModel parentVM) {
         super(rxRequests);
         this.filesProvider = filesProvider;
+        this.parentVM = parentVM;
     }
 
     @Override
@@ -56,7 +59,9 @@ public class AttachmentTakePhotoViewModel extends AttachmentTakePhotoContract.Vi
 
     @Override
     public void send() {
-
+        if (takenFile.get() != null) {
+            parentVM.sendFiles(takenFile.get());
+        }
     }
 
     @Override

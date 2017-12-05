@@ -22,7 +22,7 @@ public class LocalChatNavigator {
         this.fragmentManager = chatFragment.getChildFragmentManager();
     }
 
-    public void showChatAttachmentDialog() {
-        ChatAttachmentDialog.newInstance().show(fragmentManager, ChatAttachmentDialog.class.getSimpleName());
+    public void showChatAttachmentDialog(String chatId) {
+        ChatAttachmentDialog.newInstance(chatId).show(fragmentManager, ChatAttachmentDialog.class.getSimpleName());
     }
 }

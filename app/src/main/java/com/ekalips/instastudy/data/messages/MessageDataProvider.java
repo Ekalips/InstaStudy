@@ -4,6 +4,8 @@ import com.ekalips.instastudy.data.messages.sources.remote.RemoteMessageDataSour
 import com.ekalips.instastudy.data.stuff.DataWrap;
 import com.ekalips.instastudy.network.response.PaginatedListResponse;
 
+import java.io.File;
+
 import io.reactivex.Observable;
 
 /**
@@ -19,4 +21,6 @@ public interface MessageDataProvider extends RemoteMessageDataSource{
     Observable<DataWrap<PaginatedListResponse<? extends Message>>> getGroupMessages(String groupId, int offset);
 
     Observable<DataWrap<? extends Message>> sendMessage(String groupId, String message);
+
+    Observable<? extends Message> sendChatAttachment(String chatId, File file);
 }

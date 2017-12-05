@@ -35,8 +35,11 @@ public class ChatAttachmentDialog extends BaseBindingBottomSheetDialogFragment<B
 
     private static final String TAG = ChatAttachmentDialog.class.getSimpleName();
 
-    public static ChatAttachmentDialog newInstance() {
+    private static final String ARG_ID = "id";
+
+    public static ChatAttachmentDialog newInstance(String id) {
         Bundle args = new Bundle();
+        args.putString(ARG_ID, id);
         ChatAttachmentDialog fragment = new ChatAttachmentDialog();
         fragment.setArguments(args);
         return fragment;
@@ -68,8 +71,14 @@ public class ChatAttachmentDialog extends BaseBindingBottomSheetDialogFragment<B
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        extractAndInit();
         startPeekH = (int) getResources().getDimension(R.dimen.bottom_sheet_init_height);
         screenH = getResources().getDisplayMetrics().heightPixels;
+    }
+
+    private void extractAndInit(){
+        String groupId = getArguments().getString(ARG_ID);
+        getViewModel().init(groupId);
     }
 
     @NonNull
