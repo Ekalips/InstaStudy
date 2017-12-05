@@ -1,6 +1,7 @@
 package com.ekalips.instastudy.main.mvvm.view.group_chat;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.Observable;
 import android.databinding.ObservableField;
@@ -10,8 +11,12 @@ import android.support.annotation.Nullable;
 import android.support.transition.AutoTransition;
 import android.support.transition.TransitionManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.ekalips.instastudy.R;
@@ -105,6 +110,7 @@ public class ChatFragment extends BaseBindingFragment<FragmentChatBinding, Group
     @Override
     public void onBindingReady(FragmentChatBinding binding) {
         super.onBindingReady(binding);
+        binding.recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
         binding.messageEt.addTextChangedListener(messageTextWatcher);
         binding.recyclerView.setAdapter(messagesRecyclerViewAdapter);
         binding.messageInputContainer.addOnLayoutChangeListener(onLayoutChangeListener);
@@ -190,5 +196,27 @@ public class ChatFragment extends BaseBindingFragment<FragmentChatBinding, Group
         Intent newIntent = new Intent(Intent.ACTION_VIEW);
         newIntent.setData(Uri.parse(file.getUrl()));
         startActivity(Intent.createChooser(newIntent, "Open file"));
+    }
+
+    private class WrapContentLinearLayoutManager extends LinearLayoutManager {
+        public WrapContentLinearLayoutManager(Context context) {
+            super(context);
+        }
+
+        public WrapContentLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
+            super(context, orientation, reverseLayout);
+        }
+
+        public WrapContentLinearLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+            super(context, attrs, defStyleAttr, defStyleRes);
+        }
+        @Override
+        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+            try {
+                super.onLayoutChildren(recycler, state);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("probe", "meet a IOOBE in RecyclerView");
+            }
+        }
     }
 }
